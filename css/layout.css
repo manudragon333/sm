@@ -1,0 +1,418 @@
+/* CSS Resets */
+.app {background: url(images/fabric-patterns.png) repeat}
+.app .header{
+	height: 42px;
+	background: url(images/noise.png) #1d2837 repeat;
+	border-bottom: 1px solid #0B1B30;
+	position: fixed;
+	left: 0;
+	right: 0;
+	color: #fff;
+        z-index: 100;
+}
+.app .logo_inner{ 
+	left: 10px; 
+	top: 6px; 
+	background: url(images/logo-head.png) no-repeat; 
+	width: 32px; 
+	height: 32px
+}
+.app .app_title{ 
+	color: #FFF;
+	font-size: 24px;
+	left: 50px;
+	top: 14px;
+	text-shadow: 0 1px 0 #444;
+}
+.app .app_interaction{ right: 10px; }
+.app .app_interaction a{ 
+	padding: 14px 10px 11px;
+	border-left: 1px solid #68707C;
+	border-right: 1px solid #1C2024;
+	color: #dedede;
+	cursor: pointer;
+}
+.app .app_interaction a:hover{ color: #fff}
+.app .app_interaction a:active{ color: #f5f5f5}
+.app .app_interaction a.first{ border-left: 0}
+.app .app_interaction a.last{ border-right: 0}
+.app .app_interaction a.logout{ 
+	background: url(images/logout.png) no-repeat 0 0;
+	background-position: 12px 14px;
+	width: 16px;
+	height: 16px;
+	margin-top: 2px;
+	text-indent: -9999px
+}
+.app .app_interaction a.logout:hover{background-position: 12px -36px;}
+.app .app_interaction a.logout:active{background-position: 12px -86px;}
+.app .app_interaction a.logged_user{ padding-left: 30px}
+.app .icon{ 
+	background: url(images/bgic.png) no-repeat;
+	display: inline-block;
+}
+.app .usr_ico{
+	width: 16px;
+	height: 16px;
+	left: 10px
+}
+.app .app_interaction a.logged_user:hover .usr_ico{ background-position:  0 -100px}
+.app .contentarea{ top: 43px;}
+.app .leftNav{ 
+	width: 240px; 
+	top: 43px; 
+	bottom: 0; 
+	left: 0;
+	background: url(images/brd.png) repeat-y 100% 0;
+	overflow: auto;
+}
+/*.app .brd{
+	background: url(images/brd.png) repeat-y;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 239px;
+	height: 100%
+}*/
+.app .leftNav li a{ 
+	margin-bottom: 10px; 
+	display: block;
+	color: #08C; 
+	text-shadow: 0 1px 0 #F5F5F5;
+}
+.app .leftNav li a:hover{ color: #0377B1;}
+.app .leftNav li a:active{ color: #05618F;}
+.app .leftNav li a.active{ color: #254555; font-weight: bold;}
+.app .leftNav li a.collapse{ background: url(images/down.png) no-repeat 180px 0}
+.app .leftNav li a.right-arrow{ background: url(images/right-arrow.png) no-repeat 180px 0}
+.app .nav_emt{ padding: 20px 0 0 20px}
+.app .lft_sub_menu{ margin-left: 20px}
+.app .rightNav{ margin-left: 240px;}
+.app .rightNav .rightNav_head{
+	background: url(images/stripe.png) repeat;
+	height: 28px;
+	color: #000;
+	font-size: 16px;
+	text-align: center;
+	font-weight: bold;
+	padding-top: 10px;
+	text-shadow: 0 1px 0 #FFF;
+	border-bottom: 1px solid #A0A0A0;
+	-moz-box-shadow: 0 1px 0 #FAFAFA;
+	-weblit-box-shadow: 0 1px 0 #FAFAFA;
+	box-shadow: 0 1px 0 #FAFAFA;
+}
+.app .rightNav .rightNav_cnt { padding: 20px 20px 0 20px}
+
+/*Start@@ Alert css*/
+
+.app .alert_info {
+	display: block;
+	width: 95%;
+	margin: 20px 3% 0 3%;
+	margin-top: 20px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background: #B5E5EF url(images/icn_alert_info.png) no-repeat;
+	background-position: 10px 10px;
+	border: 1px solid #77BACE;
+	color: #082B33;
+	padding: 10px 0;
+	text-indent: 40px;
+	font-size: 14px;
+}
+
+.app .alert_warning {
+	display: block;
+	width: 95%;
+	margin: 20px 3% 0 3%;
+	margin-top: 20px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background: #F5F3BA url(images/icn_alert_warning.png) no-repeat;
+	background-position: 10px 10px;
+	border: 1px solid #C7A20D;
+	color: #796616;
+	padding: 10px 0;
+	text-indent: 40px;
+	font-size: 14px;
+}
+
+.app .alert_error {
+	display: block;
+	width: 95%;
+	margin: 20px 3% 0 3%;
+	margin-top: 20px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background: #F3D9D9 url(images/icn_alert_error.png) no-repeat;
+	background-position: 10px 10px;
+	border: 1px solid #D20009;
+	color: #7B040F;
+	padding: 10px 0;
+	text-indent: 40px;
+	font-size: 14px;
+}
+
+.app .alert_success {
+	display: block;
+	width: 95%;
+	margin: 20px 3% 0 3%;
+	margin-top: 20px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background: #E2F6C5 url(images/icn_alert_success.png) no-repeat;
+	background-position: 10px 10px;
+	border: 1px solid #79C20D;
+	color: #32510F;
+	padding: 10px 0;
+	text-indent: 40px;
+	font-size: 14px;
+}
+
+.app .reset_alert .alert_info, .app .reset_alert .alert_warning, 
+.app .reset_alert .alert_error, .app .reset_alert .alert_success { 
+        margin-bottom: 2% !important;
+        margin-left: 0 !important
+}
+
+/*End@@ Alert css*/
+
+
+/*Start@@ Forms css*/
+
+.app ol { list-style:none;}
+.app ol li { display:block; clear:both; padding:5px 5px 10px 0; overflow: hidden; }
+.app ol li label { display:block; margin:0; padding:5px 0 0 0;
+width: 200px;float: left;color:#99820C}
+.app ol li input.text{ width:480px; float: left;}
+.app ol li select.text { width:486px;  float: left; }
+.app ol li textarea { width:480px; }
+.app ol li .send { margin:16px 0 0 0;}
+
+.app input, .app select{outline-color:rgba(82,168,236,.6)}
+.app input.text,.app select.text,.app textarea{ 
+  color:#000000; 
+  outline:0 none;
+  border:1px solid #B1B1B1;
+  -moz-border-radius: 2px;
+-webkit-border-radius: 2px;
+border-radius: 2px;
+  -moz-box-shadow:0 1px 0 #e7e9eb inset;
+  -webkit-box-shadow:0 1px 0 #e7e9eb inset;
+  box-shadow:0 1px 0 #e7e9eb inset;
+  -webkit-transition:all .2s ease-in-out;
+  -moz-transition:all .2s ease-in-out;
+  transition:all .2s ease-in-out;
+}
+.app input.text,.app select.text,.app textarea{padding:4px;}
+.app textarea{
+  resize: vertical;
+  height:66px;
+  overflow:auto
+}
+.app input.text:hover,.app select.text:hover,.app textarea:hover{
+  border:1px solid #999;
+  outline:0 none;
+}
+.app input.text { height: 16px; }
+.app textarea:focus,.app input.text:focus,.app select.text:focus,
+.app input.text:hover:focus,.app select.text:hover:focus,
+.app textarea:hover:focus{
+  -webkit-box-shadow:inset 0 1px 3px rgba(0,0,0,.05),0 0 8px rgba(82,168,236,.6);
+  -moz-box-shadow:inset 0 1px 3px rgba(0,0,0,.05),0 0 8px rgba(82,168,236,.6);
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.05),0 0 8px rgba(82,168,236,.6);
+  border:1px solid #56b4ef;
+}
+.app div.error{ 
+    clear: both;
+    color:#bf1c12; 
+    margin: 2px 0 0 200px;
+    text-shadow:0 0 2px #F16181
+}
+
+/*End@@ Forms css*/
+
+/*start@@code for filter*/
+.app .filter_panel{ 
+	margin: -20px 0 0 -20px;
+	padding:10px;
+	background: #FFFBED;
+	border-bottom: 1px solid #B6B6B6;
+}
+.app .filter_panel select{ margin-bottom: 10px}
+/*End@@code for filter*/
+.app .chat_links{ margin: 10px 0 0}
+.app .chat_links a{color: #003F28; text-shadow:0 1px 0 #f1f1f1;}
+.app .chat_links a:hover{color: #016943;}
+.app .chat_links a:active{color: #023D27;}
+.app .text.mdl_ip{ width: 160px}
+.app #password_form div.error{ margin-left: 124px}
+
+/*start@@code for jgrid design*/
+.app .ui-jqgrid div.loading{
+	background: url(images/32.gif) no-repeat center;
+	height: 36px;
+	margin: -18px 0 0 -18px;
+	padding: 0;
+	width: 36px;
+	left: 50%;
+	top: 50%;
+	text-indent: -90000px;
+	border: 0 !important;
+}
+.app .ui-jqgrid.ui-widget-content{ background: #fff; border-width: 0 1px 1px}
+.app .ui-jqgrid .ui-jqgrid-htable th{ padding: 4px 2px; background: #FFFAF0; font-weight: bold}
+.app .ui-jqgrid tr.jqgrow td{ white-space: normal; padding: 6px 2px } 
+.app .ui-jqgrid .ui-jqgrid-bdiv{ min-height: 260px}
+.app .ui-jqgrid tr.jqgrow{ background: #FFFFF7}
+.app .ui-jqgrid tr.jqgrow.ui-priority-secondary{ 
+	background: #fff;
+	opacity: 1;
+	filter: Alpha(Opacity=100);
+}
+.app .ui-jqgrid tr.jqgrow.ui-state-hover{ border: 1px solid #E0CFC2; background: #FFFbf7}
+.app .ui-jqgrid tr.jqgrow.ui-state-highlight{ background: #FFF8EC}
+/*End@@code for jgrid design*/
+
+/**start@@code for the college updates*/
+.app .collegeUpdates li{
+	border:1px solid #b5aea9;
+	padding:18px;
+	background:url(images/noise.png) #fff;
+	color: #666666;
+	position: relative;
+	margin: 10px 20px 40px 0;
+	font-size: 14px;
+	/*-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;*/
+	-moz-box-shadow: 4px 4px 4px #919090;
+	-webkit-box-shadow: 4px 4px 4px #919090;
+	box-shadow: 4px 4px 4px #919090
+}
+.app .collegeUpdates li img.upd_std{ 
+	position: absolute;
+	left: -8px;
+	top: -24px;
+}
+.app .post_date{ 
+	color: #AA814C;
+	left: auto;
+	right: 10px;
+	top: 2px;;
+	font-size: 13px;
+}
+.app .post_date span{ font-style: italic; color: #D3B185}
+/**End@@code for the college updates*/
+
+.app .uploadifyQueue .completed, .app .uploadifyQueueItem  {
+	background-color: #FFF9CB;
+	border: 2px solid #FFEC9E;
+}
+
+/*Start@@code for the id card*/
+.app .id_userview{ 
+	position: relative;
+	width: 480px;
+	padding:20px;
+	margin-top: 80px;
+	background: url(images/id-bg.png) repeat;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+}
+.app .belt_top{
+	background: url(images/belt-top.png) no-repeat;
+	width: 66px;
+	height: 91px;
+	top: -62px;
+	left: 50%;
+	margin-left: -33px;
+}
+.app .id_userview .inner{background: #f1f1f1; padding: 10px}
+.app .stud_det_panel{ padding: 10px 0}
+.app .stud_det_panel .std_lst{ overflow: hidden;}
+.app .stud_det_panel .std_lst label,.app .stud_det_panel .std_lst span{ float: left;}
+.app .stud_det_panel .std_lst label{ color: #99820C; width: 130px}
+.app .stud_det_panel .std_lst span{ width: 300px; color: #010101}
+/*End@@code for the id card*/
+
+/*start@@code for the certificate*/
+.app .certificate{
+	background: url(images/greynoise.png) repeat;
+	border:1px solid #4b4b4b; 
+	width:700px;
+	position:relative;
+	color: #d6d5d5;
+	padding: 10px;
+	-moz-box-shadow: 0 1px 2px #D3D3D3;
+	-webkit-box-shadow: 0 1px 2px #D3D3D3;
+	box-shadow: 0 1px 2px #D3D3D3, 0 1px 1px #C0C0C0 inset;
+}
+.app .certificate b{ color: #fff;}
+.app .certificate .std_crtimg{
+	background: url(images/std_crt.png) no-repeat;
+	width: 236px;
+	height: 55px;
+	top: 24px;
+	left: -12px
+}
+.app .certificate .crt_coll_logo{
+	top: 10px;
+	left: auto;
+	right: 10px
+}
+.app .certificate .crt_col_ph{
+	width: 260px;
+	margin: 0 auto
+}
+.app .certificate .crt_fot{ bottom: 10px}
+.app .crt_cnt{
+	min-height:300px; 
+	padding: 60px 30px 10px
+}
+/*End@@code for the certificate*/
+
+/*start@@code for the Table*/
+
+.table_view {
+	border: 1px solid #DFDFDF;
+	background-color: #fefff0;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	font-family: Arial,"Bitstream Vera Sans",Helvetica,Verdana,sans-serif;
+	color: #333;
+}
+.table_view td, .table_view th {
+	border-top-color: white;
+	border-bottom: 1px solid #DFDFDF;
+	color: #555;
+}
+.table_view thead td, .table_view thead th, .table_view th {
+	text-shadow: rgba(255, 255, 255, 0.796875) 0px 1px 0px;
+	font-family: Georgia,"Times New Roman","Bitstream Charter",Times,serif;
+	font-weight: bold;
+	padding: 7px 7px 8px;
+	text-align: left;
+	line-height: 1.3em;
+	font-size: 14px;
+	font-weight: bold;
+}
+.table_view td {
+	font-size: 12px;
+	padding: 12px 8px;
+	vertical-align: top;
+}
+/*End@@code for the Table*/
+
+.app ol li.time_table_lab{
+    margin-top: 20px;
+    overflow: auto;
+    padding: 0;
+}

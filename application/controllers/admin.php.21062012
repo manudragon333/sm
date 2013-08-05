@@ -1,0 +1,1537 @@
+<?php
+
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
+
+class Admin extends CI_Controller {
+
+    function __construct() {
+        // Call the Parent constructor
+        parent::__construct();
+        $this->load->model(array('students_model','staff_model','admin_model'));
+        $this->request_counts();
+        $userObj=$this->session->userdata('user_details');
+        if(!empty ($userObj))
+        $this->ci_user_id=$userObj->id;
+    }
+
+    public function index() {
+        $data['content_page'] = 'admin/home.php';
+        $this->load->view('common/base_template', $data);
+    }
+
+    function student_data() {
+//        $data['content_page'] = 'admin/student_data';
+//        $this->load->view('common/base_template', $data);
+        if($this->input->post()){
+            $post=$this->input->post();
+            $user_id=$this->staff_model->get_student_user_id($post['number']);
+            if(count($user_id)){
+                // print_r($user_id);
+                $data['student_details']=$this->students_model->get_user_details($user_id[0]->user_id);
+                $this->load->view('admin/student_record',$data);
+            }else{
+                echo '<br/><p>Student Number not found. Please try again.</p>';
+            }
+        }else{
+            $data['content_page']='admin/student_profile';
+            $this->load->view('common/base_template',$data);
+        }
+    }
+
+    function save_student_data(){
+        if($this->input->post()){
+            $post=$this->input->post();
+            $this->my_db_lib->save_record($post,'student_records');
+            echo '<br/><p>Student details saved Successfully.</p>';
+        }
+    }
+
+    function user_accounts() {
+        $data["user_types"]=$this->admin_model->get_user_types();
+        $data['content_page'] = 'admin/user_accounts';
+        $this->load->view('common/base_template', $data);
+    }
+ function adduser_marks() {
+        $data["user_types"]=$this->admin_model->get_user_types();
+        $data['content_page'] = 'admin/adduser_marks';
+        $this->load->view('common/base_template', $data);
+    }
+
+    function get_user_types(){
+        if($post=$this->input->post()){
+            $data["user_types"]=$this->admin_model->get_user_types();
+            $data['select_id']=$post['type'];
+            $this->load->view('admin/user_types_select', $data);
+        }
+    }
+
+    function get_user_list(){
+        if($post=$this->input->post('user_type')){
+            $data["users_data"]=$this->admin_model->get_user_types_users($post['user_type']);
+            $data['select_id']='select';
+            $this->load->view('admin/users_select', $data);
+        }
+    }
+
+    function user_details_form(){
+        if($post=$this->input->post()){
+            $post=$this->input->post();
+            if($post['users_type_id']==1){
+                // Load Student Form + login details form
+                $this->load->view('admin/student_form');
+            }else if($post['users_type_id']==2 || $post['users_type_id']==3){
+                // Load Staff form + login details form
+                $this->load->view('admin/staff_form');
+            }else{
+                // Load only user login details form
+                $this->load->view('admin/user_form');
+            }
+        }
+    }
+
+    function users_formXXX(){
+        if($post=$this->input->post()){
+            $post=$this->input->post();
+            $user_details=$this->admin_model->get_user_details($post['users_id']);
+            if($user_details[0]['users_type_id']==1){
+                // Load Student Form + login details form
+//                print_r($user_details);
+                $view_data['user_details'][0]=(object) $user_details[0];
+                $view_data['student_details']=$user_details['student_details'];
+                $this->load->view('admin/student_form',$view_data);
+            }else if($user_details[0]['users_type_id']==2 || $user_details[0]['users_type_id']==3){
+                // Load Staff form + login details form
+//                print_r($user_details);
+                $view_data['user_details'][0]=(object) $user_details[0];
+                $view_data['data']=$user_details['staff_details'];
+                $this->load->view('admin/staff_form',$view_data);
+            }else{
+                // Load only user login details form
+                $view_data['user_details'][0]=(object) $user_details[0];
+                $this->load->view('admin/user_form',$view_data);
+            }
+        }
+    }
+
+    function update_user_details_formXXX(){
+        if($post=$this->input->post()){
+            $post=$this->input->post();
+            if($post['users_type_id']==1){
+                // Load Student Form + login details form
+            }else if($post['users_type_id']==2 || $post['users_type_id']==3){
+                // Load Staff form + login details form
+            }else{
+                // Load only user login details form
+            }
+        }
+    }
+
+    function save_user_account(){  // USING 
+        if($post=$this->input->post()){
+            $post=$this->input->post();
+            {
+                // First Save only user login details form
+                $user_id=$this->my_db_lib->save_record($post,'users');
+            }
+            if(empty($post['id'])) 
+                $post['user_id']=$user_id;
+            else
+                $post['user_id']=$post['id'];
+            if($post['users_type_id']==1){
+                // Save Student Form
+                $post['id']=$post['student_rec_id'];
+                $this->my_db_lib->save_record($post,'student_records');
+                if(isset($post['sem_id'])){
+                    $this->admin_model->save_student_semester($post['user_id'],$post['sem_id']);
+                }
+            }else if($post['users_type_id']==2 || $post['users_type_id']==3){
+                // Save Staff form
+                $post['id']=$post['staff_rec_id'];
+                $this->my_db_lib->save_record($post,'staff_records');
+            }
+            
+            echo '<br/><p> User saved successfully.</p><br/><input type="button" name="imageField" id="imageField" class="send button" value="Back" onclick="javascript:window.location.reload();"/>';
+        }
+    }
+
+
+
+
+    /***************************************** NEW CODE *********************************************/
+
+
+
+    function load_users_grid(){
+        if($this->input->post()){
+            $post=$this->input->post();
+            $sql="select * from users
+                    where users_type_id='".$post['user_type']."' and status='".$post['status']."'";
+            $data=$this->my_db_lib->get_jqgrid_data($post,$sql);
+            if(count($data->db_data)){
+                $i=0;
+                foreach($data->db_data as $k=>$v){
+                    $data->rows[$i]['id']=$v['id'];
+                    $action1='<div><a href="javascript:void(0)" onclick="javascript:update_account(\''.$v['id'].'\',\''.$v['users_type_id'].'\');"> Update Account </a></div>';
+                    if($v['status']=='1')
+                    $action2='<div><a href="javascript:void(0)" onclick="javascript:squeez_account(\''.$v['id'].'\',\'0\');" title="Make the user Inactive"> Squeez Account</a></div>';
+                    else
+                    $action2='<div><a href="javascript:void(0)" onclick="javascript:squeez_account(\''.$v['id'].'\',\'1\');" title="Make the user Active"> Release Account</a></div>';
+					
+//                    if($v['users_type_id']=='1')
+//                    $uname="<div><a href='".site_url('admin/add_semister/'.$v['id'])."'>".$v['username']."</a></div>";
+//                    else
+                    $uname=$v['username'];
+					
+                    $status=($v['status']=='1')?'Active':'Inactive';
+                    $data->rows[$i]['cell']=array($uname,$v['password'],$v['email'],$status,$action1,$action2);
+                    $i++;
+                }
+            }else{
+                $data->rows[0]['id']=0;
+                $data->rows[0]['cell']=array('No Data','','','','','');
+            }
+            unset($data->db_data);
+            echo json_encode($data);
+        }
+    }
+
+
+    function load_usermarks_grid(){
+        if($this->input->post()){
+            $post=$this->input->post();
+            $sql="select u.id,u.username,u.email,ss.semister_id,s.name as sname,b.name as bname from  users u 
+                        inner join student_records sr on u.id=sr.user_id
+                        inner join student_semisters ss on u.id=ss.user_id
+                        inner join semisters s on ss.semister_id=s.id
+                        inner join branches b on sr.branch_id=b.id
+                        where ss.semister_id='".$post['status']."' and ss.is_current='1' and sr.branch_id='".$post['user_type']."'";
+            $data=$this->my_db_lib->get_jqgrid_data($post,$sql);
+            if(count($data->db_data)){
+                $i=0;
+                foreach($data->db_data as $k=>$v){
+                    $data->rows[$i]['id']=$v['id'];
+                    $add_attendance="<div><a href='javascript:void(0);' onclick='edit_attendance(\"".$v['id']."\",\"".$v['semister_id']."\")'>Add/Edit Attendance</a></div>"; // ".site_url('admin/add_attendance/'.$v['id'])."
+                    $data->rows[$i]['cell']=array("<div><a href='".site_url('admin/add_marks/'.$v['id'])."'>".$v['username']."</a></div>",$v['email'],$v['sname'],$v['bname'],"<div><a href='".site_url('admin/view_marks/'.$v['id'])."'>View Marks</a></div>","<div><a href='".site_url('admin/add_marks/'.$v['id'])."'>Add Marks</a></div>",$add_attendance);
+                    $i++;
+                }
+            }else{
+                $data->rows[0]['id']=0;
+                $data->rows[0]['cell']=array('No Data','','','','','','');
+            }
+            unset($data->db_data);
+            echo json_encode($data);
+        }
+    }
+    function update_account(){
+        if($this->input->post()){
+            $post=$this->input->post();
+            $user_details=array();
+            if(!empty($post['users_id']))
+                $user_details=$this->admin_model->get_user_details($post['users_id']);
+            else{
+                $user_details[0]=$post;
+                $user_details['student_details']=$user_details['staff_details']=0;
+            }
+            if($user_details[0]['users_type_id']==1){
+                // Load Student Form + login details form
+//                print_r($user_details);
+                $view_data['user_details'][0]=(object) $user_details[0];
+                $view_data['student_details']=$user_details['student_details'];
+                $this->load->view('admin/student_form',$view_data);
+            }else if($user_details[0]['users_type_id']==2 || $user_details[0]['users_type_id']==3){
+                // Load Staff form + login details form
+//                print_r($user_details);
+                $view_data['user_details'][0]=(object) $user_details[0];
+                $view_data['data']=$user_details['staff_details'];
+                $this->load->view('admin/staff_form',$view_data);
+            }else{
+                // Load only user login details form
+                $view_data['user_details'][0]=(object) $user_details[0];
+                $this->load->view('admin/user_form',$view_data);
+            }
+        }
+    }
+
+    function squeez_account(){
+        if($this->input->post()){
+            $post=$this->input->post();
+            $id=$post['id'];
+            $f=$post['f'];
+            $sql="update users set status='$f' where id='$id'";
+            $res = $this->db->query($sql);
+            if($f=='0')
+                echo 'Account Squeezed';
+            else
+                echo 'Account released';
+        }
+    }
+
+    function account() {
+        $data['content_page'] = 'admin/account';
+        $this->load->view('common/base_template', $data);
+    }
+    
+    function email(){
+        redirect('admin');
+    }
+
+    function no_due(){
+        $data['content_page'] = 'admin/no_due_requests';
+        $this->load->view('common/base_template', $data);
+    }
+
+
+    function request_counts(){
+        $counts=array();
+
+        $user_id=$this->session->userdata('user_id');
+        if($user_id!=18){
+            return true;
+        }
+
+        $sql="select nd.*,nda.approver_status,sr.name,sr.students_number,sr.doj,c.name as course,b.name as branch,sr.present_year,sr.completing_year
+                    from nodue_applications as nd
+                    left join student_records as sr on sr.user_id=nd.user_id
+                    left join courses as c on c.id=sr.course_id
+                    left join branches as b on b.id=sr.branch_id
+                    left join nodue_approvals as nda on nda.application_id=nd.id
+                    where nd.is_issued!='1' and nda.approver_id='".$user_id."' and nda.approver_status='0'";
+        $this->load->model('office_model');
+        $counts['no_due']=$this->office_model->get_request_counts($sql);
+        $this->session->set_userdata('request_counts',$counts);
+    }
+
+    /*Principal*/
+    function approve_q_papers(){
+        if($this->input->post()){
+            $post=$this->input->post();
+            $sql="select q.*,br.name as branch_name, u.username from question_papers as q
+                left join users as u on q.user_id=u.id
+                left join branches as br on q.branch=br.id
+                where q.is_principal_approved!='1'";
+
+            $user_details=$this->session->userdata('user_details');
+
+            $data=$this->my_db_lib->get_jqgrid_data($post,$sql);
+
+            if(count($data->db_data)){
+                $i=0;
+                foreach($data->db_data as $k=>$v){
+                    $data->rows[$i]['id']=$v['id'];
+                    $is_approved=($v['is_principal_approved']=='1')?'Approved':'<a href="javascript:approve_paper(\''.$v['id'].'\')">Approve Paper</a>';
+                    $link="<a href='".base_url()."uploads/".$v['doc_link']."' target='_blank'>Link</a>";
+                    $data->rows[$i]['cell']=array($v['username'],$v['students_count'],$v['branch_name'],$v['year'],$v['subject'],$v['exam_number'],$link,$is_approved);
+                    $i++;
+                }
+            }else{
+                $data->rows[0]['id']=0;
+                $data->rows[0]['cell']=array('No Data','','','','','','');
+            }
+
+            unset($data->db_data);
+            echo json_encode($data);
+        }else{
+            $data['content_page']='staff/approve_q_papers';
+            $this->load->view('common/base_template',$data);
+        }
+    }
+
+
+    function approve_paper(){
+        $post=$this->input->post();
+        if( $this->input->post('id')  ){
+            $post['is_principal_approved']='1';
+            $this->my_db_lib->save_record($post,'question_papers');
+			$sql="select qp.subject,qp.year,sr.mobile,sr.name,b.name as branch  from question_papers as qp
+inner join staff_records as sr on sr.user_id=qp.user_id
+inner join branches  as b on b.id=qp.branch
+where qp.id='".$this->input->post('id')."'";
+          $query = $this->db->query($sql);
+		  $row=$query->first_row();
+
+		  $message="Subject: ".$row->subject;
+		  $message.=", Year: ".$row->year;
+		  $message.=", Branch:".$row->branch;
+		  $message.=" Pricipal Approved";
+		  $this->sms_lib->send_sms($row->mobile,$message);
+            echo 1;
+        }
+    }
+
+
+    function notice_board(){
+        $post=$this->input->post();
+        if( $this->input->post()){
+            $post=$this->input->post();
+            $sql="select * from students_notice_board where status='1'";
+
+            $user_details=$this->session->userdata('user_details');
+
+            $data=$this->my_db_lib->get_jqgrid_data($post,$sql);
+
+            if(count($data->db_data)){
+                $i=0;
+                foreach($data->db_data as $k=>$v){
+                    $data->rows[$i]['id']=$v['id'];
+                    $edit="<a href='javascript:void(0);' onclick='javascript:edit_notice(".$v['id'].");' >Edit</a>";
+                    $delete="<a href='javascript:void(0);' onclick='javascript:delete_notice(".$v['id'].");' >Delete</a>";;
+                    $data->rows[$i]['cell']=array($v['id'],$v['message'],$v['date_added'],$edit,$delete);
+                    $i++;
+                }
+            }else{
+                $data->rows[0]['id']=0;
+                $data->rows[0]['cell']=array('No Data','','','','','','');
+            }
+
+            unset($data->db_data);
+            echo json_encode($data);
+        }else{
+            $data['content_page']='admin/notice_board';
+            $this->load->view('common/base_template',$data);
+        }
+    }
+
+    function delete_notice(){
+        $post=$this->input->post();
+        if( $this->input->post()){
+            $this->admin_model->deactive_notice($post['id']);
+        }
+    }
+
+    function edit_notice(){
+        $post=$this->input->post();
+        if($post){
+            $notice_id=$post['id'];
+            $data['notice_data']=$this->admin_model->get_notice_details($notice_id);
+            $this->load->view('admin/notice_form',$data);
+        }
+    }
+
+    function save_notice(){
+        // Put the save_record lib func
+        $post=$this->input->post();
+        if($post){
+            $this->my_db_lib->save_record($post,'students_notice_board');
+            echo '<br/><p>Message saved Successfully.</p><a href="javascript:void(0);" onclick="javascript:window.location.reload();"><< Back To List</a>';
+        }
+    }
+
+
+    function branch_semister_subjects(){
+        $post=$this->input->post();
+        if( $this->input->post()){
+            $post=$this->input->post();
+            $sql="select bss.*,b.name as branch_name, se.name as semister_name, s.name as subject_name
+                    from branch_semister_subject as bss
+                    left join branches as b  on b.id=bss.branch_id
+                    left join semisters se on se.id=bss.semister_id
+                    left join subjects s on s.id=bss.subject_id
+                ";
+
+            $user_details=$this->session->userdata('user_details');
+
+            $data=$this->my_db_lib->get_jqgrid_data($post,$sql);
+
+            if(count($data->db_data)){
+                $i=0;
+                foreach($data->db_data as $k=>$v){
+                    $data->rows[$i]['id']=$v['id'];
+                    $delete="<a href='javascript:void(0);' onclick='javascript:delete_subject_grid(".$v['id'].");' >Delete</a>";;
+                    $data->rows[$i]['cell']=array($v['id'],$v['branch_name'],$v['semister_name'],$v['subject_name'],$delete);
+                    $i++;
+                }
+            }else{
+                $data->rows[0]['id']=0;
+                $data->rows[0]['cell']=array('No Data','','','','');
+            }
+
+            unset($data->db_data);
+            echo json_encode($data);
+        }else{
+            $data['content_page']='admin/branch_semister_subjects';
+            $this->load->view('common/base_template',$data);
+        }
+    }
+
+    function edit_subject_grid(){
+        $post=$this->input->post();
+        if($post){
+            $id=$post['id'];
+            $data['subject_edit_data']=$this->admin_model->get_subject_details($id);
+            $this->load->view('admin/subject_grid_form',$data);
+        }
+    }
+
+    function save_subject_grid(){
+        // Put the save_record lib func
+        $post=$this->input->post();
+        if($post){
+            if($this->admin_model->check_subject_grid($post)){
+                echo '<br/><div class="error">Subject already exists for Branch Semester.</div><a href="javascript:void(0);" onclick="javascript:edit_subject_grid(0);"> <br/> << Back To Adding</a>';
+                return;
+            }
+            $this->my_db_lib->save_record($post,'branch_semister_subject');
+            echo '<br/><p>Subject saved Successfully.</p><a href="javascript:void(0);" onclick="javascript:window.location.reload();"> <br/> << Back To List</a>';
+        }
+    }
+
+    function delete_subject_grid(){
+        $post=$this->input->post();
+        if( $this->input->post()){
+            $this->admin_model->delete_subject_grid($post['id']);
+        }
+    }
+    
+   function add_marks($id=0){
+        // Put the save_record lib func
+        $post=$this->input->post();
+        if($post && isset($_POST['st_id'],$_POST['type_id'],$_POST['year_id'],$_POST['marks'],$_POST['sm_id'])){ exit;
+		//echo "<pre>";
+            //print_r($_POST);//exit;
+			
+                    $st_id=$_POST['st_id'];
+                    $type_id=$_POST['type_id'];
+					$year_id=$_POST['year_id'];
+					$sm_id=$_POST['sm_id'];
+				$check_sql=$this->db->query("select sm.id from student_marks sm 
+												inner join branch_semister_subject bss on sm.branch_sem_sub_id=bss.id
+												where sm.student_id='".$st_id."' and bss.semister_id='".$sm_id."' 
+												and (sm.marks!='0.00' and sm.internal_1!='0.00' and sm.internal_2!='0.00' and sm.internal_3!='0.00' ) ");
+				if($check_sql->num_rows()==0){	
+                    	$this->admin_model->add_student_marks($st_id,$type_id,$year_id,$_POST['marks'],$sm_id);
+					}
+//			redirect('admin/user_accounts');
+                    redirect('admin/adduser_marks');
+					
+        }else{
+		$sql_sem=$this->db->query("select sr.branch_id,max(ss.semister_id) as  semister_id from users u 
+                                                inner join student_records sr on u.id=sr.user_id
+                                                inner join student_semisters ss on u.id=ss.user_id where u.id='".$id."'");
+		if($sql_sem->num_rows()>0){
+		$row=$sql_sem->row();
+		$sql=$this->db->query("select s.name,s.id as sid,bss.id as bssid from 
+                                             branch_semister_subject bss
+                                            inner join subjects s on bss.subject_id=s.id
+                                            inner join semisters se on bss.semister_id=se.id
+                                            inner join branches b on bss.branch_id=b.id
+                                            inner join courses c on b.course_id=c.id
+                                            where  bss.semister_id='".$row->semister_id."' and bss.branch_id='".$row->branch_id."'");
+			$data['st_id']=$id;	
+			$data['sm_id']=$row->semister_id;					
+			$data['subjects']=$sql->result();			
+			$data['content_page']='admin/add_marks';
+                        $this->load->view('common/base_template',$data);
+                }
+        }
+    }
+
+    function view_marks($id=0){
+        // Put the save_record lib func
+        $post=$this->input->post();
+        $sql_sem=$this->db->query("select sr.branch_id,max(ss.semister_id) as  semister_id from users u
+                                        inner join student_records sr on u.id=sr.user_id
+                                        inner join student_semisters ss on u.id=ss.user_id where u.id='".$id."'");
+        if($sql_sem->num_rows()>0){
+            $row=$sql_sem->row();
+            $view_data=array();
+            $view_data['student_marks']=$this->students_model->get_student_marks_history($id,$row->semister_id);
+            $view_data['show_admin_back']=true;
+            $view_data['content_page']='admin/marks_view';
+            $this->load->view('common/base_template',$view_data);
+
+
+//            $sql=$this->db->query("select s.name,s.id as sid,bss.id as bssid from
+//                                branch_semister_subject bss
+//                                inner join subjects s on bss.subject_id=s.id
+//                                inner join semisters se on bss.semister_id=se.id
+//                                inner join branches b on bss.branch_id=b.id
+//                                inner join courses c on b.course_id=c.id
+//                                where  bss.semister_id='".$row->semister_id."' and bss.branch_id='".$row->branch_id."'");
+//            $data['st_id']=$id;
+//            $data['subjects']=$sql->result();
+//            $data['content_page']='admin/add_marks';
+//            $this->load->view('common/base_template',$data);
+        }
+    
+    }
+function edit_marks($id=0,$uid=0){
+        $post=$this->input->post();
+        
+        $post=$this->input->post();
+        if($post){
+		
+                    $st_id=$_POST['st_id'];
+                   $extr=$_POST['extr'];
+				   $intr1=$_POST['intr1'];
+				   $intr2=$_POST['intr2'];
+				   $intr3=$_POST['intr3'];
+					$sm_id=$_POST['sm_id'];
+					$x=array($intr1,$intr2,$intr3);
+								$y=array_search(min($x),$x);
+								unset($x[$y]);
+								$max=array_sum($x);
+								$avg_marks=$max/count($x);
+								$tot_marks=$extr+$max;	
+								
+				$check_sql=$this->db->query(" update student_marks set marks='".$extr."',internal_1='".$intr1."',internal_2='".$intr2."', 
+				internal_3='".$intr3."',tot_marks=".$tot_marks.",avg_marks=".$avg_marks." where id='".$sm_id."' and student_id='".$st_id."' ");
+				
+                    redirect('admin/view_marks/'.$st_id);
+					
+        }else{
+		
+		
+		$sql=$this->db->query("select sm.*,s.name as sname,u.username,u.id as st_id,sm.id as sm_id from student_marks sm 
+								inner join users u on sm.student_id=u.id 
+								inner join branch_semister_subject bss on sm.branch_sem_sub_id=bss.id 
+								inner join subjects s on bss.subject_id=s.id 
+                                            where sm.id='".$id."' and sm.student_id='".$uid."'");
+						$data['st_id']=$uid;	
+						$data['sm_id']=$id;					
+						$data['subjects']=$sql->result();			
+						$data['content_page']='admin/edit_marks';
+                        $this->load->view('common/base_template',$data);
+        }
+    
+    
+    }
+
+
+	function add_attendence($id=0){
+        // Put the save_record lib func
+        $post=$this->input->post();
+        if($post){
+		
+			$st_id=$_POST['st_id'];
+			$sem_id=$_POST['sem_id'];
+			$attd=$_POST['attd'];
+			$attd_tot=$_POST['attd_tot'];
+			 $this->admin_model->add_student_attend($st_id,$sem_id,$attd,$attd_tot);
+			redirect('admin/user_accounts');
+        }else{
+		$sql_sem=$this->db->query("select u.id from users u where u.id='".$id."'");
+		if($sql_sem->num_rows()>0){
+		$row=$sql_sem->row();
+		
+			$data['st_id']=$id;					
+			$data['content_page']='admin/add_attendence';
+            $this->load->view('common/base_template',$data);
+			}
+		}
+    }
+	
+	function add_semister($id=0){
+        // Put the save_record lib func
+        $post=$this->input->post();
+        if($post){
+		//echo "<pre>";
+            //print_r($_POST);//exit;
+			$st_id=$_POST['st_id'];
+			$sem_id=$_POST['sem_id'];
+		$check=$this->db->query("select id from  student_semisters where user_id='".$st_id."' and semister_id='".$sem_id."'");
+		if($check->num_rows()==0){
+		   $this->db->query("update student_semisters set is_current='0' where user_id='".$st_id."'");
+			$this->db->query("insert into student_semisters (`user_id`, `semister_id`,`is_current`) values ('".$st_id."','".$sem_id."','1')");
+			}
+			redirect('admin/user_accounts');
+        }else{
+			$data['st_id']=$id;					
+			$data['content_page']='admin/add_semister';
+            $this->load->view('common/base_template',$data);
+		}
+    }
+	
+
+
+
+    function system_subjects_grid(){
+        $post=$this->input->post();
+        if( $this->input->post()){
+            $post=$this->input->post();
+            $sql="select * from subjects where status='1'
+                ";
+
+            $user_details=$this->session->userdata('user_details');
+
+            $data=$this->my_db_lib->get_jqgrid_data($post,$sql);
+
+            if(count($data->db_data)){
+                $i=0;
+                foreach($data->db_data as $k=>$v){
+                    $data->rows[$i]['id']=$v['id'];
+                    $edit="<a href='javascript:void(0);' onclick='javascript:edit_system_subjects(".$v['id'].");' >Edit</a>";;
+                    $delete="<a href='javascript:void(0);' onclick='javascript:delete_system_subjects(".$v['id'].");' >Delete</a>";;
+                    $data->rows[$i]['cell']=array($v['id'],$v['name'],$edit,$delete);
+
+                    $i++;
+                }
+            }else{
+                $data->rows[0]['id']=0;
+                $data->rows[0]['cell']=array('No Data','','','','');
+            }
+
+            unset($data->db_data);
+            echo json_encode($data);
+        }else{
+            $data['content_page']='admin/add_subjects_grid';
+            $this->load->view('common/base_template',$data);
+        }
+    }
+
+    function edit_system_subjects(){
+        $post=$this->input->post();
+        if($post){
+            $id=$post['id'];
+            $data['subject_edit_data']=$this->admin_model->get_system_subjects($id);
+            $this->load->view('admin/system_subjects_form',$data);
+        }
+    }
+
+
+    function save_system_subjects(){
+        // Put the save_record lib func
+        $post=$this->input->post();
+        if($post){
+            if($this->admin_model->check_system_subjects($post['name'])){
+                echo '<br/><div class="error">Subject already exists.</div><a href="javascript:void(0);" onclick="javascript:edit_subject_grid(0);"> <br/> << Back To Adding</a>';
+                return;
+            }
+            $this->my_db_lib->save_record($post,'subjects');
+            echo '<br/><p>Subject saved Successfully.</p><a href="javascript:void(0);" onclick="javascript:window.location.reload();"> <br/> << Back To List</a>';
+        }
+    }
+
+    function delete_system_subjects(){
+        $post=$this->input->post();
+        if( $this->input->post()){
+            $this->admin_model->delete_system_subjects($post['id']);
+        }
+    }
+
+    function add_attendance(){
+        $post=$this->input->post();
+        if($post && $post['user_id'] && $post['semister_id']){
+            // $this->my_db_lib->save_record($post,'student_attendence');
+            $data['subject_edit_data']=$this->admin_model->get_student_attendance($post);
+            if(!isset($data['subject_edit_data'][0]['user_id'])) $data['subject_edit_data'][0]['user_id']=$post['user_id'];
+            if(!isset($data['subject_edit_data'][0]['semister_id'])) $data['subject_edit_data'][0]['semister_id']=$post['semister_id'];
+//            $data['content_page']='admin/add_attendance';
+            $this->load->view('admin/add_attendance',$data);
+        }else{
+            $data['content_page']='admin/add_attendance';
+            $this->load->view('common/base_template',$data);
+        }
+    }
+
+    function get_student_attendance(){
+        $post=$this->input->post();
+        if($post && $post['user_id'] && $post['semister_id']){
+            echo json_encode($this->admin_model->get_student_attendance($post));
+        }
+    }
+
+    function save_attendance(){
+        $post=$this->input->post();
+        if($post && $post['user_id'] && $post['semister_id']){
+            $this->my_db_lib->save_record($post,'student_attendence');
+        }
+    }
+function pass_percentage($id=0){
+            $sem_id='';
+			$br_id='';
+			$sub_id='';
+			$p_id='';
+			$data['result_data']='';
+	$post=$this->input->post();
+        if($post){
+		
+			$sem_id=$_POST['sem_id'];
+			$br_id=$_POST['br_id'];
+			$sub_id=$_POST['sub_id'];
+			$p_id=$_POST['p_id'];
+			
+			if(isset($_POST['year_id'])){
+				$year_id=$_POST['year_id'];
+			}else{
+				$year_id=date('Y');
+			}
+			$data['result_data']='';
+			$qry='';
+			if($sem_id!=''){
+				$qry.=" bss.semister_id='".$sem_id."' and ";
+			}
+			if($br_id!=''){
+				$qry.=" bss.branch_id='".$br_id."' and ";
+			}
+			if($sub_id!=''){
+				$qry.=" bss.subject_id='".$sub_id."' and ";
+			}
+			$qry2='';
+			if($p_id!=''){
+				if($p_id==39)
+					$qry2=" having sum(sm.tot_marks)<40*count(student_id) ";
+				else if($p_id==40)
+					$qry2=" having sum(sm.tot_marks)>=40*count(student_id) ";
+			   else if($p_id==59)
+					$qry2=" having sum(sm.tot_marks) between 40*count(student_id) and  60*count(student_id)";
+			   else if($p_id==60)
+					$qry2=" having sum(sm.tot_marks)>=60*count(student_id) ";
+			 	 				
+			}
+			$sql=$this->db->query("select sm.student_id,u.username,sum(tot_marks) as t_marks,sum(tot_marks)/count(student_id) as avg,sr.fname,sr.lname from student_marks sm
+			               inner join users u on  sm.student_id=u.id
+						   inner join student_records sr on u.id=sr.user_id
+					inner join branch_semister_subject bss on sm.branch_sem_sub_id=bss.id
+					inner join subjects s on bss.subject_id=s.id
+					where  ".$qry." sm.marks_year='".$year_id."' group by sm.student_id ".$qry2);
+					$pass_u_tot=array();
+					$tot_u=$sql->num_rows();
+					/*foreach($sql->result() as $row){
+							$pass_u=array();
+				
+						
+								$pass_u['id']=$row->student_id;
+								$pass_u['uname']=$row->username;
+								$pass_u['t_marks']=$row->avg;
+								array_push($pass_u_tot,$pass_u);
+					}
+								$pass_users=count($pass_u_tot);*/
+									//print_r($pass_u_tot);exit;
+								$data['result_data']=$sql->result();//$pass_u_tot;
+								$data['st_id']=$id;		
+								$data['sem_id']=$sem_id;
+								$data['br_id']=$br_id;
+								$data['sub_id']=$sub_id;
+								$data['p_id']=$p_id;			
+								$data['content_page']='admin/pass_percentage';
+								$this->load->view('common/base_template',$data);
+        }else{
+			$data['st_id']=$id;					
+			$data['content_page']='admin/pass_percentage';
+            $this->load->view('common/base_template',$data);
+		}
+       
+    }
+function addpoll(){
+		if($this->input->post('submit')){
+			$_POST['created_by']=$this->ci_user_id;
+			$_POST['create_date']=date('Y-m-d H:i:s');
+			$poll_id=$this->my_db_lib->save_record($_POST,'polls');
+			if($poll_id){
+                            $this->admin_model->add_poll_options($_POST['option'],$poll_id);
+			}
+                        $data['content_page']='poll/add_poll_success';
+                        $this->load->view('common/base_template',$data);
+			// redirect('admin/addpoll');
+		}else{
+			$data['content_page']='poll/add_poll';
+			$this->load->view('common/base_template',$data);
+		}
+
+}
+function edit_poll(){
+    if($this->input->post('submit')){
+            $poll_id=$this->input->post('id');
+            $post=$_POST;
+            $this->my_db_lib->save_record($_POST,'polls');
+            echo 'Poll Saved Successfully.<br/><a href="javascript:void(0);" onclick="javascript:window.location.reload();"> <br/> << Back To List</a>';
+            // $data['content_page']='poll/edit_poll_success';
+            // $this->load->view('common/base_template',$data);
+            // redirect('admin/addpoll');
+    }else if($this->input->post('id')){
+            $data['data']=$this->admin_model->get_pool_data($this->input->post('id'));
+            $this->load->view('poll/edit_poll',$data);
+    }
+}
+ function poll_grid(){
+        $post=$this->input->post();
+        if( $this->input->post()){
+            $post=$this->input->post();
+            $sql="select * from polls ";
+            $data=$this->my_db_lib->get_jqgrid_data($post,$sql);
+
+            if(count($data->db_data)){
+                $i=0;
+                foreach($data->db_data as $k=>$v){
+                    $data->rows[$i]['id']=$v['id'];
+                    $edit="<a href='javascript:void(0);' onclick='javascript:edit_polls(".$v['id'].");' >Edit</a>";
+                    $active="<a class='poll_status_a".$v['id']."' href='javascript:void(0);' onclick='javascript:toggle_pool_status(".$v['id'].",".$v['status'].");' >".(($v['status']=='1')?'<b>Active</b>/Inactive':'Active/<b>Inactive</b>')."</a>";
+                    $data->rows[$i]['cell']=array($v['question'],date('m-d-Y',strtotime($v['start_date'])),date('m-d-Y',strtotime($v['end_date'])),$edit,$active);
+
+                    $i++;
+                }
+            }else{
+                $data->rows[0]['id']=0;
+                $data->rows[0]['cell']=array('No Data','','','','');
+            }
+
+            unset($data->db_data);
+            echo json_encode($data);
+        }else{
+            $data['content_page']='poll/poll_list';
+            $this->load->view('common/base_template',$data);
+        }
+    }
+    function polls() {
+        $data["user_types"]=$this->admin_model->get_user_types();
+        $data['content_page'] = 'poll/poll_list';
+        $this->load->view('common/base_template', $data);
+    }
+
+
+    function toggle_status(){
+        if($this->input->post()){
+            $post=$this->input->post();
+            if($post['status']=='1'){ $status='0'; }else{ $status='1'; }
+            $sql=" update polls SET status='$status' where id='".$post['id']."' ";
+            $this->db->query($sql);
+            echo $status;
+        }
+    }
+
+    /***********************************************/
+
+    function college_management(){
+        $post=$this->input->post();
+        if( $this->input->post()){
+            $post=$this->input->post();
+            $sql=" select * from colleges ";
+
+            $user_details=$this->session->userdata('user_details');
+
+            $data=$this->my_db_lib->get_jqgrid_data($post,$sql);
+
+            if(count($data->db_data)){
+                $i=0;$sno=1;
+                foreach($data->db_data as $k=>$v){
+                    $data->rows[$i]['id']=$v['id'];
+                    $edit="<a href='javascript:void(0);' onclick='javascript:edit_college_management(".$v['id'].");' >Edit</a>";
+                    $delete="<a href='javascript:void(0);' onclick='javascript:delete_college_management(".$v['id'].");' >Delete</a>";
+                    $status=($v['status']=='1')?'Active':'InActive';
+                    $data->rows[$i]['cell']=array($sno++,$v['name'],$v['college_code'],$status,$edit,$delete);
+                    $i++;
+                }
+            }else{
+                $data->rows[0]['id']=0;
+                $data->rows[0]['cell']=array('No Data','','','','','');
+            }
+
+            unset($data->db_data);
+            echo json_encode($data);
+        }else{
+            $data['content_page']='admin/college_management';
+            $this->load->view('common/base_template',$data);
+        }
+    }
+
+
+    function edit_college_management(){
+        $post=$this->input->post();
+        if($post){
+            $id=$post['id'];
+            $data['college_data']=$this->admin_model->get_colleges($id);
+            $this->load->view('admin/college_management_form',$data);
+        }
+    }
+
+    function delete_college_management(){
+        $post=$this->input->post();
+        if($post){
+            $id=$post['id'];
+            $this->admin_model->delete_colleges($id);
+            echo '<br/><div class="error">College Deleted.</div><a href="javascript:void(0);" onclick="javascript:window.location.reload();"> <br/> << Back To List</a>';
+        }
+    }
+
+
+    function save_college(){
+        $post=$this->input->post();
+        if($post){
+            if($this->admin_model->check_college_name($post)){
+                echo '<br/><div class="error">College Name already exists.</div><a href="javascript:void(0);" onclick="javascript:edit_college_management(0);"> <br/> << Back To Adding</a>';
+                return;
+            }
+            $this->my_db_lib->save_record($post,'colleges');
+            echo '<br/><p>College saved Successfully.</p><a href="javascript:void(0);" onclick="javascript:window.location.reload();"> <br/> << Back To List</a>';
+        }
+    }
+
+    /***********************************************/
+
+    function course_management(){
+        $post=$this->input->post();
+        if( $this->input->post()){
+            $post=$this->input->post();
+            $sql=" select cou.*,IFNULL(col.name,'-') as college_name from courses as cou
+                    left join colleges as col on col.id=cou.college_id ";
+
+            $user_details=$this->session->userdata('user_details');
+
+            $data=$this->my_db_lib->get_jqgrid_data($post,$sql);
+
+            if(count($data->db_data)){
+                $i=0;$sno=1;
+                foreach($data->db_data as $k=>$v){
+                    $data->rows[$i]['id']=$v['id'];
+                    $edit="<a href='javascript:void(0);' onclick='javascript:edit_course_management(".$v['id'].");' >Edit</a>";
+                    $delete="<a href='javascript:void(0);' onclick='javascript:delete_course_management(".$v['id'].");' >Delete</a>";
+                    $status=($v['status']=='1')?'Active':'InActive';
+                    $data->rows[$i]['cell']=array($sno++,$v['name'],$v['college_name'],$status,$edit,$delete);
+                    $i++;
+                }
+            }else{
+                $data->rows[0]['id']=0;
+                $data->rows[0]['cell']=array('No Data','','','','','');
+            }
+
+            unset($data->db_data);
+            echo json_encode($data);
+        }else{
+            $data['content_page']='admin/course_management';
+            $this->load->view('common/base_template',$data);
+        }
+    }
+
+
+    function edit_course_management(){
+        $post=$this->input->post();
+        if($post){
+            $id=$post['id'];
+            $data['college_data']=$this->admin_model->get_courses($id);
+            $this->load->view('admin/course_management_form',$data);
+        }
+    }
+
+    function delete_course_management(){
+        $post=$this->input->post();
+        if($post){
+            $id=$post['id'];
+            $this->admin_model->delete_courses($id);
+            echo '<br/><div class="error">Course Deleted.</div><a href="javascript:void(0);" onclick="javascript:window.location.reload();"> <br/> << Back To List</a>';
+        }
+    }
+
+
+    function save_courseXX(){
+        $post=$this->input->post();
+        if($post){
+            if($this->admin_model->check_course_name($post)){
+                echo '<br/><div class="error">Course Name already exists for this College.</div><a href="javascript:void(0);" onclick="javascript:edit_course_management(0);"> <br/> << Back To Adding</a>';
+                return;
+            }
+            $this->my_db_lib->save_record($post,'courses');
+            echo '<br/><p>Course saved Successfully.</p><a href="javascript:void(0);" onclick="javascript:window.location.reload();"> <br/> << Back To List</a>';
+        }
+    }
+
+    function save_course(){
+        $post=$this->input->post();
+        if($post){
+            foreach($post['course_names'] as $k=>$v){
+                if(!empty($v)){
+                    $post['name']=$v;
+                    if($this->admin_model->check_course_name($post)){
+                        echo '<br/><div class="error">Course Name '.$v.' already exists for this College.</div>';
+                        continue ;
+                    }
+                    $this->my_db_lib->save_record($post,'courses');
+                    echo '<br/><p>Course '.$v.' saved Successfully.</p>';
+                }
+            }
+            echo '<br/><a href="javascript:void(0);" onclick="javascript:edit_course_management(0);"> <br/> << Back To Adding</a><a href="javascript:void(0);" onclick="javascript:window.location.reload();"> <br/> << Back To List</a>';
+        }
+    }
+
+    /***********************************************/
+
+    function branch_management(){
+        $post=$this->input->post();
+        if( $this->input->post()){
+            $post=$this->input->post();
+            $sql=" select b.*,c.name as course_name,IFNULL(col.name,'-') as college_name from branches as b
+                    left join colleges as col on col.id=b.college_id
+                    left join courses as c on c.id=b.course_id";
+
+            $user_details=$this->session->userdata('user_details');
+
+            $data=$this->my_db_lib->get_jqgrid_data($post,$sql);
+
+            if(count($data->db_data)){
+                $i=0; $sno=1;
+                foreach($data->db_data as $k=>$v){
+                    $data->rows[$i]['id']=$v['id'];
+                    $edit="<a href='javascript:void(0);' onclick='javascript:edit_branch_management(".$v['id'].");' >Edit</a>";
+                    $delete="<a href='javascript:void(0);' onclick='javascript:delete_branch_management(".$v['id'].");' >Delete</a>";
+                    $status=($v['status']=='1')?'Active':'InActive';
+                    $data->rows[$i]['cell']=array($sno++,$v['name'],$v['course_name'],$v['college_name'],$status,$edit,$delete);
+                    $i++;
+                }
+            }else{
+                $data->rows[0]['id']=0;
+                $data->rows[0]['cell']=array('No Data','','','','','');
+            }
+
+            unset($data->db_data);
+            echo json_encode($data);
+        }else{
+            $data['content_page']='admin/branch_management';
+            $this->load->view('common/base_template',$data);
+        }
+    }
+
+
+    function edit_branch_management(){
+        $post=$this->input->post();
+        if($post){
+            $id=$post['id'];
+            $data['college_data']=$this->admin_model->get_branches($id);
+            $this->load->view('admin/branch_management_form',$data);
+        }
+    }
+
+    function delete_branch_management(){
+        $post=$this->input->post();
+        if($post){
+            $id=$post['id'];
+            $this->admin_model->delete_branches($id);
+            echo '<br/><div class="error">Course Deleted.</div><a href="javascript:void(0);" onclick="javascript:window.location.reload();"> <br/> << Back To List</a>';
+        }
+    }
+
+
+    function save_branch(){
+        $post=$this->input->post();
+        if($post){
+            foreach($post['branch_names'] as $k=>$v){
+                if(!empty($v)){
+                    $post['name']=$v;
+                    if($this->admin_model->check_branch_name($post)){
+                        echo '<br/><div class="error">Branch Name '.$v.' already exists for this Course in the College.</div>';
+                        continue ;
+                    }else if($this->admin_model->check_branch_count_exceded($post) && $post['status']!='0'){ // Not checking if updating to InActive
+                        echo '<br/><div class="error">Only 10 Branches can be added to a Course in a College.</div>';
+                        continue ;
+                    }
+                    $this->my_db_lib->save_record($post,'branches');
+                    echo '<br/><p>Branch '.$v.' saved Successfully.</p>';
+                }
+            }
+            echo '<br/><a href="javascript:void(0);" onclick="javascript:edit_branch_management(0);"> <br/> << Back To Adding</a><a href="javascript:void(0);" onclick="javascript:window.location.reload();"> <br/> << Back To List</a>';
+        }
+    }
+
+
+    /***********************************************/
+
+    function semester_management(){
+        $post=$this->input->post();
+        if( $this->input->post()){
+            $post=$this->input->post();
+            $sql=" select s.*,b.name as branch_name, c.name as course_name, IFNULL(col.name,'-') as college_name from semisters as s
+                    left join colleges as col on col.id=s.college_id
+                    left join courses as c on c.id=s.course_id
+                    left join branches as b on b.id=s.branch_id ";
+
+            $user_details=$this->session->userdata('user_details');
+
+            $data=$this->my_db_lib->get_jqgrid_data($post,$sql);
+
+            if(count($data->db_data)){
+                $i=0; $sno=1;
+                foreach($data->db_data as $k=>$v){
+                    $data->rows[$i]['id']=$v['id'];
+                    $edit="<a href='javascript:void(0);' onclick='javascript:edit_semester_management(".$v['id'].");' >Edit</a>";
+                    $delete="<a href='javascript:void(0);' onclick='javascript:delete_semester_management(".$v['id'].");' >Delete</a>";
+                    $status=($v['status']=='1')?'Active':'InActive';
+                    $data->rows[$i]['cell']=array($sno++,$v['name'],$v['year'],$v['branch_name'],$v['course_name'],$v['college_name'],$status,$edit,$delete);
+                    $i++;
+                }
+            }else{
+                $data->rows[0]['id']=0;
+                $data->rows[0]['cell']=array('','No Data','','','','');
+            }
+
+            unset($data->db_data);
+            echo json_encode($data);
+        }else{
+            $data['content_page']='admin/semester_management';
+            $this->load->view('common/base_template',$data);
+        }
+    }
+
+
+    function edit_semester_management(){
+        $post=$this->input->post();
+        if($post){
+            $id=$post['id'];
+            $data['college_data']=$this->admin_model->get_semesters($id);
+            $this->load->view('admin/semester_management_form',$data);
+        }
+    }
+
+    function delete_semester_management(){
+        $post=$this->input->post();
+        if($post){
+            $id=$post['id'];
+            $this->admin_model->delete_semester($id);
+            echo '<br/><div class="error">Semester Deleted.</div><a href="javascript:void(0);" onclick="javascript:window.location.reload();"> <br/> << Back To List</a>';
+        }
+    }
+
+
+    function save_semester(){
+        $post=$this->input->post();
+        if($post){
+            foreach($post['semester_names'] as $k=>$v){
+                if(!empty($v)){
+                    $post['name']=$v;
+                    if($this->admin_model->check_semester_name($post)){
+                        echo '<br/><div class="error">Semester Name '.$v.' already exists for this Branch in the College.</div>';
+                        continue ;
+                    }else if($this->admin_model->check_semester_count_exceded($post) && $post['status']!='0'){ // Not checking if updating to InActive
+                        echo '<br/><div class="error">Only 10 Semesters can be added to a Branch, Course in a College.</div>';
+                        continue ;
+                    }
+                    $this->my_db_lib->save_record($post,'semisters');
+                    echo '<br/><p>Semester '.$v.' saved Successfully.</p>';
+                }
+            }
+            echo '<br/><a href="javascript:void(0);" onclick="javascript:edit_semester_management(0);"> <br/> << Back To Adding</a><a href="javascript:void(0);" onclick="javascript:window.location.reload();"> <br/> << Back To List</a>';
+        }
+    }
+
+
+    /***********************************************/
+
+    function subject_management(){
+        $post=$this->input->post();
+        if( $this->input->post()){
+            $post=$this->input->post();
+            $sql=" select sub.*,s.name as semister_name, s.year, b.name as branch_name, c.name as course_name, IFNULL(col.name,'-') as college_name from subjects as sub
+                    left join semisters as s on s.id=sub.semister_id
+                    left join colleges as col on col.id=sub.college_id
+                    left join courses as c on c.id=sub.course_id
+                    left join branches as b on b.id=sub.branch_id ";
+
+            $user_details=$this->session->userdata('user_details');
+
+            $data=$this->my_db_lib->get_jqgrid_data($post,$sql);
+
+            if(count($data->db_data)){
+                $i=0; $sno=1;
+                foreach($data->db_data as $k=>$v){
+                    $data->rows[$i]['id']=$v['id'];
+                    $edit="<a href='javascript:void(0);' onclick='javascript:edit_subject_management(".$v['id'].");' >Edit</a>";
+                    $delete="<a href='javascript:void(0);' onclick='javascript:delete_subject_management(".$v['id'].");' >Delete</a>";
+                    $status=($v['status']=='1')?'Active':'InActive';
+                    $data->rows[$i]['cell']=array($sno++,$v['name'],$v['semister_name'],$v['year'],$v['branch_name'],$v['course_name'],$v['college_name'],$status,$edit,$delete);
+                    $i++;
+                }
+            }else{
+                $data->rows[0]['id']=0;
+                $data->rows[0]['cell']=array('','No Data','','','','','','','','');
+            }
+
+            unset($data->db_data);
+            echo json_encode($data);
+        }else{
+            $data['content_page']='admin/subject_management';
+            $this->load->view('common/base_template',$data);
+        }
+    }
+
+
+    function edit_subject_management(){
+        $post=$this->input->post();
+        if($post){
+            $id=$post['id'];
+            $data['college_data']=$this->admin_model->get_subject($id);
+            $this->load->view('admin/subject_management_form',$data);
+        }
+    }
+
+    function delete_subject_management(){
+        $post=$this->input->post();
+        if($post){
+            $id=$post['id'];
+            $this->admin_model->delete_subject($id);
+            echo '<br/><div class="error">Subject Deleted.</div><a href="javascript:void(0);" onclick="javascript:window.location.reload();"> <br/> << Back To List</a>';
+        }
+    }
+
+
+    function save_subject(){
+        $post=$this->input->post();
+        if($post){
+            foreach($post['subject_names'] as $k=>$v){
+                if(!empty($v)){
+                    $post['name']=$v;
+                    if($this->admin_model->check_subject_name($post)){
+                        echo '<br/><div class="error">Subject Name '.$v.' already exists for this Semester, Branch, Course in the College.</div>';
+                        continue ;
+                    }else if($this->admin_model->check_subject_count_exceded($post) && $post['status']!='0'){ // Not checking if updating to InActive
+                        echo '<br/><div class="error">Only 10 Subjects can be added to a Semesters, Branch, Course in a College.</div>';
+                        continue ;
+                    }
+                    $this->my_db_lib->save_record($post,'subjects');
+                    echo '<br/><p>Subject '.$v.' saved Successfully.</p>';
+                }
+            }
+            echo '<br/><a href="javascript:void(0);" onclick="javascript:edit_subject_management(0);"> <br/> << Back To Adding</a><a href="javascript:void(0);" onclick="javascript:window.location.reload();"> <br/> << Back To List</a>';
+        }
+    }
+
+
+    /***********************************************/
+
+    function period_management(){
+        $post=$this->input->post();
+        if( $this->input->post()){
+            $post=$this->input->post();
+            $sql=" select pc.*,col.name as college_name from period_cycles as pc
+                    left join colleges as col on col.id=pc.college_id ";
+
+            $user_details=$this->session->userdata('user_details');
+
+            $data=$this->my_db_lib->get_jqgrid_data($post,$sql);
+
+            if(count($data->db_data)){
+                $i=0; $sno=1;
+                foreach($data->db_data as $k=>$v){
+                    $data->rows[$i]['id']=$v['id'];
+                    $edit="<a href='javascript:void(0);' onclick='javascript:edit_period_management(".$v['id'].");' >View/Edit</a>";
+                    $edit_periods="<a href='javascript:void(0);' onclick='javascript:edit_periods(".$v['id'].");' >View/Edit Cycle</a>";
+                    $delete="<a href='javascript:void(0);' onclick='javascript:delete_period_management(".$v['id'].");' >Delete</a>";
+                    $status=($v['status']=='1')?'Active':'InActive';
+                    $data->rows[$i]['cell']=array($sno++,$v['name'],$v['college_name'],$v['no_of_periods'],$v['time_period'],$v['starting_time'],$status,$edit,$edit_periods,$delete);
+                    $i++;
+                }
+            }else{
+                $data->rows[0]['id']=0;
+                $data->rows[0]['cell']=array('','No Data','','','','','','','');
+            }
+
+            unset($data->db_data);
+            echo json_encode($data);
+        }else{
+            $data['content_page']='admin/period_management';
+            $this->load->view('common/base_template',$data);
+        }
+    }
+
+
+    function edit_period_management(){
+        $post=$this->input->post();
+        if($post){
+            $id=$post['id'];
+            $data['college_data']=$this->admin_model->get_period_cycle($id);
+            $this->load->view('admin/period_cycle_management_form',$data);
+        }
+    }
+
+    function delete_period_management(){
+        $post=$this->input->post();
+        if($post){
+            $id=$post['id'];
+            $this->admin_model->delete_period_cycles($id);
+            echo '<br/><div class="error">Period Cycles Deleted.</div><a href="javascript:void(0);" onclick="javascript:window.location.reload();"> <br/> << Back To List</a>';
+        }
+    }
+
+
+    function generate_period_cycle(){
+        $post=$this->input->post();
+        if($post){
+            if($this->admin_model->check_period_cycles_name($post)){
+                echo '<br/><div class="error">Cycle Name '.$post['name'].' already exists for this College.</div>';
+                return ;
+            }
+            $newId=$this->my_db_lib->save_record($post,'period_cycles');
+            if(empty($post['id']) && $newId){
+                $interval=strtotime($post['time_period']);
+                $neutral=strtotime('00:00:00');
+                $additive=$interval-$neutral;
+                $start=strtotime($post['starting_time']);
+                $period_time=$start;
+                for($i=1;$i<=$post['no_of_periods'];$i++){
+                    $periods_post['time_label']=date('h:i:s a',($period_time)).' to '.(string)date('h:i:s a',($period_time+$additive));
+                    $periods_post['from']=date('H:i:s',($period_time));
+                    $periods_post['to']=date('H:i:s',($period_time+$additive));
+                    $periods_post['cycles_id']=$newId;
+                    $periods_post['period_label']='C'.$newId.' - P'.$i;
+                    $this->my_db_lib->save_record($periods_post,'periods');
+                    $period_time+=$additive;
+                }
+                redirect('admin/edit_periods/'.$newId);
+            }else{
+            echo '<br/><p>Period Cycle '.$post['name'].' Saved Successfully.</p>';
+            echo '<br/><a href="javascript:void(0);" onclick="javascript:window.location.reload();"> <br/> << Back To List</a>';
+            }
+            
+
+        }
+    }
+
+    function edit_periods($cycles_id=0){
+        if($cycles_id){
+            $post=$this->input->post(); 
+            if($post){
+                // echo '<pre>'; print_r($post); echo '</pre>';
+                foreach ($post['periods'] as $key => $value) {
+                    $periods_post=$value;
+                    $periods_post['id']=$key;
+                    $this->my_db_lib->save_record($periods_post,'periods');
+                }
+                echo '<br/><p>Periods for the Period Cycle Saved Successfully.</p>';
+                echo '<br/><a href="javascript:void(0);" onclick="javascript:window.location.reload();"> <br/> << Back To List</a>';
+            }else{
+                $cycle_data=$this->admin_model->get_period_cycle($cycles_id);
+                // print_r($cycle_data);
+                $data['cycles_id']=$cycles_id;
+                $data['cycles_name']=(isset($cycle_data[0]['name'])?$cycle_data[0]['name']:'');
+                $data['data']=$this->admin_model->get_period_cycle_periods($cycles_id);
+                $this->load->view('admin/period_cycle_periods_form',$data);
+            }
+
+        }else{
+            redirect('admin/period_management');
+        }
+    }
+
+
+    /********************* Select boxes ***********************/
+
+    function  getCollegeCourses($college_id=0){
+        $options='<option value="">Select</option>';
+        $options.=load_select('courses',0,array('status'=>'1','college_id'=>$college_id));
+        echo $options;
+    }
+    function  getCollegeBranches($college_id=0){
+        $options='<option value="">Select</option>';
+        $options.=load_select('branches',0,array('status'=>'1','college_id'=>$college_id,'course_id'=>$this->input->post('course_id')));
+        echo $options;
+    }
+    function  getCollegeSemesters($college_id=0){
+        $options='<option value="">Select</option>';
+        $options.=load_select('semisters',0,array('status'=>'1','college_id'=>$college_id,'branch_id'=>$this->input->post('branch_id')));
+        echo $options;
+    }
+    function  getCollegeSubjects($college_id=0){
+        $options='<option value="">Select</option>';
+        $options.=load_select('subjects',0,array('status'=>'1','college_id'=>$college_id,'semister_id'=>$this->input->post('semister_id')));
+        echo $options;
+    }
+
+
+    function attendance_management(){
+        $data['teachersOptions']=$this->admin_model->getActiveStaff();
+        $data['content_page']='admin/attendance_management';
+        $this->load->view('common/base_template',$data);
+    }
+
+    function attendance_management_grid(){
+        if($this->input->post()){
+            $post=$this->input->post();
+            $sql=" select sr.user_id as id,scp.cycle_id,sr.name as staff_name, pc.name as cycle_name from
+                    staff_cycles_periods as scp
+                    inner join staff_records as sr on sr.user_id=scp.user_id
+                    inner join period_cycles as pc on pc.id=scp.cycle_id
+                    where scp.status='1'
+                    group by sr.user_id,scp.cycle_id ";
+
+//            $user_details=$this->session->userdata('user_details');
+
+            $data=$this->my_db_lib->get_jqgrid_data($post,$sql);
+
+            if(count($data->db_data)){
+                $i=0; $sno=1;
+                foreach($data->db_data as $k=>$v){
+                    $data->rows[$i]['id']=$v['id'];
+                    $edit_form='
+                        <form action="'.site_url('admin/staff_attendance').'" id="appl_form2'.$v['id'].'" method="post" style="white-space: normal; " >
+                        <input name="staff_id"  type="hidden" value="'.$v['id'].'"/>
+                        <input name="cycle_id"  type="hidden" value="'.$v['cycle_id'].'"/>
+                        <input type="submit" name="submit"  class="send button j_gen_form_submit" value="View/Edit"/>
+                        </form>
+                    ';
+                    // $edit_periods="<a href='javascript:void(0);' onclick='javascript:edit_attendance_management(".$v['id'].");' >View/Edit Cycle</a>";
+                    $delete="<a href='javascript:void(0);' onclick='javascript:delete_attendance_management(".$v['id'].",".$v['cycle_id'].");' >Delete</a>";
+                    // $status=($v['status']=='1')?'Active':'InActive';
+                    $data->rows[$i]['cell']=array($sno++,$v['staff_name'],$v['cycle_name'],$edit_form,$delete);
+                    $i++;
+                }
+            }else{
+                $data->rows[0]['id']=0;
+                $data->rows[0]['cell']=array('','No Data','','');
+            }
+
+            unset($data->db_data);
+            echo json_encode($data);
+        }
+    }
+
+    function delete_attendance_management(){
+        if($this->input->post()){
+            $post=$this->input->post();
+            echo $this->admin_model->delete_attendance_management($post['id'],$post['cycle_id']);
+        }
+    }
+
+    function staff_attendance(){
+        if($this->input->post()){
+            $post=$this->input->post();
+            if(empty($post['staff_id']) && empty($post['cycle_id'])){
+                redirect('admin/attendance_management');
+            }
+            $data=$post;
+            $data['weekdays']=$this->admin_model->getWeekdays();
+            $data['cycle_periods']=$this->admin_model->getCyclePeriods($post['cycle_id']);
+            $data['staff_periods']=$this->admin_model->getStaffPeriods($post['staff_id'],$post['cycle_id']);
+            
+            $data['content_page']='admin/staff_attendance';
+            $this->load->view('common/base_template',$data);
+        }else{
+            redirect('admin/attendance_management');
+        }
+    }
+
+    function edit_staff_attendance(){
+        if($this->input->post()){
+            $post=$this->input->post();
+            if(empty($post['staff_id']) && empty($post['cycle_id']) && empty($post['weekday_id']) && empty($post['period_id'])){
+                redirect('admin/attendance_management');
+            }
+            $data=$post;
+            $data['weekdays']=$this->admin_model->getWeekdays();
+            $data['period_details']=$this->admin_model->getCyclePeriodDetails($post['cycle_id'],$post['period_id']);
+            $data['subjects']=$this->admin_model->getStaffsWeekdaysPeriodsSubject($post['staff_id'],$post['cycle_id'],$post['weekday_id'],$post['period_id']);
+            if(isset($data['subjects'][0]['subject_id']))
+            $data['subject_details']=$this->admin_model->get_subject($data['subjects'][0]['subject_id']);
+            $this->load->view('admin/edit_staff_attendance_form',$data);
+        }
+    }
+
+    function save_edit_staff_attendance(){
+        if($this->input->post()){
+            $post=$this->input->post();
+            if($this->admin_model->checkAttendanceCollision($post)){
+                echo '<br/><div class="error">Subject already allotted for the same period.</div>
+                    <br/><input type="button" name="imageField" id="imageField" class="send button" value="Back" onclick="javascript:window.location.reload();"/>';
+                return true;
+            }
+            $cycleTimeCollisions=$this->admin_model->checkCycleTimingCollision($post);
+            if(!empty($cycleTimeCollisions)){
+                echo '<br/><div class="error">Period Timings might Collide with the other allotted period in the Cycle -- '.$cycleTimeCollisions[0]['cycle_name'].' - '.$cycleTimeCollisions[0]['period_label'].' - '.$cycleTimeCollisions[0]['time_label'].'.</div>
+                    <br/><input type="button" name="imageField" id="imageField" class="send button" value="Back" onclick="javascript:window.location.reload();"/>';
+                return true;
+            }
+            $this->my_db_lib->save_record($post,'staff_cycles_periods');
+            echo '<br/><p>Subject saved to period Successfully.</p>
+                    <br/><input type="button" name="imageField" id="imageField" class="send button" value="Back" onclick="javascript:window.location.reload();"/>';
+        }
+    }
+
+}
+ 
+?>

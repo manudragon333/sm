@@ -1,0 +1,40 @@
+#DirectoryIndex index.php
+#php_value date.timezone "Asia/Calcutta"
+
+# Options
+Options -Multiviews
+Options +FollowSymLinks
+
+#Enable mod rewrite
+RewriteEngine On
+#the location of the root of your site
+#if writing for subdirectories, you would enter /subdirectory
+RewriteBase /school_mgmt
+ 
+#Removes access to CodeIgniter system folder by users.
+#Additionally this will allow you to create a System.php controller,
+#previously this would not have been possible.
+#'system' can be replaced if you have renamed your system folder.
+RewriteCond %{REQUEST_URI} ^system.*
+RewriteRule ^(.*)$ /index.php?/$1 [L]
+ 
+#Checks to see if the user is attempting to access a valid file,
+#such as an image or css document, if this isn't true it sends the
+#request to index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+#This last condition enables access to the images and css
+#folders, and the robots.txt file
+RewriteCond $1 !^(index\.php|images|robots\.txt|css|js|uploads|uploadify)
+
+RewriteRule ^(.*)$ index.php?/$1 [L]
+
+#RewriteCond %{HTTPS} =off
+#RewriteCond %{REQUEST_URI} office
+#RewriteRule ^(.*)$ https://www.mycollege.org.in/kits/office/$1 [R,L]
+
+#RewriteCond %{HTTPS} off
+#RewriteCond %{REQUEST_URI} office
+#RewriteRule ^(.*)$ https://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]
+

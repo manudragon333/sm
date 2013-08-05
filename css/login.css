@@ -1,0 +1,179 @@
+/*html{overflow:auto}*/
+body{
+	margin: 0;
+	padding: 0;
+	min-width: 1000px;
+	min-height: 500px;
+	overflow:auto;
+	background:url(images/stripe.png) repeat #e8ecf1
+}
+.app{
+	font-family:  Arial, Helvetica, Geneva, sans-serif;
+	color: #fff;
+	font-size:13px;
+}
+.app form,.app ul{
+	margin: 0;
+	padding: 0;
+}
+.app img, .app a img{border: none}
+.app ul{list-style:none;}
+.app #wrap{
+	width: 100%;
+	margin: auto;
+	top: 0;
+	left: 0;
+	position: absolute;
+	height: 100% !important;
+	min-width: 1000px;
+}
+.app #wrap #band{
+	height: 218px;
+	position: absolute;
+	width: 100%;
+	top: 50%;
+	z-index: 1;
+	background:url(images/login_band.png) repeat-x;
+	margin-top:-109px
+}
+.app #app_logo{
+	height: 128px;
+	width: 128px;
+	background: url(images/book.png) no-repeat;
+	position: absolute;
+	top: 74px;
+}
+.app #app_logo .band_hed{
+	color:#8FC6F7;
+	font-size:28px;
+	left:150px;
+	position:absolute;
+	text-shadow:0 1px 0 #03385A;
+	top:-112px;
+	width:380px;
+	margin:0;
+	padding:0;
+}
+.app #login_input{
+	padding-top: 20px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -145px;
+	height: 310px;
+	z-index: 3;
+	width:940px;
+	margin-left: -486px;
+}
+.app .login_info{
+	list-style: none;
+	padding:0 ;
+	overflow:hidden;
+	width:746px;
+	margin: 90px 0 0 228px;
+}
+.app .login_info li{
+	position: relative;
+	float:left;
+	padding-left:2px;
+}
+.app .login_info li.width260 {width: 320px;}
+.app .login_info li.width250{width:250px;}
+.app .login_info li.btn_aln{ padding-top:20px}
+.app .login_info li.btn_aln .button{ padding: 4px 12px; font-size: 13px}
+.app .login_info label{
+	display: block;
+	font-size:14px;
+	color:#454545;
+	text-shadow:0 1px 0 #e7eef2;
+	padding: 0 0 2px 2px;
+}
+.app .invalid_usr{
+	left:280px;
+	position:absolute;
+	top:50px;
+	bottom:auto;
+	color:#f45a51;
+	text-shadow: #383333 0 1px 0;
+}
+.app .login_info div.error{
+	position: absolute;
+	left: 2px;
+	width: 180px;
+	top:47px;
+	font-size: 12px;
+	text-align: left;
+}
+.app .login_info div.error,.app .invalid_usr{ 
+	color:#bf1c12; 
+	text-shadow:0 0 2px #F16181
+}
+.app .login_info input.text{
+	width: 296px;
+	padding:3px 2px;
+	background: #A6B9C6;
+	border: 1px solid #929292;
+	color: #313131;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	outline-color: #FFC221;
+	font-size:16px;
+	-webkit-background-clip: padding-box;
+}
+.app .login_info input.text:focus{	background:#FFF;}
+.app .login_info input.psdwrd {color: #010101;}
+.app .login_info #forgot_password{
+	text-decoration: none;
+	color: #697179;
+	outline: 0 none;
+	display: block;
+	margin: 20px 0 0 0;
+	font-size: 12px;
+	text-shadow: 0 1px 0 #E0E8EE;
+}
+.app .login_info #forgot_password:hover{color: #4e81a4;}
+.app .login_info #forgot_password:active{color: #294051;}
+.app #footer{ 
+	position:absolute;
+	bottom:10px;
+	right:30px;
+	background: #fff;
+	width:171px; 
+	height:56px; 
+}
+.app .cur_notallow{cursor: not-allowed;}
+.app .ivie_nw_lg{
+	background: url(images/ivielogo.png) no-repeat;
+	width:366px;
+	height:131px;
+	position:absolute;
+	top: -108px;
+	background: #fff;
+	display: none;
+}
+.app #app_logo .band_hed {
+    color: #33617f;
+	text-shadow:0 1px 0 #f6f8fa;
+	font-size:30px;
+	left:0;
+	width:450px;
+}
+.err {
+    bottom: 27px;
+    color: #c62900;
+    margin-top: 0;
+    position: absolute;
+    top: auto;
+}
+.app .response_msg{background:url(images/fgtpwd_icons.png) no-repeat 0 0; padding-left:18px}
+.app .response_msg.successmsg{background-position:0 -20px; color:#3a7736}
+.app .loginspin{
+	position: absolute;
+	left: 90px;
+	top: 24px;
+}
+.hide{
+    display: none;
+}
+/*.app .close_image{display:none}*/
