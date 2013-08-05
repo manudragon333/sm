@@ -1,2 +1,2 @@
-school_mgmt_git
+s_mgmt_git
 ===============
