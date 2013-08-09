@@ -1,10 +1,4 @@
-<h2><span>Progress Card</span></h2>
-<div class="clr"></div>
-<div class="user_instructions">
-    <p style="width:200px; float:left;">Please enter the details below.</p>
-    <p style="width:200px; float:right;font-weight: bold;"><i><b>*</b> required fields</i></p>
-    <div class="clr"></div>
-</div>
+<div class="f_r f_b m_r_10">* required fields</div>
 
 <form id="send_student_marks_form" action="" method="POST">
     <input id="" name="rel" class="text" type="hidden" value="upload_assignments"/>
@@ -64,12 +58,7 @@
         </li>
         <li id="internal_error_li">
         </li>
-        <li>
-            <br/>
-        </li>
-
-        
-        
+         
         <?php if(isset($students_data) && !empty($students_data)){
             /*
              * Show the Students Progress report.
@@ -238,10 +227,10 @@
             
             <?php } ?>
             <br/>
-            <input type="button" name="imageField" id="" class="upload button print_all_cards_btn" value="Print All Cards"/>
+            <input type="button" name="imageField" id="" class="upload gblue button print_all_cards_btn" value="Print All Cards"/>
             <br/>
             <br/>
-            <input type="button" name="imageField" id="" class="upload button print_all_cards_together_btn" value="Print All Cards Together"/>
+            <input type="button" name="imageField" id="" class="upload gblue button print_all_cards_together_btn" value="Print All Cards Together"/>
         <?php 
         }
         ?>
@@ -256,8 +245,7 @@
             
         <?php if(!isset($subjects_data)){ ?>
         <li>
-            <br/>
-            <input type="submit" name="imageField" id="imageField" class="upload button j_gen_form_submit" value="Submit"/>
+            <input type="submit" name="imageField" id="imageField" class="upload gblue button j_gen_form_submit" value="Submit"/>
         </li>
         <?php } ?>
     </ol>

@@ -1,10 +1,4 @@
-<h2><span>Update the Book details</span></h2>
-<div class="clr"></div>
-<div class="user_instructions">
-    <p style="width:200px; float:left;">Please enter your details below.</p>
-    <p style="width:200px; float:right;font-weight: bold;">*<i> required fields</i></p>
-    <div class="clr"></div>
-</div>
+<div class="f_r f_b m_r_10">* required fields</div>
 <form id="appl_form" action="/library/update_book">
     <input id="" name="rel" class="text" type="hidden" value="delete_book"/>
     <ol>
@@ -13,10 +7,10 @@
             <input id="unique_number" name="unique_number" class="text"/>
         </li>
         <li>
-            <input type="button" name="imageField" id="imageField" class="button j_gen_form_submit" value="Get this Book"/>
+            <input type="button" name="imageField" id="imageField" class="button gblue j_gen_form_submit" value="Get this Book"/>
         </li>
         <li>
-            <input type="button" name="imageField" id="imageField" class="delete button j_gen_form_submit hide" value="delete"/>
+            <input type="button" name="imageField" id="imageField" class="delete grey button j_gen_form_submit hide" value="delete"/>
             <div class="clr"></div>
         </li>
     </ol>

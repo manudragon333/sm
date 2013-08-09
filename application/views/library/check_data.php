@@ -1,10 +1,4 @@
-<h2><span>Check the Data</span></h2>
-
-<div class="user_instructions">
-    <p style="width:200px; float:left;">Please enter details below.</p>
-    <p style="width:200px; float:right;font-weight: bold;" class="hide">*<i> required fields</i></p>
-    <div class="clr"></div>
-</div>
+<div class="f_r f_b m_r_10">* required fields</div>
 <form id="appl_form" action="/library/check_data">
     <input id="" name="rel" class="text" type="hidden" value="check_Data"/>
     <ol>

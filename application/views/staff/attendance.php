@@ -1,12 +1,4 @@
-<div>
-    <h2 align="center"><span> View Period management </span></h2>
-    <div class="user_instructions">
-        <p style="width:200px; float:left;">Please enter details below.</p>
-        <p style="width:200px; float:right;font-weight: bold;">*<i> required fields</i></p>
-        <div class="clr"></div>
-    </div>
-    <div class="clr"></div>
-    <div class="clr"></div>
+<div class="f_r f_b m_r_10">* required fields</div>
     <form action="<?php echo site_url('staff/attendance');?>" id="appl_form2" method="post" >
         <input id="rel" name="rel"  type="hidden" value="submit"/>
 

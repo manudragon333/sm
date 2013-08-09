@@ -1,10 +1,4 @@
-<h2><span>Send Student Marks</span></h2>
-<div class="clr"></div>
-<div class="user_instructions">
-    <p style="width:200px; float:left;">Please enter the details below.</p>
-    <p style="width:200px; float:right;font-weight: bold;"><i><b>*</b> required fields</i></p>
-    <div class="clr"></div>
-</div>
+<div class="f_r f_b m_r_10">* required fields</div>
 
 <form id="send_student_marks_form" action="" method="POST">
     <input id="" name="rel" class="text" type="hidden" value="upload_assignments"/>
@@ -64,11 +58,7 @@
         </li>
         <li id="internal_error_li">
         </li>
-        <li>
-            <br/>
-        </li>
-
-        
+      
         
         <?php if(isset($subjects_data) && !empty($subjects_data)){
             /*
@@ -116,26 +106,10 @@
             </li>
         <?php }  ?>
         <li>
-            <br/>
-            <input type="submit" name="imageField" id="imageField" class="upload button j_gen_form_submit" value="Submit"/>
+            <input type="submit" name="imageField" id="imageField" class="upload gblue button j_gen_form_submit" value="Submit"/>
         </li>
     </ol>
 </form>
-<style type="text/css">
-/*    table.sample td {
-        padding: 2px;
-    }
-    table.sample td input{
-        width: 50px;
-        padding: 3px 1px;
-    }*/
-
-    #notofication_wrapper{
-        display:block !important;
-        height:100% !important;
-    }
-</style>
-
 <script type="text/javascript">
     $(function(){
         $('#send_student_marks_form').validate({

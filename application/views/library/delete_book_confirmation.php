@@ -38,7 +38,7 @@ if(count($data)){
                 <input id="unique_number" name="unique_number" class="text" readonly="readonly" value="<?php echo $data[0]['unique_number']; ?>"/>
             </li>
             <li>
-                <input type="button" class="send button" value="Delete the Book" onclick="javascript:delete_book('<?php echo $data[0]['id']; ?>')"/><br />
+                <input type="button" class="send button grey" value="Delete the Book" onclick="javascript:delete_book('<?php echo $data[0]['id']; ?>')"/><br />
             </li>
         </ol>
 <!--    </form>-->

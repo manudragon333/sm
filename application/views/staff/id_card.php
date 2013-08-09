@@ -3,13 +3,7 @@ if($this->session->userdata('staff_preview_id_card'))
     $s_data=$this->session->userdata('staff_preview_id_card');
 ?>
 
-<h2><span>Details for the ID card.</span></h2>
-<div class="clr"></div>
-<div class="user_instructions">
-    <p style="width:200px; float:left;">Please enter your details below.</p>
-    <p style="width:200px; float:right;font-weight: bold;"><i><b>*</b> required fields</i></p>
-    <div class="clr"></div>
-</div>
+<div class="f_r f_b m_r_10">* required fields</div>
 <form id="appl_form" action="/staff/preview_apply_idcard" suc_msg="ID Card Request Submited Successfully.">
     <input id="" name="rel" class="text" type="hidden" value="id_card"/>
     <input id="" name="is_staff" class="text" type="hidden" value="1"/>
@@ -51,7 +45,7 @@ if($this->session->userdata('staff_preview_id_card'))
         <li id="uploaded_image"></li>
         <li>
             <br/>
-            <input type="button" name="imageField" class="upload button j_gen_form_submit" value="Get the Id Card"/>
+            <input type="button" name="imageField" class="upload button gblue j_gen_form_submit" value="Get the Id Card"/>
 <!--            <input type="button" name="imageField" id="get_button" class="get button" value="Get the id card"style="margin-left: 126px;"/>-->
         </li>
     </ol>

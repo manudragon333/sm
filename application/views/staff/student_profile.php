@@ -1,9 +1,4 @@
-<h2 align="center"><span>Check Students Profile</span></h2>
-<div class="user_instructions">
-    <p style="width:200px; float:left;">Please enter your details below.</p>
-    <p style="width:200px; float:right;font-weight: bold;"><i><b>*</b> required fields</i></p>
-    <div class="clr"></div>
-</div>
+<div class="f_r f_b m_r_10">* required fields</div>
 <form id="appl_form" action="/staff/student_profile">
     <input id="" name="rel" class="text" type="hidden" value="check_stu_prof"/>
     <ol>

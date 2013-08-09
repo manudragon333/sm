@@ -1,10 +1,4 @@
-<h2><span>Select to post the results</span></h2>
-<div class="clr"></div>
-<div class="user_instructions">
-    <p style="width:200px; float:left;">Please enter the details below.</p>
-    <p style="width:200px; float:right;font-weight: bold;"><i><b>*</b> required fields</i></p>
-    <div class="clr"></div>
-</div>
+<div class="f_r f_b m_r_10">* required fields</div>
 
 <form id="post_exam_results_form" action="" method="POST">
     <input id="" name="rel" class="text" type="hidden" value="upload_assignments"/>
@@ -91,10 +85,6 @@
         <li style="display:none;">
             <label for="comment">Comment:</label>
             <textarea id="comment" cols="8" rows="5" name="comment" class="text"><?php echo ((isset($s_data['comment'])?$s_data['comment']:''));  ?></textarea>
-        </li>
-
-        <li>
-            <br/>
         </li>
 
         <?php if(isset($students_data) && !empty($students_data)){
@@ -232,26 +222,14 @@
         ?>
         <?php if(isset($students_data) && empty($students_data)){ ?>
             <li>
-                <br/>
-                <b>No Students Found.</b>
+                <b class="m_t_10">No Students Found.</b>
             </li>
         <?php }  ?>
         <li>
-            <br/>
-            <input type="submit" name="imageField" id="imageField" class="upload button j_gen_form_submit" value="Submit"/>
+            <input type="submit" name="imageField" id="imageField" class="upload button gblue j_gen_form_submit" value="Submit"/>
         </li>
     </ol>
 </form>
-<style type="text/css">
-    table.sample td {
-        padding: 2px;
-    }
-    table.sample td input{
-        width: 50px;
-        padding: 3px 1px;
-    }
-</style>
-
 <script type="text/javascript">
     $(function(){
         $('#post_exam_results_form').validate();

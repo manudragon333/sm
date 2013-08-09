@@ -5,13 +5,7 @@ if(isset($data[0]) && isset($data[0]->doj)){
     $start_select=date('Y')-3;
 }
 ?>
-<h2><span>Request for Pay slip.</span></h2>
-<div class="clr"></div>
-<div class="user_instructions">
-    <p style="width:200px; float:left;">Please enter the details below.</p>
-    <p style="width:200px; float:right;font-weight: bold;"><i><b>*</b> required fields</i></p>
-    <div class="clr"></div>
-</div>
+<div class="f_r f_b m_r_10">* required fields</div>
 <form id="appl_form" suc_msg="Payslip Request Submited Successfully.">
     <input id="" name="rel" class="text" type="hidden" value="payslip"/>
     <ol>

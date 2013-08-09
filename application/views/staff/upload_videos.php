@@ -1,10 +1,4 @@
-<h2><span>Upload Video's</span></h2>
-<div class="clr"></div>
-<div class="user_instructions">
-    <p style="width:200px; float:left;">Please enter the details below.</p>
-    <p style="width:200px; float:right;font-weight: bold;"><i><b>*</b> required fields</i></p>
-    <div class="clr"></div>
-</div>
+<div class="f_r f_b m_r_10">* required fields</div>
 <form id="appl_form" action="/staff/upload_videos">
     <input id="" name="rel" class="text" type="hidden" value="upload_videos"/>
     <ol>
@@ -54,7 +48,7 @@
         
         <li>
             <br/>
-            <input type="button" name="imageField" id="imageField" class="upload button j_gen_form_submit" value="Submit"/>
+            <input type="button" name="imageField" id="imageField" class="upload gblue button j_gen_form_submit" value="Submit"/>
         </li>
     </ol>
 </form>
