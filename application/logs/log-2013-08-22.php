@@ -110,3 +110,4 @@ ERROR - 2013-08-22 00:27:14 --> Severity: Warning  --> mail() [<a href='function
 ERROR - 2013-08-22 00:27:14 --> sms sending from email lib to this email:chiny549@gmail.comand for this msg:Hi CHOUDAM ANIL KUMAR today is holiday
 ERROR - 2013-08-22 00:27:15 --> Severity: Warning  --> mail() [<a href='function.mail'>function.mail</a>]: Failed to connect to mailserver at &quot;localhost&quot; port 25, verify your &quot;SMTP&quot; and &quot;smtp_port&quot; setting in php.ini or use ini_set() D:\wamp\www\school_mgmt\sm\application\libraries\my_email_lib.php 45
 ERROR - 2013-08-22 00:32:46 --> sms sending from sms lib to this no:9346599421and for this msg:Hi BANDARU AVINASH  is absent orai enkamma enduku manesav raa repu mee father ni teesukuni raa
+ERROR - 2013-08-22 01:00:28 --> Query error: Column 'status' in order clause is ambiguous

@@ -434,7 +434,7 @@ function sms_users_grid(){
             colModel:[
                     {name:'name',index:'name', width:150},	
                     {name:'message_type',index:'message_type', width:150},
-                    {name:'status',index:'status', width:150},
+                    {name:'sm.status',index:'sm.status', width:150},
                     {name:'sent_to',index:'sent_to', width:150},
 					{name:'message',index:'message', width:150},
                     {name:'action1',index:'action1', width:150, sortable:false,title:false},
