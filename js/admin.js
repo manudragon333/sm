@@ -382,7 +382,7 @@ function loadUserTypeSelect(){
         url:site_url+'/admin/get_user_types',
         data:'type=add_user',
         type:'POST',
-        dataType:'text/html',
+        dataType:'',
         beforeSend:function(){
 
         },
