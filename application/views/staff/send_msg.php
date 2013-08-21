@@ -51,19 +51,41 @@
             </select>
        
             <br/>
-
-<!--            <label for="website">Send Message to:*</label>
-            <select name='choice3' class="text">
-                
-            </select>-->
+<br style="clear:both;"/>
+            <label> <p>Religion:</p> </label>
+		<select id="religion" name="religion" class="text" title="Please select a Religion">
+		<option value="">All</option>
+		<option value="Hindu">Hindu</option>
+		<option value="Muslim">Muslim</option>
+		<option value="Christian">Christian</option>
+		<option value="Others">Others</option>           
+		</select>
+		<br style="clear:both;"/>
+        <div id='sms_users_req'></div>		
+		
+		</li>
+		<li>
+		<br style="clear:both;"/>
+            <label><p>Send to:</p></label>
+            <input type="radio" name="smsto" checked value="parent" /> Parent
+            <input type="radio" name="smsto" value="student" /> Student<br style="clear:both;"/>
         </li>
-        <li id="student_number_li" class="hide">
+    	<li id="student_number_li" class="hide">
             <label for="student_number">Student Number:*</label>
             <input id="student_number" name="student_number" class="text"/>
         </li>
+		
+		<li id="sms_template_li" class="hide">
+            <label for="sms_template">Select Template:*</label>            
+			<select id="sms_template" name="sms_template" class="text required">
+                 <option value="" desc="">Select</option>
+                 <?php if(isset($s_data['sms_template'])) $sms_template_select=$s_data['sms_template']; else $sms_template_select=0; echo template_select('templates',$sms_template_select); ?>
+            </select>
+        </li>
+		
         <li id="message_li" class="hide">
             <label for="message">Message:*</label>
-            <textarea cols="10" rows="8" name="message"></textarea>
+            <textarea cols="10" rows="8" name="message" id="message"></textarea>
         </li>
         <li id="submit_button" class="hide">
             <input type="button" name="imageField" id="imageField" class="generate button j_gen_form_submit gblue" value="  Send  " />

@@ -195,8 +195,112 @@ class Staff extends CI_Controller {
         $data['content_page']='staff/pay_slip';
         $this->load->view('common/base_template',$data);
     }
+	
+	//surya function 
+	function get_sms_students()
+	{
+		$data=$this->students_model->get_smsstudents($_POST);
+		$output = '';
+		//print_r($datatype);
+		$totalstudents = count($data);
+			if($totalstudents>0)
+			{
+				//$output ='Students Are <br>';
+				$i=0;
+				$output = '<table align="center">';
+				foreach($data as $individualstudent)
+				{
+					if($i%3==0)
+					{
+						 
+						$output .= "<tr>";						
+					}
+					$output .= "<td><input type='checkbox' checked class='required' name='sms_student_ids[]' value='".$individualstudent->id."' />".$individualstudent->name.' ('.$individualstudent->students_number.')<td>';
+					if($i%3==0)
+					{
+						 
+						$output .= "</tr>";						
+					}
+					
+					$i++;
+				}
+				$output .= '</table>';
+			}else
+			{
+				$output =  '<br><br><div align="center"><b>No records</b></div>';
+			}
+		 echo $output;
+	}
+	function test_sms()
+	{		
+		$this->load->library('my_email_lib');
+		$this->my_email_lib->html_email('mca.surya@gmail.com','surya email');
+	}
+	//surya function
+	function send_msg()
+	{
+		//print_r($_POST);die();
+		if(!empty($_POST))
+		{
+			$post_array = $_POST;
+			
+			/*$post_array['choice']=1; //email or mobile
+			$post_array['choice2']=1; //single message or bulk
+			$post_array['college_id']=1;
+			$post_array['course_id']=4;
+			$post_array['branch_id']=12;
+			$post_array['semister_id']=29;
+			$post_array['section_id']=100;
+			$post_array['message']='Hi %sname%  is absent';
+			$post_array['smsto']= 'parent'; //parent or student (possible values)
+			$post_array['student_number']='11QP1A0301';
+			$post_array['religion']='others';*/
+			if($post_array['choice2']==1)
+			{
+				//now get all the students for this crieteria		
+				if(!empty($post_array['sms_student_ids']))
+				{
+					$data=$this->students_model->get_smsstudents_by_ids($post_array['sms_student_ids']);
+					$totalstudents = count($data);
+					if($totalstudents>0)
+					{
+						foreach($data as $individualstudent)
+						{
+							//now cal the generic function for sending email or sms 
+							$this->students_model->send_sms_or_email($post_array,$individualstudent);
+						}
+					
+					}
+				}
+			}
+			else if($post_array['choice2']==2)
+			{
+				//now find the student details based on the student number
+				$data=$this->students_model->get_student_details($post_array['student_number']);	
+				if(!empty($data[0]))
+				{
+					//now cal the generic function for sending email or sms
+					$this->students_model->send_sms_or_email($post_array,$data[0]);			
+				}
+			}else
+			{
+				return;
+			}
+		echo showBigSuccess('<p>Success</p>');
+		}
+		else
+		{
+			$data['content_page']='staff/send_msg';
+			$this->load->view('common/base_template',$data);							
+		}
+	}
 
-    function send_msg(){
+    function send_msgold(){
+	
+	/*echo '<pre>';
+	print_r($_POST);
+	die();*/
+	
         if($this->input->post()){
             $post=$this->input->post();
             $post['choice3']=$post['semister_id'];
@@ -457,6 +561,36 @@ class Staff extends CI_Controller {
             echo json_encode($data);
         }else{
             $data['content_page']='staff/view_assignments';
+            $this->load->view('common/base_template',$data);
+        }
+    }
+	//surya function
+	function student_messages(){
+        if($this->input->post()){
+            $post=$this->input->post();
+			
+            $sql=" select id,user_id,student_number,user_name,message,message_type,`status`,sent_to,sent_date from student_messages where user_id='".$this->ci_user_details->id."'";
+
+             
+
+            $data=$this->my_db_lib->get_jqgrid_data($post,$sql);
+
+            if(count($data->db_data)){
+                $i=0;
+                foreach($data->db_data as $k=>$v){
+                    $data->rows[$i]['id']=$v['id'];                                       
+					$data->rows[$i]['cell']=array($v['message'],$v['message_type'],$v['status'],$v['sent_to'],dateFormat($v['sent_date']));
+                    $i++;
+                }
+            }else{
+                $data->rows[0]['id']=0;
+                $data->rows[0]['cell']=array('No Data','','','','');
+            }
+
+            unset($data->db_data);
+            echo json_encode($data);
+        }else{
+            $data['content_page']='staff/student_messages';
             $this->load->view('common/base_template',$data);
         }
     }

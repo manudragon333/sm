@@ -30,9 +30,11 @@ class My_email_lib{
         mail($to, $subject, implode("\r\n", $message), implode("\r\n", $headers));
     }
 
-    function html_email($to,$from='noreply@mycollege.goendeavor.com',$subject='My College',$body){
+    function html_email($to,$body,$from='noreply@mycollege.goendeavor.com',$subject='My College'){
+	//echo $to;die();
+	log_message('error', 'sms sending from email lib to this email:'.$to.'and for this msg:'.$body);
         // To send HTML mail, the Content-type header must be set
-        $headers  = 'MIME-Version: 1.0' . "\r\n";
+       $headers  = 'MIME-Version: 1.0' . "\r\n";
         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
         // Additional headers

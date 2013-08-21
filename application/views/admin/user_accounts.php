@@ -72,6 +72,14 @@
             <option value="1">Active</option>
             <option value="0">In Active</option>
         </select>
+		<label for="status">Missing Data: </label>
+        <select name="missingdata" id="missingdata" class="text">
+			<option value="">Select</option>
+            <option value="mobile">Student Phone Number</option>
+            <option value="email">Student Email</option>
+			<option value="father_mobile">Parent Phone Number</option>
+            <option value="father_email">Parent Email</option>
+        </select>
         <input type="submit" value="Export to Excel" class="button black m_l_10"/>
     </form>
 </div>

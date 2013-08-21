@@ -48,6 +48,9 @@
                 <li>
                     <label for="website"><a class="<?php if ($url_2 == 'no_due') echo 'active'; ?>" href="<?php echo site_url('students/no_due'); ?>"> Apply for No Due certificate Submit </a></label>
                 </li>
+				<li>
+                    <label for="website"><a class="<?php if ($url_2 == 'student_messages') echo 'active'; ?>" href="<?php echo site_url('staff/student_messages'); ?>"> Messages  </a></label>
+                </li>
             </ul>
         </li>
         
@@ -177,6 +180,7 @@
                 <li>
                     <label for="website"><a class="<?php if ($url_2 == 'post_exam_results') echo 'active'; ?>" href="<?php echo site_url('staff/post_exam_results'); ?>"> Post Exam Results </a></label>
                 </li>
+				
                 <?php if ($userData->users_type_id == 3) {  ?>
                 <li>
                     <label for="website"><a class="<?php if ($url_2 == 'leave_requests') echo 'active'; ?>" href="<?php echo site_url('staff/leave_requests'); ?>"> Leave Letter Requests  </a></label>
@@ -405,6 +409,9 @@
                 <li>
                     <label for="website"><a class="<?php if ($url_2 == 'view_student_results') echo 'active'; ?>" href="<?php echo site_url('exam/view_student_results'); ?>"> Search Student Results </a></label>
                 </li>
+				 <li>
+            <label for="website"><a class="<?php if ($url_2 == 'sms_modaration') echo 'active'; ?>" href="<?php echo site_url('admin/sms_modaration'); ?>"> Modarate </a></label>
+        </li>
                 <!--                            <li>
                                     <label for="website"><a href="<?php echo site_url('office/processed_tc_certis'); ?>"> Processed Request  </a></label>
                                 </li>-->
@@ -530,12 +537,17 @@
                 <li>
                     <label for="website"><a class="<?php if ($url_2 == 'send_msg') echo 'active'; ?>" href="<?php echo site_url('staff/send_msg'); ?>"> Send Message </a></label>
                 </li>
+				
+				 <li>
+            <label for="website"><a class="<?php if ($url_2 == 'sms_modaration') echo 'active'; ?>" href="<?php echo site_url('admin/sms_modaration'); ?>"> Modarate </a></label>
+        </li>
             </ul>
         </li>
         <li>
             <label for="website"><a class="<?php if ($url_2 == 'compose') echo 'active'; ?>" href="<?php echo site_url('email/compose'); ?>"> Email </a></label>
         </li>
-
+		
+		
 
 
         <!--<li>

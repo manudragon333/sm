@@ -21,7 +21,7 @@ $(function(){
     })
 /****************************************************************************************************************/
 
-    $('[name=users_type],[name=status],[name=college_id],[name=course_id],[name=branch_id],[name=semister_id],[name=section_id],[name=admission_type_id],[name=scholarship],[name=sex],[name=caste_id]').live('change',function(){
+    $('[name=users_type],[name=sms_status],[name=status],[name=college_id],[name=course_id],[name=religion],[name=branch_id],[name=semister_id],[name=section_id],[name=admission_type_id],[name=scholarship],[name=sex],[name=caste_id],[name=missingdata]').live('change',function(){
         $('#grid_table').setGridParam({
             postData:{
                 user_type:$('[name=users_type]').val(),
@@ -34,7 +34,10 @@ $(function(){
 				admission_type_id:$('[name=admission_type_id]').val(),
 				scholarship:$('[name=scholarship]').val(),
 				sex:$('[name=sex]').val(),
-				caste_id:$('[name=caste_id]').val()
+				caste_id:$('[name=caste_id]').val(),
+				religion:$('[name=religion]').val(),				
+				missingdata:$('[name=missingdata]').val(),
+				sms_status:$('[name=sms_status]').val()
             }
         }).trigger('reloadGrid');
     });
@@ -42,6 +45,135 @@ $(function(){
     $('#add_user_btn').live('click',function(){
         loadUserTypeSelect();
     });
+	
+	
+	
+	//surya function
+	$('#send_selected_sms_ids').live('click',function(){
+		var totalids;
+		totalids = jQuery("#grid_table").jqGrid('getGridParam','selarrrow');
+		if($.trim(totalids)!='')
+		{
+			dataP='message_ids='+totalids;
+			 $.ajax({
+				url:site_url+'/admin/send_bulk_selected_sms_msgs',
+				data:dataP,
+				type:'POST',
+			   // dataType:'text/html',
+				beforeSend:function(){						
+				},
+				success:function(dataR){				 
+					//console.log(dataR);	
+					$("#sucess_sms_popup_confirm" ).html('Successfuly sent.');
+					$("#sucess_sms_popup_confirm" ).dialog({
+							resizable: false,
+							height:150,
+							modal: true,
+							buttons: {
+								"Ok": function() {
+									$('#grid_table').trigger('reloadGrid');
+									$("#sucess_sms_popup_confirm" ).dialog( "close" );
+								}
+							}
+					 });
+				}
+		  });
+		  return false;
+		}
+		else
+		{
+			 $("#sucess_sms_popup_confirm" ).html('Please select student');
+			 $("#sucess_sms_popup_confirm" ).dialog({
+					resizable: false,
+					height:150,
+					modal: true,
+					buttons: {
+						"Ok": function() {														
+							$("#sucess_sms_popup_confirm" ).dialog( "close" );
+						}
+					}
+				});
+			return false;
+		}
+		 
+		return false;
+	});
+	
+	//surya function
+	$('.send_sms_message').live('click',function(){
+		var sms_id = $(this).parent('DIV').attr('sms_id');
+		var students_number = $(this).parent('DIV').attr('students_number');
+		var sms_message = $(this).parent('DIV').attr('sms_desc');
+		var sent_to = $('#sent_to_val_'+sms_id).text();
+		var message_type = $('#message_type_val'+sms_id).text();		
+		var uname_val = $('#uname_val'+sms_id).text();			
+		var displaymsg = message_type+' sent to '+ uname_val+' sucessfully';
+		$("#sucess_sms_popup_confirm" ).html(displaymsg);
+		dataP='message_id='+sms_id+'&message='+sms_message+'&smsto='+sent_to+'&message_type='+message_type+'&student_number='+students_number;	
+		  //try to save in db
+		  $.ajax({
+				url:site_url+'/admin/send_selected_sms_msg',
+				data:dataP,
+				type:'POST',
+			   // dataType:'text/html',
+				beforeSend:function(){						
+				},
+				success:function(dataR){				 
+				// console.log(dataR);
+				
+				$("#sucess_sms_popup_confirm" ).dialog({
+					resizable: false,
+					height:150,
+					modal: true,
+					buttons: {
+						"Ok": function() {
+							$('#grid_table').trigger('reloadGrid');
+							$("#sucess_sms_popup_confirm" ).dialog( "close" );
+						}
+					}
+				});				
+				}
+		  });
+	});
+	//surya function
+	$('.edit_sms_message').live('click',function(){
+        //alert($(this).parent('DIV').attr('sms_id'));
+		var sms_id = $(this).parent('DIV').attr('sms_id');
+		var sms_message = $(this).parent('DIV').attr('sms_desc');
+		$("#sms_edit_popup_confirm" ).children().val(sms_message);
+		$("#sms_edit_popup_confirm" ).dialog({
+		  resizable: false,
+		  height:300,
+		  modal: true,
+		  buttons: {
+			"Save": function() {
+			dataP='message_id='+sms_id+'&sms_message='+$("#sms_edit_popup_confirm" ).children().val();
+			  //try to save in db
+			  $.ajax({
+					url:site_url+'/admin/update_sms_message',
+					data:dataP,
+					type:'POST',
+				   // dataType:'text/html',
+					beforeSend:function(){						
+					},
+					success:function(dataR){
+					$('#change_sms_desc_'+sms_id).html($("#sms_edit_popup_confirm" ).children().val());
+					$('#send_sms_desc_'+sms_id).attr('sms_desc',$("#sms_edit_popup_confirm" ).children().val());
+					$('#set_sms_desc_'+sms_id).attr('sms_desc',$("#sms_edit_popup_confirm" ).children().val());
+					 //console.log(dataR);
+					//alert(dataR);
+					}
+			  });
+			  $("#sms_edit_popup_confirm" ).dialog( "close" );
+			},
+			Cancel: function() {
+			  $("#sms_edit_popup_confirm" ).dialog( "close" );
+			}
+		  }
+		});
+    });
+	
+	
 
     $('#add_attendance_sem_id').live('change',function(){
         loadAttendance();
@@ -288,6 +420,49 @@ function users_grid(){
     });
 }
 
+function sms_users_grid(){
+    jQuery("#grid_table").jqGrid({
+            url:site_url+'/admin/load_sms_users_grid',
+            datatype: "json",
+            height:'auto',
+            autowidth: true,
+            mtype: 'POST',
+            recordtext: "Sms(s)",
+            recordtext: "Viewing {0} - {1} of {2} Sms(s)",
+            pgtext : "Page {0} of {1}",
+            colNames:['Name','Type', 'Status','Sent to','Message','Edit','Send / Resend'],
+            colModel:[
+                    {name:'name',index:'name', width:150},	
+                    {name:'message_type',index:'message_type', width:150},
+                    {name:'status',index:'status', width:150},
+                    {name:'sent_to',index:'sent_to', width:150},
+					{name:'message',index:'message', width:150},
+                    {name:'action1',index:'action1', width:150, sortable:false,title:false},
+                    {name:'action2',index:'action2', width:130, sortable:false,title:false}
+            ],
+            rowNum:100,
+            //rowList:[10,20],
+            pager: '#grid_pager',
+            sortname: 'name',
+            viewrecords: true,
+            sortorder: "desc",
+            caption:"Sms(s)",
+			multiselect: true,
+            loadtext:'Loading..',
+            postData:{                               
+                college_id:$('[name=college_id]').val(),
+                course_id:$('[name=course_id]').val(),
+                branch_id:$('[name=branch_id]').val(),
+                semister_id:$('[name=semister_id]').val(),
+                section_id:$('[name=section_id]').val(),				
+				religion:$('[name=religion]').val(),
+				sms_status:$('[name=sms_status]').val()
+            }
+    });
+}
+
+
+
 function poll_grid(){
     jQuery("#grid_table").jqGrid({
             url:site_url+'/admin/poll_grid',
@@ -382,7 +557,7 @@ function loadUserTypeSelect(){
         url:site_url+'/admin/get_user_types',
         data:'type=add_user',
         type:'POST',
-        dataType:'text/html',
+        dataType:'',
         beforeSend:function(){
 
         },
