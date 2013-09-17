@@ -7,21 +7,21 @@
             $s_data=$college_data[0];
         } ?>
         <li>
-            <label for="college_id">College:* </label>
+            <label for="college_id"><?php echo $this->lang->line('institute_type'); ?>:* </label>
             <select id="college_id" name="college_id" class="text">
                 <option value="">Select</option>
                 <?php if(isset($s_data['college_id'])) $college_id_select=$s_data['college_id']; else $college_id_select=0; echo load_select('colleges',$college_id_select); ?>
             </select>
         </li>
         <li>
-            <label for="course_id">Course:* </label>
+            <label for="course_id"><?php echo $this->lang->line('institute_course'); ?>:* </label>
             <select id="course_id" name="course_id" class="text">
                 <option value="">Select</option>
                 <?php if(isset($s_data['course_id'])) $course_id_select=$s_data['course_id']; else $course_id_select=0; echo load_select('courses',$course_id_select,array('status'=>'1','college_id'=>$college_id_select)); ?>
             </select>
         </li>
         <li>
-            <label for="branch_id">Branch:* </label>
+            <label for="branch_id"><?php echo $this->lang->line('institute_branch'); ?>:* </label>
             <select id="branch_id" name="branch_id" class="text required">
                 <option value="">Select</option>
                 <?php if(isset($s_data['branch_id'])) $branch_id_select=$s_data['branch_id']; else $branch_id_select=0; echo load_select('branches',$branch_id_select,array('status'=>'1','course_id'=>$course_id_select)); ?>
@@ -29,15 +29,15 @@
         </li>
         <?php if(isset($college_data[0]['id']) && !empty($college_data[0]['id'])){ // This is a Update Process ?>
         <li>
-            <label for="semester_names">Semester Name:* </label>
-            <input id="name" name="semester_names[]" class="text required" title="Please enter a semester name" value="<?php if(isset($college_data[0]['name'])) echo $college_data[0]['name']; ?>">
+            <label for="semester_names"><?php echo $this->lang->line('institute_sem'); ?> Name:* </label>
+            <input id="name" name="semester_names[]" class="text required" title="Please enter a <?php echo $this->lang->line('institute_sem'); ?> name" value="<?php if(isset($college_data[0]['name'])) echo $college_data[0]['name']; ?>">
         </li>
         <?php }else{ // This is a Adding Process  
             for($i=1;$i<=10;$i++){
             ?>
             <li>
-                <label for="semester_names">Semester Name <?php echo $i;  ?>:* </label>
-                <input id="semester_names" name="semester_names[]" class="text required" title="Please enter a semester name" value="">
+                <label for="semester_names"><?php echo $this->lang->line('institute_sem'); ?> Name <?php echo $i;  ?>:* </label>
+                <input id="semester_names" name="semester_names[]" class="text required" title="Please enter a <?php echo $this->lang->line('institute_sem'); ?> name" value="">
             </li>
         <?php
             }

@@ -84,21 +84,21 @@ credits[i].value='';
             $s_data=$college_data[0];
         } ?>
         <li>
-            <label for="college_id">College:* </label>
+            <label for="college_id"><?php echo $this->lang->line('institute_type'); ?>:* </label>
             <select id="college_id" name="college_id" class="text">
                 <option value="">Select</option>
                 <?php if(isset($s_data['college_id'])) $college_id_select=$s_data['college_id']; else $college_id_select=0; echo load_select('colleges',$college_id_select); ?>
             </select>
         </li>
         <li>
-            <label for="course_id">Course:* </label>
+            <label for="course_id"><?php echo $this->lang->line('institute_course'); ?>:* </label>
             <select id="course_id" name="course_id" class="text">
                 <option value="">Select</option>
                 <?php if(isset($s_data['course_id'])) $course_id_select=$s_data['course_id']; else $course_id_select=0; echo load_select('courses',$course_id_select,array('status'=>'1','college_id'=>$college_id_select)); ?>
             </select>
         </li>
         <li>
-            <label for="branch_id">Branch:* </label>
+            <label for="branch_id"><?php echo $this->lang->line('institute_branch'); ?>:* </label>
             <select id="branch_id" name="branch_id" class="text required">
                 <option value="">Select</option>
                 <?php if(isset($s_data['branch_id'])) $branch_id_select=$s_data['branch_id']; else $branch_id_select=0; echo load_select('branches',$branch_id_select,array('status'=>'1','course_id'=>$course_id_select)); ?>
@@ -106,7 +106,7 @@ credits[i].value='';
         </li>
         
         <li>
-            <label for="semister_id">Semester:* </label>
+            <label for="semister_id"><?php echo $this->lang->line('institute_sem'); ?>:* </label>
             <select id="semister_id" name="semister_id" class="text required" title="Please select a Semester">
                 <option value="">Select</option>
                 <?php if(isset($s_data['semister_id'])) $semister_id_select=$s_data['semister_id']; else $semister_id_select=0; echo load_select('semisters',$semister_id_select,array('status'=>'1','branch_id'=>$branch_id_select)); ?>

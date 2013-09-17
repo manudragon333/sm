@@ -38,7 +38,7 @@ function validate_form_id_card(){
                 required:'Please select year'
             },
             branch:{
-                required: 'Please select Branch'
+                required: 'Please select '+lang.institute_branch+''
             },
             mobile_no:{
                 required:'Please enter mobile number',
@@ -87,7 +87,7 @@ function validate_form_study_certi(){
                 required:'Please enter Student number'
             },
             course:{
-                required: 'Please select Course'
+                required: 'Please select '+lang.institute_course+''
             },
             from:{
                 required:'Please enter From date'
@@ -131,7 +131,7 @@ function validate_form_cond_certi(){
                 required:'Please enter Student number'
             },
             course:{
-                required: 'Please select Course'
+                required: 'Please select '+lang.institute_course+''
             },
             from_date:{
                 required:'Please enter From date'
@@ -344,7 +344,7 @@ function validate_form_my_rec(){
                 required:'Select date of join'
             },
             course_id:{
-                required:'Select Course'
+                required:'Select '+lang.institute_course+''
             },
             branch_id:{
                 required:'Select branch'
@@ -644,7 +644,7 @@ function validate_form_upload_q_paper(){
         },
         messages:{
             branch:{
-                required:'Select Branch'
+                required:'Select '+lang.institute_branch+''
             },
             year:{
                 required:'Select Year'                
@@ -688,7 +688,7 @@ function validate_form_busspass(){
                 required:'Enter Student Number'
             },
             branch:{
-                required:'Enter Branch'               
+                required:'Enter '+lang.institute_branch+''               
             },
             ppoint:{
                 required:'Enter Pick up Point'
@@ -751,10 +751,10 @@ function validate_form_office_id_card(){
                 required:'Enter Student Number'
             },
             course:{
-                required:'Enter Course'
+                required:'Enter '+lang.institute_course+''
             },
             branch:{
-                required:'Enter Branch'               
+                required:'Enter '+lang.institute_branch+''               
             },
             from:{
                 required:'Select From Date'
@@ -817,10 +817,10 @@ function validate_form_proc_icard(){
                 required:'Enter Student Number'
             },
             course:{
-                required:'Enter Course'
+                required:'Enter '+lang.institute_course+''
             },
             branch:{
-                required:'Enter Branch'               
+                required:'Enter '+lang.institute_branch+''               
             },
             Picture:{
                 required:'Upload Photo'
@@ -863,10 +863,10 @@ function validate_form_proc_study(){
                 required:'Enter Student Number'
             },
             course:{
-                required:'Enter Course'
+                required:'Enter '+lang.institute_course+''
             },
             branch:{
-                required:'Enter Branch'               
+                required:'Enter '+lang.institute_branch+''               
             },
             from:{
                 required:'Select From Date'
@@ -1113,7 +1113,7 @@ function validate_form_account1(){
                 required:'Enter Student Number'
             },
             branch:{
-                required:'Enter Branch'
+                required:'Enter '+lang.institute_branch+''
             }
         },
         submitHandler:function(form){
@@ -1223,10 +1223,10 @@ function validate_form_add_stu_details(){
                 required:'Enter Password'
             },
             branch:{
-                required:'Select Branch'                
+                required:'Select '+lang.institute_branch+''                
             },
             course:{
-                required:'Select Course'                
+                required:'Select '+lang.institute_course+''                
             },
             dob:{
                 required:'Select Date of Birth'                
@@ -1321,10 +1321,10 @@ function validate_form_sbject_grid_form(){
         },
         messages:{
             branch_id:{
-                required:'Select Branch'
+                required:'Select '+lang.institute_branch+''
             },
             semister_id:{
-                required:'Select Semester'
+                required:'Select '+lang.institute_sem+''
             },
             subject_id:{
                 required:'Select Subject'
@@ -1363,10 +1363,10 @@ function validate_form_upload_assignments(){
         },
         messages:{
             branch_id:{
-                required:'Select Branch'
+                required:'Select '+lang.institute_branch+''
             },
             sem_id:{
-                required:'Select Semester'
+                required:'Select '+lang.institute_sem+''
             },
             max_marks:{
                 required:'Enter Max Marks'
@@ -1524,10 +1524,10 @@ function validate_form_upload_videos(){
         },
         messages:{
             branch_id:{
-                required:'Select Branch'
+                required:'Select '+lang.institute_branch+''
             },
             sem_id:{
-                required:'Select Semester'
+                required:'Select '+lang.institute_sem+''
             },
             max_marks:{
                 required:'Enter Max Marks'
@@ -1563,7 +1563,7 @@ function validate_form_college_management(){
         },
         messages:{
             name:{
-                required:'Please enter College Name'
+                required:'Please enter '+lang.institute_type+' Name'
             },
             status:{
                 required:'Please select a status'
@@ -1590,13 +1590,13 @@ function validate_form_course_management(){
         },
         messages:{
             name:{
-                required:'Please enter Course Name'
+                required:'Please enter '+lang.institute_course+' Name'
             },
             status:{
                 required:'Please select a status'
             },
             college_id:{
-                required:'Please select a College'
+                required:'Please select a '+lang.institute_type+''
             }
         },
         submitHandler:function(form){
@@ -1654,10 +1654,10 @@ function validate_form_branch_management(){
         },
         messages:{
             'branch_names[]':{
-                required:'Please enter Branch Name'
+                required:'Please enter '+lang.institute_branch+' Name'
             },
             'semester_names[]':{
-                required:'Please enter Semester Name'
+                required:'Please enter '+lang.institute_sem+' Name'
             },
 			subject1:{
                 required:''
@@ -1693,13 +1693,13 @@ function validate_form_branch_management(){
                 required:'Please select a status'
             },
             college_id:{
-                required:'Please select a College'
+                required:'Please select a '+lang.institute_type+''
             },
             course_id:{
-                required:'Please select a Course'
+                required:'Please select a '+lang.institute_course+''
             },
             branch_id:{
-                required:'Please select a Branch'
+                required:'Please select a '+lang.institute_branch+''
             }
         },
         submitHandler:function(form){
@@ -1784,10 +1784,10 @@ function validate_form_add_subject(){
         },
         messages:{
             'branch_names[]':{
-                required:'Please enter Branch Name'
+                required:'Please enter '+lang.institute_branch+' Name'
             },
             'semester_names[]':{
-                required:'Please enter Semester Name'
+                required:'Please enter '+lang.institute_sem+' Name'
             },
 			subject_type_id:{
 			  required:''
@@ -1849,13 +1849,13 @@ function validate_form_add_subject(){
                 required:''
             },
             college_id:{
-                required:'Please select a College'
+                required:'Please select a '+lang.institute_type+''
             },
             course_id:{
-                required:'Please select a Course'
+                required:'Please select a '+lang.institute_course+''
             },
             branch_id:{
-                required:'Please select a Branch'
+                required:'Please select a '+lang.institute_branch+''
             }
         },
         submitHandler:function(form){

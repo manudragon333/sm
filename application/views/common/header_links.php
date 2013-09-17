@@ -6,6 +6,7 @@
     var base_url="<?php echo base_url(); ?>";
     var site_url="<?php echo site_url(); ?>";
     var upload_path='/school_mgmt/sm/uploads';
+    var lang=<?php echo json_encode($this->lang->language); ?>
 </script>
 <!-- INLINE STYLES / SCRIPTS  -->
 

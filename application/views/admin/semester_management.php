@@ -1,4 +1,4 @@
-<input type="button" onclick="javascript:edit_semester_management(0);" name="" id="imageField" class="  m_t_b_10 button green " value="+ Add Semester " />
+<input type="button" onclick="javascript:edit_semester_management(0);" name="" id="imageField" class="  m_t_b_10 button green " value="+ Add <?php echo $this->lang->line('institute_sem'); ?> " />
 
 
 <div class="jqgrid_wrap">

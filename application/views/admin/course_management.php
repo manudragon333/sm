@@ -1,5 +1,5 @@
 
-<input type="button" onclick="javascript:edit_course_management(0);" name="" id="imageField" class=" m_t_b_10 button green " value="+ Add Course " />
+<input type="button" onclick="javascript:edit_course_management(0);" name="" id="imageField" class=" m_t_b_10 button green " value="+ Add <?php echo $this->lang->line('institute_course'); ?> " />
 
 
 <div class="jqgrid_wrap">

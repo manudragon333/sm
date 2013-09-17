@@ -1,4 +1,4 @@
-<input type="button" onclick="javascript:edit_branch_management(0);" name="" id="imageField" class="  m_t_b_10 button green " value="+ Add Branch " />
+<input type="button" onclick="javascript:edit_branch_management(0);" name="" id="imageField" class="  m_t_b_10 button green " value="+ Add <?php echo $this->lang->line('institute_branch'); ?> " />
 
 
 <div class="jqgrid_wrap">

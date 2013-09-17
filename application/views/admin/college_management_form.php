@@ -7,17 +7,17 @@
             $s_data=$college_data[0];
         } ?>
         <li>
-            <label for="branch_id">College Name:* </label>
-            <input id="name" name="name" class="text" value="<?php if(isset($college_data[0]['name'])) echo $college_data[0]['name']; ?>">
+            <label for="branch_id"><?php echo $this->lang->line('institute_type'); ?> Name:* </label>
+            <input id="name" name="name" class="text required" value="<?php if(isset($college_data[0]['name'])) echo $college_data[0]['name']; ?>" title="Please enter a <?php echo $this->lang->line('institute_type'); ?> name" />
         </li>
         <li>
-            <label for="college_address">College Address:* </label>
-            <textarea cols="10" rows="5" name="college_address" id="college_address" class="text required" title="Please enter the college address" ><?php if(isset($college_data[0]['college_address'])) echo $college_data[0]['college_address']; ?></textarea>
+            <label for="college_address"><?php echo $this->lang->line('institute_type'); ?> Address:* </label>
+            <textarea cols="10" rows="5" name="college_address" id="college_address" class="text required" title="Please enter the <?php echo $this->lang->line('institute_type'); ?> address" ><?php if(isset($college_data[0]['college_address'])) echo $college_data[0]['college_address']; ?></textarea>
 <!--            <input id="college_address" name="college_address" class="text" value="">-->
         </li>
         <li>
-            <label for="college_code">College Code:* </label>
-            <input id="college_code" name="college_code" class="text required" title="Please enter College Code" value="<?php if(isset($college_data[0]['college_code'])) echo $college_data[0]['college_code']; ?>">
+            <label for="college_code"><?php echo $this->lang->line('institute_type'); ?> Code:* </label>
+            <input id="college_code" name="college_code" class="text required" title="Please enter <?php echo $this->lang->line('institute_type'); ?> Code" value="<?php if(isset($college_data[0]['college_code'])) echo $college_data[0]['college_code']; ?>">
         </li>
         <li>
             <label for="estd">Established on:* </label>
@@ -46,7 +46,7 @@
             </select>
         </li>
         <li>
-            <input type="submit" name="imageField" id="imageField" class="send button gblue" value="Save College" />
+            <input type="submit" name="imageField" id="imageField" class="send button gblue" value="Save <?php echo $this->lang->line('institute_type'); ?>" />
             <div class="clr"></div>
         </li>
     </ol>

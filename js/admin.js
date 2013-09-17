@@ -1308,9 +1308,9 @@ function college_management_grid(){
             height:'auto',
             autowidth: true,
             mtype: 'POST',
-            recordtext: "Viewing {0} - {1} of {2} College(s)",
+            recordtext: "Viewing {0} - {1} of {2} "+lang.institute_type+"(s)",
             pgtext : "Page {0} of {1}",
-            colNames:['S.No','College Name','College Code', 'Status','Edit','Delete'],
+            colNames:['S.No',lang.institute_type+' Name',lang.institute_type+' Code', 'Status','Edit','Delete'],
             colModel:[
                     {name:'id',index:'id', width:50},
                     {name:'name',index:'name', width:150},
@@ -1325,7 +1325,7 @@ function college_management_grid(){
             sortname: 'name',
             viewrecords: false,
             sortorder: "asc",
-            caption:"Colleges",
+            caption:lang.institute_type+"s",
             loadtext:'Loading..'
     });
 }
@@ -1443,7 +1443,7 @@ function course_management_grid(){
             mtype: 'POST',
             recordtext: "Viewing {0} - {1} of {2} Course(s)",
             pgtext : "Page {0} of {1}",
-            colNames:['S.No','Course Name', 'College Name','Status','Edit','Delete'],
+            colNames:['S.No',lang.institute_course+' Name', lang.institute_type+' Name','Status','Edit','Delete'],
             colModel:[
                     {name:'id',index:'id', width:50},
                     {name:'name',index:'name', width:150},
@@ -1458,7 +1458,7 @@ function course_management_grid(){
             sortname: 'name',
             viewrecords: false,
             sortorder: "asc",
-            caption:"Courses",
+            caption:lang.institute_course+"",
             loadtext:'Loading..',
             grouping:true,
             groupingView : {
@@ -1520,7 +1520,7 @@ function branch_management_grid(){
             mtype: 'POST',
             recordtext: "Viewing {0} - {1} of {2} Branch(s)",
             pgtext : "Page {0} of {1}",
-            colNames:['S.No','Branch Name', 'Course Name', 'College Name','Status','Edit','Delete'],
+            colNames:['S.No',lang.institute_branch+' Name', lang.institute_course+' Name', lang.institute_type+' Name','Status','Edit','Delete'],
             colModel:[
                     {name:'id',index:'id', width:50},
                     {name:'name',index:'name', width:150},
@@ -1536,7 +1536,7 @@ function branch_management_grid(){
             sortname: 'name',
             viewrecords: false,
             sortorder: "asc",
-            caption:"Branches",
+            caption:lang.institute_branch+'es',
             loadtext:'Loading..',
             grouping:true,
             groupingView : {
@@ -1599,7 +1599,7 @@ function semester_management_grid(){
             mtype: 'POST',
             recordtext: "Viewing {0} - {1} of {2} Semester(s)",
             pgtext : "Page {0} of {1}",
-            colNames:['S.No','Sem Name','Year','Branch Name', 'Course Name', 'College Name','Status','Edit','Delete'],
+            colNames:['S.No',lang.institute_sem+' Name','Year',lang.institute_branch+' Name', lang.institute_course+' Name', lang.institute_type+' Name','Status','Edit','Delete'],
             colModel:[
                     {name:'id',index:'id', width:50},
                     {name:'name',index:'name', width:150},
@@ -1617,7 +1617,7 @@ function semester_management_grid(){
             sortname: 'name',
             viewrecords: false,
             sortorder: "asc",
-            caption:"Semesters",
+            caption:lang.institute_sem+'es',
             loadtext:'Loading..',
             grouping:true,
             groupingView : {
@@ -1681,7 +1681,7 @@ function subject_management_grid(){
             mtype: 'POST',
             recordtext: "Viewing {0} - {1} of {2} Subjects(s)",
             pgtext : "Page {0} of {1}",
-            colNames:['S.No','Subject name','Sem Name','Year','Branch Name', 'Course Name', 'College Name','Status','Edit','Delete'],
+            colNames:['S.No','Subject name',lang.institute_sem+' Name','Year',lang.institute_branch+' Name', lang.institute_course+' Name', lang.institute_type+' Name','Status','Edit','Delete'],
             colModel:[
                     {name:'id',index:'id', width:50},
                     {name:'name',index:'name', width:150},
@@ -1779,7 +1779,7 @@ function section_management_grid(){
             mtype: 'POST',
             recordtext: "Viewing {0} - {1} of {2} Section(s)",
             pgtext : "Page {0} of {1}",
-            colNames:['S.No','Section name','Sem Name','Year','Branch Name', 'Course Name', 'College Name','Edit','Delete'],
+            colNames:['S.No',lang.institute_sec+' name',lang.institute_sem+' Name','Year',lang.institute_branch+' Name', lang.institute_course+' Name', lang.institute_type+' Name','Edit','Delete'],
             colModel:[
                     {name:'id',index:'id', width:50},
                     {name:'section',index:'section', width:150},
@@ -1798,7 +1798,7 @@ function section_management_grid(){
             sortname: 'section',
             viewrecords: true,
             sortorder: "asc",
-            caption:"Section",
+            caption:lang.institute_sec,
             loadtext:'Loading..',
             grouping:true,
             groupingView : {

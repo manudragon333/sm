@@ -7,7 +7,7 @@
             $s_data=$college_data[0];
         } ?>
         <li>
-            <label for="college_id">College:* </label>
+            <label for="college_id"><?php echo $this->lang->line('institute_type'); ?>:* </label>
             <select id="college_id" name="college_id" class="text">
                 <option value="">Select</option>
                 <?php if(isset($s_data['college_id'])) $college_id_select=$s_data['college_id']; else $college_id_select=0; echo load_select('colleges',$college_id_select); ?>
@@ -15,15 +15,15 @@
         </li>
         <?php if(isset($college_data[0]['id']) && !empty($college_data[0]['id'])){ // This is a Update Process ?>
         <li>
-            <label for="course_names">Course Name:* </label>
-            <input id="name" name="course_names[]" class="text required" value="<?php if(isset($college_data[0]['name'])) echo $college_data[0]['name']; ?>" title="Please enter a course name"/>
+            <label for="course_names"><?php echo $this->lang->line('institute_course'); ?> Name:* </label>
+            <input id="name" name="course_names[]" class="text required" value="<?php if(isset($college_data[0]['name'])) echo $college_data[0]['name']; ?>" title="Please enter a <?php echo $this->lang->line('institute_course'); ?> name"/>
         </li>
         <?php }else{ // This is a Adding Process
             for($i=1;$i<=10;$i++){
             ?>
             <li>
-                <label for="course_names">Course Name <?php echo $i;  ?>:* </label>
-                <input id="name" name="course_names[]" class="text required" value=""  title="Please enter a course name" />
+                <label for="course_names"><?php echo $this->lang->line('institute_course'); ?> Name <?php echo $i;  ?>:* </label>
+                <input id="name" name="course_names[]" class="text required" value=""  title="Please enter a <?php echo $this->lang->line('institute_course'); ?> name" />
             </li>
         <?php
             }
@@ -37,7 +37,7 @@
             </select>
         </li>
         <li>
-            <input type="button" name="imageField" id="imageField" class="send button gblue j_gen_form_submit" value="Save Course" />
+            <input type="button" name="imageField" id="imageField" class="send button gblue j_gen_form_submit" value="Save <?php echo $this->lang->line('institute_course'); ?>" />
             <div class="clr"></div>
         </li>
     </ol>

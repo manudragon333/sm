@@ -486,16 +486,19 @@
             <a href="javascript:void(0);" class="collapse j_submenu_toggle">College Administration</a>
             <ul class="lft_sub_menu">
                 <li>
-                    <label for="website"><a class="<?php if ($url_2 == 'college_management') echo 'active'; ?>" href="<?php echo site_url('admin/college_management'); ?>"> College management </a></label>
+                    <label for="website"><a class="<?php if ($url_2 == 'college_management') echo 'active'; ?>" href="<?php echo site_url('admin/college_management'); ?>"> <?php echo $this->lang->line('institute_type'); ?> management </a></label>
                 </li>
                 <li>
-                    <label for="website"><a class="<?php if ($url_2 == 'course_management') echo 'active'; ?>" href="<?php echo site_url('admin/course_management'); ?>"> Course management </a></label>
+                    <label for="website"><a class="<?php if ($url_2 == 'course_management') echo 'active'; ?>" href="<?php echo site_url('admin/course_management'); ?>"> <?php echo $this->lang->line('institute_course'); ?> management </a></label>
                 </li>
                 <li>
-                    <label for="website"><a class="<?php if ($url_2 == 'branch_management') echo 'active'; ?>" href="<?php echo site_url('admin/branch_management'); ?>"> Branch management </a></label>
+                    <label for="website"><a class="<?php if ($url_2 == 'branch_management') echo 'active'; ?>" href="<?php echo site_url('admin/branch_management'); ?>"> <?php echo $this->lang->line('institute_branch'); ?> management </a></label>
                 </li>
                 <li>
-                    <label for="website"><a class="<?php if ($url_2 == 'semester_management') echo 'active'; ?>" href="<?php echo site_url('admin/semester_management'); ?>"> Semester management </a></label>
+                    <label for="website"><a class="<?php if ($url_2 == 'semester_management') echo 'active'; ?>" href="<?php echo site_url('admin/semester_management'); ?>"> <?php echo $this->lang->line('institute_sem'); ?> management </a></label>
+                </li>
+                <li>
+                    <label for="website"><a class="<?php if ($url_2 == 'section_management') echo 'active'; ?>" href="<?php echo site_url('admin/section_management'); ?>"> <?php echo $this->lang->line('institute_sec'); ?> management </a></label>
                 </li>
                 <li>
                     <label for="website"><a class="<?php if ($url_2 == 'subject_management') echo 'active'; ?>" href="<?php echo site_url('admin/subject_management'); ?>"> Subject management </a></label>
@@ -515,9 +518,7 @@
                 <li>
                     <label for="website"><a class="<?php if ($url_2 == 'academic_year') echo 'active'; ?>" href="<?php echo site_url('admin/academic_year'); ?>"> Teaching Years </a></label>
                 </li>
-                <li>
-                    <label for="website"><a class="<?php if ($url_2 == 'section_management') echo 'active'; ?>" href="<?php echo site_url('admin/section_management'); ?>"> Section management </a></label>
-                </li>
+                
                 <li>
                     <label for="website"><a class="<?php if ($url_2 == 'batch_no') echo 'active'; ?>" href="<?php echo site_url('admin/batch_no'); ?>"> Batch No management </a></label>
                 </li>

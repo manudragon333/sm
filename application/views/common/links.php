@@ -5,6 +5,7 @@
 <script type="text/javascript">
     var base_url="<?php echo base_url(); ?>";
     var site_url="<?php echo site_url(); ?>";
+    var lang=<?php echo json_encode($this->lang->language); ?>
 </script>
 <!-- INLINE STYLES / SCRIPTS  -->
 

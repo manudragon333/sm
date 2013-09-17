@@ -1,4 +1,4 @@
-<input type="button" onclick="javascript:edit_college_management(0);" name="" id="imageField" class="m_t_b_10 button green " value="+ Add College " />
+<input type="button" onclick="javascript:edit_college_management(0);" name="" id="imageField" class="m_t_b_10 button green " value="+ Add <?php echo $this->lang->line('institute_type'); ?> " />
 <div class="jqgrid_wrap">
     <table id="grid_table"></table>
     <div id="grid_pager"></div>
