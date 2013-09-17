@@ -15,7 +15,7 @@
 
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/ui.multiselect.css"/>
 <!--<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/ui.jqgrid1.css"/>-->
-<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/ui.jqgrid.css"/>
+<!--<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/ui.jqgrid.css"/> OLD JQGRID--> 
 
 <!-- CuFon: Enables smooth pretty custom font rendering. 100% SEO friendly. To disable, remove this section -->
 <script type="text/javascript" src="<?php echo base_url();?>js/cufon-yui.js"></script>
@@ -35,7 +35,16 @@
 <script type="text/javascript" src="<?php echo base_url();?>js/views/common.js?ver=23jun2013"></script>
 
 <!--<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>-->
-<script type="text/javascript" src="<?php echo base_url();?>js/jquery.jqGrid.src.js"></script>
+
+<!--<script type="text/javascript" src="<?php echo base_url();?>js/jquery.jqGrid.src.js"></script> OLD JQGRID -->
+
+ <!--@@START :: JQ GRID FILES-->
+ 
+ <link href="<?php echo base_url();?>js/jquery.jqGrid-4.5.2/css/ui.jqgrid.css" rel="stylesheet"  />
+ <script src="<?php echo base_url();?>js/jquery.jqGrid-4.5.2/js/i18n/grid.locale-en.js" type="text/javascript" language="javascript"></script>
+ <script src="<?php echo base_url();?>js/jquery.jqGrid-4.5.2/src/grid.base.js" type="text/javascript" language="javascript"></script>
+
+ <!--@@END :: JQ GRID FILES-->
 
 
 <script type="text/javascript" src="<?php echo base_url();?>js/jquery-ui-timepicker-addon.js"></script>

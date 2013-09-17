@@ -17,7 +17,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/animate.css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/ui.multiselect.css"/>
 <!--<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/ui.jqgrid1.css"/>-->
-<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/ui.jqgrid.css"/>
+<!--<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/ui.jqgrid.css"/>-->
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/facebox.css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/css3-buttons.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/layout.css?ga" />
@@ -44,7 +44,7 @@
 <script type="text/javascript" src="<?php echo base_url();?>js/views/common.js?ver=23jun2013"></script>
 
 <!--<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>-->
-<script type="text/javascript" src="<?php echo base_url();?>js/jquery.jqGrid.src.js"></script>
+<!--<script type="text/javascript" src="<?php echo base_url();?>js/jquery.jqGrid.src.js"></script>-->
 
 
 <script type="text/javascript" src="<?php echo base_url();?>js/jquery-ui-timepicker-addon.js"></script>
@@ -63,6 +63,14 @@
 <![endif]-->
 
 <!--CHAT RELATED-->
+
+ <!--@@START :: JQ GRID FILES-->
+ 
+ <link href="<?php echo base_url();?>js/jquery.jqGrid-4.5.2/css/ui.jqgrid.css" rel="stylesheet"  />
+ <script src="<?php echo base_url();?>js/jquery.jqGrid-4.5.2/js/i18n/grid.locale-en.js" type="text/javascript" language="javascript"></script>
+ <script src="<?php echo base_url();?>js/jquery.jqGrid-4.5.2/src/grid.base.js" type="text/javascript" language="javascript"></script>
+
+ <!--@@END :: JQ GRID FILES-->
 
 <?php $segment=$this->uri->segment(1); ?>
 <?php if($segment!='login'){ ?>
