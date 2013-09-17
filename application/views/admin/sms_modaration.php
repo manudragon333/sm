@@ -5,12 +5,7 @@
         <input type="hidden" name="page" value="1" />
         <input type="hidden" name="sidx" value="username" />
         <input type="hidden" name="sord" value="desc" />
-        <label for="user_type">User Type: </label>
-        <select name="users_type" id="users_type" class="text">
-            <?php foreach ($user_types as $k => $v) { ?>
-                <option value="<?php echo $v['id']; ?>"> <?php echo $v['name']; ?> </option>
-            <?php } ?>
-        </select>
+       
         <label for="college_id">College:* </label>
         <select id="college_id" name="college_id" class="text">
             <option value="">Select</option>
@@ -36,56 +31,33 @@
             <option value="">Select</option>
             <?php if (isset($s_data['section_id'])) $section_id_select = $s_data['section_id']; else $section_id_select = 0; echo load_select_section('sections', $section_id_select, array('semister_id' => $semister_id_select)); ?>
         </select>
-        
-        
-        
-        
-        <label for="admission_type">Admission Type: </label>
-        <select name="admission_type_id" id="admission_type_id" class="text required">
-            <option value="">Select</option>
-            <option value="1">Management</option>
-            <option value="2">Counseling</option>
-        </select>
-        <label for="scholar">Scholar ship: </label>
-        <select name="scholarship" id="scholarship" class="text">
-            <option value="">Select</option>
-            <option value="1">Yes</option>
-            <option value="0">No</option>
-        </select>
-        <label for="sex">Sex: </label>
-        <select name="sex" id="sex" class="text">
-            <option value="">Select</option>
-            <option value="1">Male</option>
-            <option value="2">Female</option>
-        </select>
-        <label for="caste">Caste: </label>
-        <select name="caste_id" id="caste_id" class="text">
-            <option value="">Select</option>
-            <option value="1">SC</option>
-            <option value="2">BC</option>
-            <option value="3">OC</option>
-            <option value="4">ST</option>
-                            
-        </select>
-        <label for="status">Active/Inactive: </label>
-        <select name="status" id="status" class="text">
-            <option value="1">Active</option>
-            <option value="0">In Active</option>
-        </select>
-		<label for="status">Missing Data: </label>
-        <select name="missingdata" id="missingdata" class="text">
-			<option value="">Select</option>
-            <option value="mobile">Student Phone Number</option>
-            <option value="email">Student Email</option>
-			<option value="father_mobile">Parent Phone Number</option>
-            <option value="father_email">Parent Email</option>
-        </select>
-        <input type="submit" value="Export to Excel" class="button black m_l_10"/>
+         <label> Status:</label>
+		<select id="sms_status" name="sms_status" class="text" title="Please select a Status">
+		<option value="">All</option>
+		<option value="Sent">Sent</option>
+		<option value="Failed">Failed</option>
+		<option value="Modaration">Modaration</option>		       
+		</select>
+		 <label> Religion:</label>
+		<select id="religion" name="religion" class="text" title="Please select a Religion">
+		<option value="">All</option>
+		<option value="Hindu">Hindu</option>
+		<option value="Muslim">Muslim</option>
+		<option value="Christian">Christian</option>
+		<option value="Others">Others</option>           
+		</select>
+		<button id="send_selected_sms_ids"">Send Selected</button>
     </form>
+</div>
+<div id="sms_edit_popup_confirm" style='display:none;'  >
+  <textarea id='sms_edit_popup' cols='35' style="height: 170px;"></textarea>
+</div>
+
+<div id="sucess_sms_popup_confirm" style='display:none;' >
+  Sucessfullly Sent..
 </div>
 
 <div id="users_content_wrap">
-    <input type="button" value="+ Add user" id="add_user_btn" class="send m_t_b_10 button green"/>
  
     <div class="jqgrid_wrap">
         <table id="grid_table"></table>
@@ -93,7 +65,7 @@
     </div>
 
     <script type="text/javascript" rel="javascript">
-        users_grid();
+        sms_users_grid();
     </script>
 </div>
 

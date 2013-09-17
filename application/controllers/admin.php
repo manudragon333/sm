@@ -214,6 +214,13 @@ else
         $data['content_page'] = 'admin/user_accounts';
         $this->load->view('common/base_template', $data);
     }
+	
+	function sms_modaration() {       
+        $data['content_page'] = 'admin/sms_modaration';
+        $this->load->view('common/base_template', $data);
+    }
+
+	
  function adduser_marks() {
         $data["user_types"]=$this->admin_model->get_user_types();
         $data['content_page'] = 'admin/adduser_marks';
@@ -689,6 +696,11 @@ function update_user_account()
 						if($post['caste_id'] != ""){
                     	$sql.=" and sr.caste_id = ".$post['caste_id']." ";}
 						
+						if(!empty($post['missingdata']))
+						{
+							$sql.=" and sr.".$post['missingdata']." ='' or sr.".$post['missingdata']." is null ";					
+						}
+						
 						
 				  
                   //prakash 
@@ -781,8 +793,133 @@ function update_user_account()
             unset($data->db_data);
             echo json_encode($data);
         }
+		//$this->output->enable_profiler(TRUE);
     }
-
+    //surya function
+	function load_sms_users_grid()
+	{	
+        if($this->input->post()){
+            $post=$this->input->post();
+            $sql="select sr.*, sm.id as smid,sr.name, sr.students_number,sm.message_type, sm.`status` , sm.sent_to, sm.message
+                        from users
+                        inner join student_records as sr on sr.user_id=users.id
+                        inner join student_semisters as ss on ss.user_id=sr.user_id
+						inner join student_messages as sm on sm.user_id=sr.user_id
+                    where users.users_type_id=1 and users.status=1 and ss.is_current='1' ";
+                    if($post['college_id'] != "")
+                    	$sql.=" and sr.college_id = ".$post['college_id']." ";
+                    
+                    if($post['course_id'] != "")
+                    	$sql.=" and sr.course_id = ".$post['course_id']." ";
+												                  
+                    if($post['branch_id'] != "")
+                    	$sql.=" and sr.branch_id = ".$post['branch_id']." ";
+						
+				    if($post['semister_id'] != "")
+                    	$sql.=" and ss.semister_id = ".$post['semister_id']." ";												
+						
+					if($post['religion'] != ""){
+                    	$sql.=" and sr.religion = '".strtolower($post['religion'])."' ";}
+						
+					if($post['sms_status'] != ""){
+                    	$sql.=" and sm.status = '".strtolower($post['sms_status'])."' ";}
+					
+                //echo $sql; 
+            $data=$this->my_db_lib->get_jqgrid_data($post,$sql);
+           
+           if(count($data->db_data)){
+                $i=0;
+                foreach($data->db_data as $k=>$v){                                           
+            
+                    $data->rows[$i]['id']=$v['smid'];
+                    $action1='<div id="set_sms_desc_'.$v['smid'].'" sms_id="'.$v['smid'].'" sms_desc="'.$v['message'].'"><a href="javascript:void(0)" class="edit_sms_message">Edit</a></div>';
+                   
+                    $action2='<div id="send_sms_desc_'.$v['smid'].'" sms_id="'.$v['smid'].'" sms_desc="'.$v['message'].'" students_number="'.$v['students_number'].'" ><a href="javascript:void(0)"  class="send_sms_message"> Send </a></div>';
+                
+					$preparedmessage='<div id="change_sms_desc_'.$v['smid'].'">'.$v['message'].'</div>';
+					
+					$senttoval = '<div id="sent_to_val_'.$v['smid'].'">'.$v['sent_to'].'</div>';
+					
+					$message_type_val = '<div id="message_type_val'.$v['smid'].'">'.$v['message_type'].'</div>';
+					
+					$uname_val = '<div id="uname_val'.$v['smid'].'">'.$v['name'].'</div>';					                 
+					
+                    $status=$v['status'];
+					
+                    $data->rows[$i]['cell']=array($uname_val,$message_type_val,$status,$senttoval,$preparedmessage,$action1,$action2);
+                    $i++;
+                }
+            }else{
+                $data->rows[0]['id']=0;
+                $data->rows[0]['cell']=array('No Data','','','','','','');
+            }
+            unset($data->db_data);
+            echo json_encode($data);
+        }
+		//$this->output->enable_profiler(TRUE);
+    }
+	//surya function
+	function send_selected_sms_msg()
+	{
+		if(!empty($_POST))
+		{
+			//log_message('error', implode(',',$_POST).implode(',',array_keys($_POST)));			
+			$post_array = $_POST;
+			$post_array['choice'] = ($_POST['message_type']=='sms')?2:1;
+			//log_message('error', implode(',',$post_array).implode(',',array_keys($post_array)));
+			$data=$this->students_model->get_student_details($post_array['student_number']);	
+			if(!empty($data[0]))
+			{
+				//now cal the generic function for sending email or sms
+				$this->students_model->send_sms_or_email($post_array,$data[0],0,1,1);			
+			}
+		}
+	}
+	
+	//surya function
+	function send_bulk_selected_sms_msgs()
+	{
+		if(!empty($_POST))
+		{			
+			 $sql = "select id,user_id,student_number,user_name,message,message_type,`status`,sent_to from student_messages where id in(".$_POST['message_ids'].")";
+			 $res = $this->db->query($sql);
+			 $resultstndts = $res->result();
+			 $totalstudents = count($resultstndts);
+			 if($totalstudents > 0)
+			 {
+				foreach($resultstndts as $individualstudent)
+				{
+					//now cal the generic function for sending email or sms 
+					$data = $this->students_model->get_student_details($individualstudent->student_number);	
+					if(!empty($data[0]))
+					{
+						//prepare post array
+						$post_array = array();
+						$post_array['choice'] = ($individualstudent->message_type == 'sms')?2:1;
+						$post_array['smsto'] = $individualstudent->sent_to;
+						$post_array['message'] = $individualstudent->message;	
+						$post_array['message_id'] = $individualstudent->id;	
+						
+						//now cal the generic function for sending email or sms
+						$this->students_model->send_sms_or_email($post_array,$data[0],0,1,1);			
+					}
+				}
+			 }
+			 
+			 //first prepare post array
+			 
+			 
+		}
+	}
+	//surya function
+	function update_sms_message()
+	{
+		if(!empty($_POST))
+		{
+			echo $sql = "update student_messages set message='".$_POST['sms_message']."' ,updated_date='".date('Y-m-d H:i:s')."' where id=".$_POST['message_id'];
+			$this->db->query($sql);
+		}
+	}
 
     function load_usermarks_grid(){
         if($this->input->post()){

@@ -18,6 +18,21 @@ function load_select($table,$selected_val=0,$where=array('status'=>'1')){
     }
     return $html;
 }
+function template_select($table,$selected_val=0,$where=array('status'=>'1')){
+    $CI =& get_instance();
+    $CI->db->where($where);
+    $res=$CI->db->get($table);
+    $data=$res->result();
+    $html='';
+    //print_r($data); return true;
+    foreach($data as $k=>$v){
+        $html.="<option  desc='$v->body' value='$v->id'";
+        if($selected_val==$v->id){ $html.=" selected='selected' "; }
+        $html.=">$v->subject</option>";
+    }
+    return $html;
+}
+
 function load_select_section($table,$selected_val=0,$where=array('status'=>'1')){
     $CI =& get_instance();
     $CI->db->where($where);

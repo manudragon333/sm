@@ -194,8 +194,208 @@ class Students_model extends CI_Model {
         $res = $this->db->query($sql);
         return $res->result();
     }
-    
+	//new function added by surya on 20th aug 13
+	function get_smsstudents_by_ids($inputarray=array())
+	{
+		$sql = "select * from student_records where id in(".implode(',',$inputarray).")";	
+		//log_message('error', 'get_smsstudents_by_ids '.$sql);		
+		$res = $this->db->query($sql);
+        return $res->result();
+	}
+    //new function added by surya on 19th aug 13
+	function get_smsstudents($inputarray=array())
+	{
+		$college_id = isset($inputarray['college_id'])?$inputarray['college_id']:''; 
+		$course_id = isset($inputarray['course_id'])?$inputarray['course_id']:''; 
+		$branch_id = isset($inputarray['branch_id'])?$inputarray['branch_id']:'';  
+		$semister_id = isset($inputarray['semister_id'])?$inputarray['semister_id']:''; 
+		$section_id = isset($inputarray['section_id'])?$inputarray['section_id']:''; 
+		$religion = isset($inputarray['religion'])?strtolower($inputarray['religion']):'';  
+		
+        $sql=" select sr.*, users.users_type_id, users.username, users.`password` , users.email, users.id as users_id ,users.status
+			 from users
+			 inner join student_records as sr on sr.user_id=users.id
+			 inner join student_semisters as ss on ss.user_id=sr.user_id
+			 where users.users_type_id='1' and users.status='1' and ss.is_current='1'  and sr.college_id = '".$college_id."' 
+			 and sr.course_id = '".$course_id."'  and sr.branch_id = '".$branch_id."'  and ss.semister_id = '".$semister_id."'
+			 and sr.section_id='".$section_id."' ";
+			 if(!empty($religion))
+			 {
+				$sql .= " and sr.religion='".$religion."' ";
+			 }
+			 
+			 $sql .= " ORDER BY username  ";
+ 
+        $res = $this->db->query($sql);
+        return $res->result();
+    }
+	//new function added by surya on 19th aug 13
+	function send_sms_or_email($inputarray1=array(),$inputarray2=array(),$insert=1,$update=0,$from_modaration=0)
+	{		
+		$choice1 = isset($inputarray1['choice'])?$inputarray1['choice']:'';		
+		$message_id = isset($inputarray1['message_id'])?$inputarray1['message_id']:'';				
+		$smsto = isset($inputarray1['smsto'])?$inputarray1['smsto']:'';
+		$message = isset($inputarray1['message'])?$inputarray1['message']:'';
+		
+		$name = isset($inputarray2->name)?$inputarray2->name:'';		
+		$fatheremail = isset($inputarray2->father_email)?$inputarray2->father_email:'';
+		$fatheremobile = isset($inputarray2->father_mobile)?$inputarray2->father_mobile:'';
+		$email = isset($inputarray2->email)?$inputarray2->email:'';
+		$mobile = isset($inputarray2->mobile)?$inputarray2->mobile:'';		
+		$db_students_number = isset($inputarray2->students_number)?$inputarray2->students_number:'';	
+		$db_user_name = isset($inputarray2->name)?$inputarray2->name:'';		
+		
+		//chcking string replace starts here
+		//first prepare array of the possible place holders
+		$vars = array('%sname%'=>$name);
+		$message = str_replace(array_keys($vars), $vars, $message);	
+		//log_message('error', 'composed message: '.$message);			
+		//chcking string replace ends here
+		
+		$requireddata = array();
+		$requireddata['message'] =  $message;
+		
+		
+		//insert the data in student_messages table
+		$db_messagetype = '';
+		$db_student_id= isset($inputarray2->user_id)?$inputarray2->user_id:'';
+		$db_status = '';
+		if(IS_MODARATION_REQUIRES == TRUE && $from_modaration==0)
+		{			
+			$db_status = 'modaration';
+		}
+		
+		
+		$db_sentto = '';
+		$db_message_error = 'no_error';
+		if($choice1==1)
+		{
+			$db_messagetype = 'email';
+			//email
+			//now check for parent or student
+			if($smsto == 'parent')
+			{
+				//now take parent email
+				$requireddata['contactpoint'] = $fatheremail;
+				$db_sentto = $personval = 'parent';
+				
+			}
+			else if($smsto == 'student')
+			{
+				//now take student email
+				$requireddata['contactpoint'] = $email;
+				$db_sentto = $personval = 'student';
+			}
+			else
+			{
+				return;
+			}
+			
+			 if(!empty($requireddata['contactpoint']))
+			 {
+				if($db_status=='')
+				{
+					$db_status = 'sent';
+					$this->load->library('my_email_lib');
+					$this->my_email_lib->html_email($requireddata['contactpoint'],$message);
+					//now send email
+					//log_message('error', 'email sending to'.$requireddata['contactpoint']);
+				}				
+				
+			 }
+			 else
+			 {
+			 				
+				//if($db_status=='')
+				//{
+					$db_status = 'failed';
+				//}
+				
+				if($personval=='student')
+				{
+					$db_message_error  = 'stu_email';
+				}
+				else
+				{
+					$db_message_error  = 'parent_email';
+				}
+				log_message('error', 'no email present for '.$personval);
+			 }
+			//now send email using email library
+		}
+		else if($choice1==2)
+		{
+			$db_messagetype = 'sms';
+			//now check for parent or student
+			if($smsto == 'parent')
+			{
+				//now take parent mobile number
+				$requireddata['contactpoint'] = $fatheremobile;
+				$db_sentto = $personval = 'parent';
+			}
+			else if($smsto == 'student')
+			{
+				//now take student mobile
+				$requireddata['contactpoint'] = $mobile;
+				$db_sentto = $personval = 'student';
+			}
+			else
+			{
+				return;
+			}
+			
+			//now send sms using sms library			
+			 if(!empty($requireddata['contactpoint']))
+			 {
+				if($db_status=='')
+				{
+					$db_status = 'sent';
+					//now send sms
+					//log_message('error', 'sms sending to'.$requireddata['contactpoint']);
+					$this->load->library('sms_lib');
+					$this->sms_lib->send_sms($requireddata['contactpoint'],$message);
+				}
+				
+			 }
+			 else
+			 {
+				//if($db_status=='')
+				//{
+					$db_status = 'failed';
+				//}
+				if($personval=='student')
+				{
+					$db_message_error  = 'stu_mobile';
+				}
+				else
+				{
+					$db_message_error  = 'parent_mobile';
+				}
+				log_message('error', 'no mobile number present for '.$personval);
+			 }
+		}
+		else
+		{			
+			return; 
+		}
+			if($insert==1)
+			{
+				$insertqstr = "insert into student_messages(user_id,student_number,user_name,message,message_type,status,sent_to,message_error,more_info) 
+				values('".$db_student_id."','".$db_students_number."','".$db_user_name."','".addslashes($message)."','".$db_messagetype."','".$db_status."','".$db_sentto."','".$db_message_error."','".serialize($inputarray2)."')";
+				//log_message('error', 'insert str '.$insertqstr);
+				$this->db->query($insertqstr);
+			}
+			
+			if($update==1 && $message_id!='')
+			{				
+				$updatestr = "update student_messages set sent_date='".date('Y-m-d H:i:s')."',status='".$db_status."' where id=".$message_id;
+				$this->db->query($updatestr);
+			}
+		
+		
+	}//function ends here
+	
 
-}
+} // model ends here
 
-?>
+

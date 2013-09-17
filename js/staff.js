@@ -6,6 +6,26 @@ $(function(){
             $('.showTtOptions').hide();
         }
     });
+	$('#staff_send_msg [name=religion]').live('click',function(){	 
+		//alert($(this).val());
+		//now get the filtered students
+		
+		dataP='college_id='+$('[name=college_id]').val()+'&course_id='+$('[name=course_id]').val()+'&branch_id='+$('[name=branch_id]').val()+'&semister_id='+$('[name=semister_id]').val()+'&section_id='+$('[name=section_id]').val()+'&religion='+$(this).val()+'';
+		//alert(dataP);
+        $.ajax({
+            url:site_url+'/staff/get_sms_students',
+            data:dataP,
+            type:'POST',
+           // dataType:'text/html',
+            beforeSend:function(){
+                
+            },
+            success:function(dataR){
+			$('#sms_users_req').html(dataR);
+			//alert(dataR);
+            }
+        });
+	 });
 
     $('#branch_select, #year_select').live('change',function(){
         if($('#branch_select').val()!='' && $('#year_select').val()!=''){
@@ -54,6 +74,7 @@ $(function(){
             $('select[name=subject_id]').html(dataR);
         })
        }
+	   
     });
     $('select[name=sem_id]').live('change',function(){
        if($('select[name=subject_id]').length>0){
@@ -71,6 +92,9 @@ $(function(){
         })
        }
     });
+	$('select[name=section_id]').live('change',function(){
+	$('#staff_send_msg [name=religion]').trigger('click');
+	});
     //Send message
     $('select[name=semister_id]').live('change',function(){
        if($(this).hasClass('getStaffSubjects') && $('select[name=subject_id]').length>0){
@@ -83,7 +107,11 @@ $(function(){
         })
        }
     });
-
+	
+	$('select[name=sms_template]').live('change',function(){
+		//alert($('#sms_template option:selected').attr('desc'));
+		$('#message').val($('#sms_template option:selected').attr('desc'));
+	});
     $('#from').datepicker({
         beforeShow:function(input) {
                 return {
@@ -426,6 +454,35 @@ function reserve_book(id){
     })
 }
 
+//surya function
+function view_studentmessages(){
+    jQuery("#grid_table").jqGrid({
+            url:site_url+'/staff/student_messages',
+            datatype: "json",
+            height:'auto',
+            autowidth: true,
+            mtype: 'POST',
+            recordtext: "Messages(s)",
+            recordtext: "Viewing {0} - {1} of {2} Messages(s)",
+            pgtext : "Page {0} of {1}",
+            colNames:['Message','Type','Status', 'Sent To','Sent Date'],
+            colModel:[
+                    {name:'message',index:'message', width:100},
+                    {name:'message_type',index:'message_type', width:150},
+                    {name:'status',index:'status', width:150},
+					{name:'sent_to',index:'sent_to', width:150},
+                    {name:'sent_date',index:'sent_date', width:150}                    
+            ],
+            rowNum:10,
+            //rowList:[10,20],
+            pager: '#grid_pager',
+            sortname: 'message',
+            viewrecords: false,
+            sortorder: "desc",
+            caption:"Messages",
+            loadtext:'Loading..'
+    });
+}
 
 
 function view_assignments(){
