@@ -42,7 +42,8 @@
  
  <link href="<?php echo base_url();?>js/jquery.jqGrid-4.5.2/css/ui.jqgrid.css" rel="stylesheet"  />
  <script src="<?php echo base_url();?>js/jquery.jqGrid-4.5.2/js/i18n/grid.locale-en.js" type="text/javascript" language="javascript"></script>
- <script src="<?php echo base_url();?>js/jquery.jqGrid-4.5.2/src/grid.base.js" type="text/javascript" language="javascript"></script>
+ <!--<script src="<?php echo base_url();?>js/jquery.jqGrid-4.5.2/src/grid.base.js" type="text/javascript" language="javascript"></script>-->
+ <script src="<?php echo base_url();?>js/jquery.jqGrid-4.5.2/js/jquery.jqGrid.src.js" type="text/javascript" language="javascript"></script>
 
  <!--@@END :: JQ GRID FILES-->
 
