@@ -16,36 +16,36 @@
             <br/>
                 <label for="website"><b>Send Message to:*</b></label>
             <br style="clear: both;"/>
-                <label for="college_id">College:* </label>
-                <select id="college_id" name="college_id" class="text required">
+                <label for="college_id"><?php echo $this->lang->line('institute_type'); ?>:* </label>
+                <select id="college_id" name="college_id" class="text required" title="Please select a <?php echo $this->lang->line('institute_type'); ?>">
                     <option value="">Select</option>
                     <?php if(isset($s_data['college_id'])) $college_id_select=$s_data['college_id']; else $college_id_select=0; echo load_select('colleges',$college_id_select); ?>
                 </select>
             <br/>
             <br/>
-                <label for="course_id">Course:* </label>
-                <select id="course_id" name="course_id" class="text required">
+                <label for="course_id"><?php echo $this->lang->line('institute_course'); ?>:* </label>
+                <select id="course_id" name="course_id" class="text required" title="Please select a <?php echo $this->lang->line('institute_course'); ?>">
                     <option value="">Select</option>
                     <?php if(isset($s_data['course_id'])) $course_id_select=$s_data['course_id']; else $course_id_select=0; echo load_select('courses',$course_id_select,array('status'=>'1','college_id'=>$college_id_select)); ?>
                 </select>
             <br/>
             <br/>
-                <label for="branch_id">Branch:* </label>
-                <select id="branch_id" name="branch_id" class="text required">
+                <label for="branch_id"><?php echo $this->lang->line('institute_branch'); ?>:* </label>
+                <select id="branch_id" name="branch_id" class="text required" title="Please select a <?php echo $this->lang->line('institute_branch'); ?>">
                     <option value="">Select</option>
                     <?php if(isset($s_data['branch_id'])) $branch_id_select=$s_data['branch_id']; else $branch_id_select=0; echo load_select('branches',$branch_id_select,array('status'=>'1','course_id'=>$course_id_select)); ?>
                 </select>
             <br/>
             <br/>
-                <label for="semister_id">Semester:* </label>
-                <select id="semister_id" name="semister_id" class="text required" title="Please select a Semester">
+                <label for="semister_id"><?php echo $this->lang->line('institute_sem'); ?>:* </label>
+                <select id="semister_id" name="semister_id" class="text required" title="Please select a <?php echo $this->lang->line('institute_sem'); ?>">
                     <option value="">Select</option>
                     <?php if(isset($s_data['semister_id'])) $semister_id_select=$s_data['semister_id']; else $semister_id_select=0; echo load_select('semisters',$semister_id_select,array('status'=>'1','branch_id'=>$branch_id_select)); ?>
                 </select>
                  <br/>
             <br/>
-            <label for="semister_id">Sections:* </label>
-            <select id="section_id" name="section_id" class="text" title="Please select a Section">
+            <label for="semister_id"><?php echo $this->lang->line('institute_sec'); ?>:* </label>
+            <select id="section_id" name="section_id" class="text" title="Please select a <?php echo $this->lang->line('institute_sec'); ?>">
                 <option value="">Select</option>
                 <?php if(isset($s_data['section_id'])) $section_id_select=$s_data['section_id']; else $section_id_select=0; echo load_select_section('sections',$section_id_select,array('semister_id'=>$semister_id_select)); ?>
             </select>
@@ -61,10 +61,10 @@
 		<option value="Others">Others</option>           
 		</select>
 		<br style="clear:both;"/>
-        <div id='sms_users_req'></div>		
+            <div id='sms_users_req'></div>		
 		
-		</li>
-		<li>
+        </li>
+        <li>
 		<br style="clear:both;"/>
             <label><p>Send to:</p></label>
             <input type="radio" name="smsto" checked value="parent" /> Parent
@@ -75,7 +75,7 @@
             <input id="student_number" name="student_number" class="text"/>
         </li>
 		
-		<li id="sms_template_li" class="hide">
+        <li id="sms_template_li" class="hide">
             <label for="sms_template">Select Template:*</label>            
 			<select id="sms_template" name="sms_template" class="text required">
                  <option value="" desc="">Select</option>
