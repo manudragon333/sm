@@ -35,7 +35,7 @@ Design by http://www.MyCollege.org
 ?>
 <div class="clr"></div>
 <br/>
-<form id="appl_form" action="/student_registration/save_student">
+<form id="appl_form" action="student_registration/save_student">
     <input id="rel" name="rel" type="hidden" class="text" value="general"/>
     <input id="id" name="id" type="hidden" class="text" value="<?php if (isset($user_details[0]->id)) echo $user_details[0]->id; ?>"/>
     <input id="student_rec_id" type="hidden" name="student_rec_id" class="text" value="<?php if (isset($student_details[0]->id)) echo $student_details[0]->id; ?>"/>

@@ -10,7 +10,7 @@ if($this->session->userdata('preview_tc')){
 }
 if(count($data) && $data){
     foreach($data as $k=>$v){ ?>
-<form id="appl_form" action="/students/transfer_certificate" >
+<form id="appl_form" action="students/transfer_certificate" >
     <input type="hidden" name="preview" value="1"/>
     <div style="border:2px solid; height:850px; width:750px;position:relative;">
         <h3 align=center>LAQSHYA COLLEGE</h3>

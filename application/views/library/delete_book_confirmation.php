@@ -2,7 +2,7 @@
 if(count($data)){
 ?>
 <div>
-<!--    <form id="appl_form" action="/library/save_book">-->
+<!--    <form id="appl_form" action="library/save_book">-->
         <input id="rel" name="rel" class="text" type="hidden" value="add_book"/>
         <ol>
             <li>

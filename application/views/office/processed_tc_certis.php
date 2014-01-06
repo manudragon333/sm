@@ -4,7 +4,7 @@
     <p style="width:200px; float:right;font-weight: bold;"><i><b>*</b> required fields</i></p>
     <div class="clr"></div>
 </div>
-<form id="appl_form" action="/office/processed_tc_certis">
+<form id="appl_form" action="office/processed_tc_certis">
     <input id="" name="rel" class="text" type="hidden" value="proc_id_certi"/>
     <ol>
         <li>

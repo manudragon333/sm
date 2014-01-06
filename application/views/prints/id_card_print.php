@@ -14,7 +14,7 @@ foreach($data as $k=>$v){?>
         S<br/>T<br/>U<br/>D<br/>E<br/>N<br/>T
     </div>
     <div id="card_content" style="float: left;">
-        <h4 style="width:200px; float: left;margin: 10px 0 10px 30px; font-family: Aparajita, Ariel; font-size: 70px; color:#003399;">LITS</h4>
+        <h4 style="width:200px; float: left;margin: 10px 0 10px 30px; font-family: Aparajita, Ariel; font-size: 70px; color:#003399;">School Mgmt</h4>
         <img src="<?php echo base_url(); ?>css/images/college_logo_trans1.png" width="" height="" style="float: right;margin: 10px;"/>
         <div style="clear:both;"></div>
 
@@ -34,7 +34,7 @@ foreach($data as $k=>$v){?>
 
         <hr style="border: 2px solid #cc6633"/>
         <div>
-            <h1 style=" font-family: Aparajita, Ariel; text-align: center; margin: 0;">Laqshya Group Of Colleges</h1>
+            <h1 style=" font-family: Aparajita, Ariel; text-align: center; margin: 0;">School Mgmt Group Of Schools</h1>
             <h3 style=" font-family: Aparajita, Ariel; text-align: center; margin: 0;">Tanikella(v),Konijerla(M),khammam (DIST),Andhra Pradesh</h3>
         </div>
     </div>

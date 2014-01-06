@@ -1,5 +1,5 @@
 <div class="f_r f_b m_r_10">* required fields</div>
-<form id="appl_form" action="/staff/student_profile">
+<form id="appl_form" action="staff/student_profile">
     <input id="" name="rel" class="text" type="hidden" value="check_stu_prof"/>
     <ol>
         <li>

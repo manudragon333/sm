@@ -16,7 +16,7 @@
 <br/> <div class="error">No Discussion Started. You can start discussion by commenting below.</div>
 <?php } ?>
 <br/>
-<form id="appl_form" action="/students/library_pdfs_discussions/<?php echo $enc_id; ?>">
+<form id="appl_form" action="students/library_pdfs_discussions/<?php echo $enc_id; ?>">
     <input id="" name="rel" class="text" type="hidden" value="upload_assignments"/>
     <ol>
         <li>

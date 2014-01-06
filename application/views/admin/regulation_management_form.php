@@ -5,7 +5,7 @@
     <p style="width:200px; float:right;font-weight: bold;"><i><b>*</b> required fields</i></p>
     <div class="clr"></div>
 </div>
-<form id="appl_form" action="/admin/save_regulation">
+<form id="appl_form" action="admin/save_regulation">
     <input id="" name="rel" class="text" type="hidden" value="college_management"/>
     <input id="" name="id" class="text" type="hidden" value="<?php if(isset($college_data[0]['id'])) echo $college_data[0]['id']; ?>"/>
     <ol>

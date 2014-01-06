@@ -1,5 +1,5 @@
 <div class="f_r f_b m_r_10">* required fields</div>
-<form id="appl_form" action="/students/no_due" suc_msg="No Due Request Submited Successfully." err_msg="You already applied for No-Due. Please check the status.">
+<form id="appl_form" action="students/no_due" suc_msg="No Due Request Submited Successfully." err_msg="You already applied for No-Due. Please check the status.">
     <input id="" name="rel" class="text" type="hidden" value="nodue"/>
     <ol>
         <li>

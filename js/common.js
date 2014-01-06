@@ -11,6 +11,7 @@ $(function(){
         */
 
         $('.rightNav_head').html($.trim($('.nav_emt a.active').text()));
+        if($('#header_txt').length){ $('.rightNav_head').html($.trim($('#header_txt').text())); }
 
        $('#course,#course_id').live('change',function(){
            $('#branch, #branch_id').val('');
@@ -211,7 +212,7 @@ function gen_form_submit(dataP,thisObj){
     if(act=$(thisObj).parents('form').attr('action')){
         Aurl=site_url+act;
     }else{
-        Aurl=site_url+'/gen_submit';
+        Aurl=site_url+'gen_submit';
     }
     $.ajax({
         url:Aurl,
@@ -303,7 +304,7 @@ function validate_password_form(){
 function ajax_psw_form(){
     dataP=$('#password_form').serialize();
     $.ajax({
-        url:site_url+'/login/change_password',
+        url:site_url+'login/change_password',
         data:dataP,
         type:'POST',
         dataType:'',

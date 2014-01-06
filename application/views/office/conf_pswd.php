@@ -4,7 +4,7 @@
     <p style="width:200px; float:right;font-weight: bold;"><i><b>*</b> required fields</i></p>
     <div class="clr"></div>
 </div>
-<form id="conf_pswd" action="/office/confpswd">
+<form id="conf_pswd" action="office/confpswd">
     <input id="" name="rel" class="text" type="hidden" value="check_stu_prof"/>
     <ol>
         <li>

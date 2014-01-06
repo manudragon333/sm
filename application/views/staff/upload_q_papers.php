@@ -1,5 +1,5 @@
 <div class="f_r f_b m_r_10">* required fields</div>
-<form id="appl_form" action="/staff/upload_q_papers">
+<form id="appl_form" action="staff/upload_q_papers">
     <input id="" name="rel" class="text" type="hidden" value="upload_q_paper"/>
     <ol>
         <li>

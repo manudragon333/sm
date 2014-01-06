@@ -1,6 +1,6 @@
 <?php  // echo '<pre>'; print_r($branches);print_r($days); echo '</pre>'; die; ?>
 
-<form id="appl_form" action="/staff/update_student_time_table">
+<form id="appl_form" action="staff/update_student_time_table">
 
 <ol>
 

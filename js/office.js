@@ -8,7 +8,7 @@ $(function(){
 
 function id_card_requests_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/office/id_card_requests',
+            url:site_url+'office/id_card_requests',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -40,7 +40,7 @@ function id_card_requests_grid(){
 
 function bus_pass_requests_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/office/bus_pass',
+            url:site_url+'office/bus_pass',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -70,7 +70,7 @@ function bus_pass_requests_grid(){
 
 function study_certi_requests_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/office/study_certi_requests',
+            url:site_url+'office/study_certi_requests',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -101,7 +101,7 @@ function study_certi_requests_grid(){
 
 function conduct_certi_requests_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/office/conduct_certi_requests',
+            url:site_url+'office/conduct_certi_requests',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -133,7 +133,7 @@ function conduct_certi_requests_grid(){
 
 function tc_requests_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/office/tc_certi_requests',
+            url:site_url+'office/tc_certi_requests',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -164,27 +164,27 @@ function tc_requests_grid(){
 
 
 function print_id_card(id){
-    my_win=window.open(''+site_url+'/office/id_card_print_preview/'+id+'','id_card_print_preview','');
+    my_win=window.open(''+site_url+'office/id_card_print_preview/'+id+'','id_card_print_preview','');
 }
 
 function print_bus_pass(id){
-    my_win=window.open(''+site_url+'/office/bus_pass_print/'+id+'','id_card_print_preview','');
+    my_win=window.open(''+site_url+'office/bus_pass_print/'+id+'','id_card_print_preview','');
 }
 
 function print_study_certi(id){
-    my_win=window.open(''+site_url+'/office/study_certi_print/'+id+'','id_card_print_preview','');
+    my_win=window.open(''+site_url+'office/study_certi_print/'+id+'','id_card_print_preview','');
 }
 
 function print_conduct_certi(id){
-    my_win=window.open(''+site_url+'/office/conduct_certi_print/'+id+'','id_card_print_preview','');
+    my_win=window.open(''+site_url+'office/conduct_certi_print/'+id+'','id_card_print_preview','');
 }
 
 function print_tc(id){
-    my_win=window.open(''+site_url+'/office/tc_print/'+id+'','id_card_print_preview','');
+    my_win=window.open(''+site_url+'office/tc_print/'+id+'','id_card_print_preview','');
 }
 
 function print_nodue(id){
-    my_win=window.open(''+site_url+'/office/no_due_print/'+id+'','no_due_print_preview','');
+    my_win=window.open(''+site_url+'office/no_due_print/'+id+'','no_due_print_preview','');
 }
 
 
@@ -192,7 +192,7 @@ function print_nodue(id){
 
 function no_due_request_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/staff/no_due_requests',
+            url:site_url+'staff/no_due_requests',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -225,7 +225,7 @@ function close_requests(controller,id){
     // Flag is issued
     dataP='id='+id+'&controller='+controller;
     $.ajax({
-        url:site_url+'/office/close_requests',
+        url:site_url+'office/close_requests',
         data:dataP,
         type:'POST',
         dataType:'',
@@ -244,7 +244,7 @@ function send_print_data(option,id){
     // Flag is issued
     dataP='id='+id+'&option='+option;
     $.ajax({
-        url:site_url+'/office/send_print_data',
+        url:site_url+'office/send_print_data',
         data:dataP,
         type:'POST',
         dataType:'',
@@ -261,7 +261,7 @@ function send_print_data(option,id){
 
 function pay_slip_request_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/office/pay_slip_requests',
+            url:site_url+'office/pay_slip_requests',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -292,14 +292,14 @@ function pay_slip_request_grid(){
 }
 
 function print_payslip(id){
-    my_win=window.open(''+site_url+'/office/payslip_print/'+id+'','payslip_print_preview','');
+    my_win=window.open(''+site_url+'office/payslip_print/'+id+'','payslip_print_preview','');
 }
 
 
 function nodue_update(id,update){
     dataP='id='+id+'&update='+update;
     $.ajax({
-        url:site_url+'/staff/update_nodue',
+        url:site_url+'staff/update_nodue',
         data:dataP,
         type:'POST',
         // dataType:'',
@@ -317,7 +317,7 @@ function nodue_update(id,update){
 
 function payment_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/office/test_grid',
+            url:site_url+'office/test_grid',
             datatype: "json",
             height:'auto',
             autowidth: true,

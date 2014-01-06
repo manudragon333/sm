@@ -1,10 +1,11 @@
-<form id="appl_form" action="/admin/generate_period_cycle">
+<form id="appl_form" action="admin/generate_period_cycle">
     <input id="" name="rel" class="text" type="hidden" value="general"/>
     <input id="" name="id" class="text" type="hidden" value="<?php if(isset($college_data[0]['id'])) echo $college_data[0]['id']; ?>"/>
     <ol>
         <?php if(isset($college_data[0]['id'])){
             $s_data=$college_data[0];
-        } ?><div class="f_r f_b m_r_10">* required fields</div>
+        } ?>
+        <li>
             <label for="college_id">College:* </label>
             <select id="college_id" name="college_id" class="text required" title="Please select a College">
                 <option value="">Select</option>

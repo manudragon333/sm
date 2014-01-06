@@ -5,40 +5,40 @@ $(function(){
 
     $('select[name=college_id]').live('change',function(){
        if($('select[name=course_id]').length>0){
-        $.post(site_url+'/students/getCollegeCourses/'+$('select[name=college_id]').val(),function(dataR){
+        $.post(site_url+'students/getCollegeCourses/'+$('select[name=college_id]').val(),function(dataR){
             $('select[name=course_id]').html(dataR);
         })
        }
     });
     $('select[name=course_id]').live('change',function(){
        if($('select[name=branch_id]').length>0){
-        $.post(site_url+'/students/getCollegeBranches/'+$('select[name=college_id]').val(),'course_id='+$('select[name=course_id]').val(),function(dataR){
+        $.post(site_url+'students/getCollegeBranches/'+$('select[name=college_id]').val(),'course_id='+$('select[name=course_id]').val(),function(dataR){
             $('select[name=branch_id]').html(dataR);
         })
        }
     });
     $('select[name=branch_id]').live('change',function(){
        if($('select[name=semister_id]').length>0){
-        $.post(site_url+'/students/getCollegeSemesters/'+$('select[name=college_id]').val(),'branch_id='+$('select[name=branch_id]').val(),function(dataR){
+        $.post(site_url+'students/getCollegeSemesters/'+$('select[name=college_id]').val(),'branch_id='+$('select[name=branch_id]').val(),function(dataR){
             $('select[name=semister_id]').html(dataR);
         })
        }
        if($('select[name=sem_id]').length>0){
-        $.post(site_url+'/students/getCollegeSemesters/'+$('select[name=college_id]').val(),'branch_id='+$('select[name=branch_id]').val(),function(dataR){
+        $.post(site_url+'students/getCollegeSemesters/'+$('select[name=college_id]').val(),'branch_id='+$('select[name=branch_id]').val(),function(dataR){
             $('select[name=sem_id]').html(dataR);
         })
        }
     });
     $('select[name=semister_id]').live('change',function(){
        if($('select[name=subject_id]').length>0){
-        $.post(site_url+'/students/getCollegeSubjects/'+$('select[name=college_id]').val(),'semister_id='+$('select[name=semister_id]').val(),function(dataR){
+        $.post(site_url+'students/getCollegeSubjects/'+$('select[name=college_id]').val(),'semister_id='+$('select[name=semister_id]').val(),function(dataR){
             $('select[name=subject_id]').html(dataR);
         })
        }
     });
     $('select[name=sem_id]').live('change',function(){
        if($('select[name=subject_id]').length>0){
-        $.post(site_url+'/students/getCollegeSubjects/'+$('select[name=college_id]').val(),'semister_id='+$('select[name=sem_id]').val(),function(dataR){
+        $.post(site_url+'students/getCollegeSubjects/'+$('select[name=college_id]').val(),'semister_id='+$('select[name=sem_id]').val(),function(dataR){
             $('select[name=subject_id]').html(dataR);
         })
        }
@@ -47,7 +47,7 @@ $(function(){
     //For Sections
     $('select[name=sem_id]').live('change',function(){
        if($('select[name=section_id]').length>0){
-        $.post(site_url+'/staff/getCollegeSections/'+$('select[name=college_id]').val(),'sem_id='+$('select[name=sem_id]').val(),function(dataR){
+        $.post(site_url+'staff/getCollegeSections/'+$('select[name=college_id]').val(),'sem_id='+$('select[name=sem_id]').val(),function(dataR){
             $('select[name=section_id]').html(dataR);
         })
        }
@@ -55,7 +55,7 @@ $(function(){
     //Send message
     $('select[name=semister_id]').live('change',function(){
        if($('select[name=section_id]').length>0){
-        $.post(site_url+'/staff/getCollegeSections/'+$('select[name=college_id]').val(),'sem_id='+$('select[name=semister_id]').val(),function(dataR){
+        $.post(site_url+'staff/getCollegeSections/'+$('select[name=college_id]').val(),'sem_id='+$('select[name=semister_id]').val(),function(dataR){
             $('select[name=section_id]').html(dataR);
         })
        }
@@ -69,7 +69,7 @@ $(function(){
 
 function print_requests(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/exam/print_request',
+            url:site_url+'exam/print_request',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -102,7 +102,7 @@ function print_requests(){
 function flag_printed(id){
     dataP='id='+id;
     $.ajax({
-        url:site_url+'/exam/flag_paper_printed',
+        url:site_url+'exam/flag_paper_printed',
         data:dataP,
         type:'POST',
         // dataType:'',
@@ -121,7 +121,7 @@ function flag_printed(id){
 
 function load_q_papers_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/staff/browse_q_papers_grid',
+            url:site_url+'staff/browse_q_papers_grid',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -158,7 +158,7 @@ function load_q_papers_grid(){
 function send_to_print(id){
     dataP='id='+id;
     $.ajax({
-        url:site_url+'/staff/send_q_papers_print',
+        url:site_url+'staff/send_q_papers_print',
         data:dataP,
         type:'POST',
         // dataType:'',

@@ -4,7 +4,7 @@
     <p style="width:200px; float:right;font-weight: bold;"><i><b>*</b> required fields</i></p>
     <div class="clr"></div>
 </div>
-<form id="appl_form" action="/exam/sendmsg" suc_msg="Message Submited Successfully." err_msg="Problem submitting.">
+<form id="appl_form" action="exam/sendmsg" suc_msg="Message Submited Successfully." err_msg="Problem submitting.">
     <input id="" name="rel" class="text" type="hidden" value="send_msg"/>
     <ol id="staff_send_msg">
         <li>

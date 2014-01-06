@@ -13,7 +13,7 @@ $(function(){
 		dataP='college_id='+$('[name=college_id]').val()+'&course_id='+$('[name=course_id]').val()+'&branch_id='+$('[name=branch_id]').val()+'&semister_id='+$('[name=semister_id]').val()+'&section_id='+$('[name=section_id]').val()+'&religion='+$(this).val()+'';
 		//alert(dataP);
         $.ajax({
-            url:site_url+'/staff/get_sms_students',
+            url:site_url+'staff/get_sms_students',
             data:dataP,
             type:'POST',
            // dataType:'text/html',
@@ -40,37 +40,37 @@ $(function(){
 
     $('select[name=college_id]').live('change',function(){
        if($('select[name=course_id]').length>0){
-        $.post(site_url+'/students/getCollegeCourses/'+$('select[name=college_id]').val(),function(dataR){
+        $.post(site_url+'students/getCollegeCourses/'+$('select[name=college_id]').val(),function(dataR){
             $('select[name=course_id]').html(dataR);
         })
        }
     });
     $('select[name=course_id]').live('change',function(){
        if($('select[name=branch_id]').length>0){
-        $.post(site_url+'/students/getCollegeBranches/'+$('select[name=college_id]').val(),'course_id='+$('select[name=course_id]').val(),function(dataR){
+        $.post(site_url+'students/getCollegeBranches/'+$('select[name=college_id]').val(),'course_id='+$('select[name=course_id]').val(),function(dataR){
             $('select[name=branch_id]').html(dataR);
         })
        }
     });
     $('select[name=branch_id]').live('change',function(){
        if($('select[name=semister_id]').length>0){
-        $.post(site_url+'/students/getCollegeSemesters/'+$('select[name=college_id]').val(),'branch_id='+$('select[name=branch_id]').val(),function(dataR){
+        $.post(site_url+'students/getCollegeSemesters/'+$('select[name=college_id]').val(),'branch_id='+$('select[name=branch_id]').val(),function(dataR){
             $('select[name=semister_id]').html(dataR);
         })
        }
        if($('select[name=sem_id]').length>0){
-        $.post(site_url+'/students/getCollegeSemesters/'+$('select[name=college_id]').val(),'branch_id='+$('select[name=branch_id]').val(),function(dataR){
+        $.post(site_url+'students/getCollegeSemesters/'+$('select[name=college_id]').val(),'branch_id='+$('select[name=branch_id]').val(),function(dataR){
             $('select[name=sem_id]').html(dataR);
         })
        }
     });
     $('select[name=semister_id]').live('change',function(){
        if($(this).hasClass('getStaffSubjects') && $('select[name=subject_id]').length>0){
-            $.post(site_url+'/staff/getStaffSubjects/'+$('select[name=college_id]').val(),'semister_id='+$('select[name=semister_id]').val(),function(dataR){
+            $.post(site_url+'staff/getStaffSubjects/'+$('select[name=college_id]').val(),'semister_id='+$('select[name=semister_id]').val(),function(dataR){
                 $('select[name=subject_id]').html(dataR);
             });
        }else  if($('select[name=subject_id]').length>0){
-        $.post(site_url+'/students/getCollegeSubjects/'+$('select[name=college_id]').val(),'semister_id='+$('select[name=semister_id]').val(),function(dataR){
+        $.post(site_url+'students/getCollegeSubjects/'+$('select[name=college_id]').val(),'semister_id='+$('select[name=semister_id]').val(),function(dataR){
             $('select[name=subject_id]').html(dataR);
         })
        }
@@ -78,7 +78,7 @@ $(function(){
     });
     $('select[name=sem_id]').live('change',function(){
        if($('select[name=subject_id]').length>0){
-        $.post(site_url+'/students/getCollegeSubjects/'+$('select[name=college_id]').val(),'semister_id='+$('select[name=sem_id]').val(),function(dataR){
+        $.post(site_url+'students/getCollegeSubjects/'+$('select[name=college_id]').val(),'semister_id='+$('select[name=sem_id]').val(),function(dataR){
             $('select[name=subject_id]').html(dataR);
         })
        }
@@ -87,7 +87,7 @@ $(function(){
     //For Sections
     $('select[name=sem_id]').live('change',function(){
        if($('select[name=section_id]').length>0){
-        $.post(site_url+'/staff/getCollegeSections/'+$('select[name=college_id]').val(),'sem_id='+$('select[name=sem_id]').val(),function(dataR){
+        $.post(site_url+'staff/getCollegeSections/'+$('select[name=college_id]').val(),'sem_id='+$('select[name=sem_id]').val(),function(dataR){
             $('select[name=section_id]').html(dataR);
         })
        }
@@ -98,20 +98,27 @@ $(function(){
     //Send message
     $('select[name=semister_id]').live('change',function(){
        if($(this).hasClass('getStaffSubjects') && $('select[name=subject_id]').length>0){
-            $.post(site_url+'/staff/getStaffSections/'+$('select[name=college_id]').val(),'semister_id='+$('select[name=semister_id]').val(),function(dataR){
+            $.post(site_url+'staff/getStaffSections/'+$('select[name=college_id]').val(),'semister_id='+$('select[name=semister_id]').val(),function(dataR){
                 $('select[name=section_id]').html(dataR);
             });
        }else  if($('select[name=section_id]').length>0){
-        $.post(site_url+'/staff/getCollegeSections/'+$('select[name=college_id]').val(),'sem_id='+$('select[name=semister_id]').val(),function(dataR){
+        $.post(site_url+'staff/getCollegeSections/'+$('select[name=college_id]').val(),'sem_id='+$('select[name=semister_id]').val(),function(dataR){
             $('select[name=section_id]').html(dataR);
         })
        }
     });
 	
-	$('select[name=sms_template]').live('change',function(){
-		//alert($('#sms_template option:selected').attr('desc'));
-		$('#message').val($('#sms_template option:selected').attr('desc'));
-	});
+    $('select[name=sms_template]').live('change',function(){
+        //alert($('#sms_template option:selected').attr('desc'));
+        $('#message').val($('#sms_template option:selected').attr('desc'));
+        $('#message').trigger('keyup');
+    });
+    
+    $('#message').live('keyup',function(){
+        $('#message_length').html($('#message').val().length + ' Chars...');
+    });
+    $('#message').trigger('keyup');
+    
     $('#from').datepicker({
         beforeShow:function(input) {
                 return {
@@ -144,7 +151,7 @@ function loadLeaveAdjustments(){
     if($('#from').val()=='' || $('#to').val()==''){ return true; }
     dataP='from='+$('#from').val()+'&to='+$('#to').val()
     $.ajax({
-        url:site_url+'/staff/getStaffWeekdaysCyclePeriods',
+        url:site_url+'staff/getStaffWeekdaysCyclePeriods',
         data:dataP,
         type:'POST',
         dataType:'',
@@ -162,7 +169,7 @@ function loadLeaveAdjustments(){
 function showTTDetails(){
     dataP='staff_select='+$('#staff_select').val()
     $.ajax({
-        url:site_url+'/staff/get_staff_time_table',
+        url:site_url+'staff/get_staff_time_table',
         data:dataP,
         type:'POST',
         dataType:'json',
@@ -189,7 +196,7 @@ function showTTDetails(){
 function showStudentTTDetails(){
     dataP=$('#branch_select, #year_select').serialize();
     $.ajax({
-        url:site_url+'/staff/get_student_time_table',
+        url:site_url+'staff/get_student_time_table',
         data:dataP,
         type:'POST',
         dataType:'json',
@@ -217,7 +224,7 @@ function showStudentTTDetails(){
 
 function load_q_papers_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/staff/browse_q_papers_grid',
+            url:site_url+'staff/browse_q_papers_grid',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -249,7 +256,7 @@ function load_q_papers_grid(){
 
 function no_due_request_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/staff/no_due_requests',
+            url:site_url+'staff/no_due_requests',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -280,7 +287,7 @@ function no_due_request_grid(){
 
 function approve_q_papers_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/staff/approve_q_papers',
+            url:site_url+'staff/approve_q_papers',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -313,7 +320,7 @@ function approve_q_papers_grid(){
 function send_to_print(id){
     dataP='id='+id;
     $.ajax({
-        url:site_url+'/staff/send_q_papers_print',
+        url:site_url+'staff/send_q_papers_print',
         data:dataP,
         type:'POST',
         // dataType:'',
@@ -332,7 +339,7 @@ function send_to_print(id){
 function approve_paper(id){
     dataP='id='+id;
     $.ajax({
-        url:site_url+'/staff/approve_paper',
+        url:site_url+'staff/approve_paper',
         data:dataP,
         type:'POST',
         // dataType:'',
@@ -351,7 +358,7 @@ function approve_paper(id){
 function nodue_update(id,update){
     dataP='id='+id+'&update='+update;
     $.ajax({
-        url:site_url+'/staff/update_nodue',
+        url:site_url+'staff/update_nodue',
         data:dataP,
         type:'POST',
         // dataType:'',
@@ -375,7 +382,7 @@ function nodue_update(id,update){
 
 function library_books_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/library/library_books',
+            url:site_url+'library/library_books',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -407,7 +414,7 @@ function library_books_grid(){
 
 function reserved_books_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/library/reserved_library_books',
+            url:site_url+'library/reserved_library_books',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -440,7 +447,7 @@ function reserve_book(id){
     if(!confirm('Are you sure you want to reserve this book.?')){return false;}
     dataP='id='+id;
     $.ajax({
-        url:site_url+'/library/reserve_book',
+        url:site_url+'library/reserve_book',
         data:dataP,
         type:'POST',
         dataType:'',
@@ -457,7 +464,7 @@ function reserve_book(id){
 //surya function
 function view_studentmessages(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/staff/student_messages',
+            url:site_url+'staff/student_messages',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -487,7 +494,7 @@ function view_studentmessages(){
 
 function view_assignments(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/staff/view_assignments',
+            url:site_url+'staff/view_assignments',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -521,7 +528,7 @@ var submissionAssId;
 function view_submissions(id){
     submissionAssId=id;
     $.ajax({
-        url:site_url+'/staff/view_submissions',
+        url:site_url+'staff/view_submissions',
         type:'POST',
         dataType:'',
         beforeSend:function(){
@@ -535,7 +542,7 @@ function view_submissions(id){
 
 function view_submissions_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/staff/view_submissions',
+            url:site_url+'staff/view_submissions',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -571,7 +578,7 @@ function view_submissions_grid(){
 function assign_marks(id){
     dataP='id='+id;
     $.ajax({
-        url:site_url+'/staff/get_marks_details',
+        url:site_url+'staff/get_marks_details',
         data:dataP,
         type:'POST',
         dataType:'json',
@@ -601,7 +608,7 @@ function assign_marks(id){
 function submit_marks_form(){
     dataP=$('#marks_form').serialize();
     $.ajax({
-        url:site_url+'/staff/save_assignment_marks',
+        url:site_url+'staff/save_assignment_marks',
         data:dataP,
         type:'POST',
         dataType:'',
@@ -620,7 +627,7 @@ function submit_marks_form(){
 
 function view_library_pdfs(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/students/view_library_pdfs',
+            url:site_url+'students/view_library_pdfs',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -650,7 +657,7 @@ function view_library_pdfs(){
 
 function leave_letter_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/staff/leave_letter',
+            url:site_url+'staff/leave_letter',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -683,7 +690,7 @@ function leave_letter_grid(){
 
 function leave_letter_request_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/staff/leave_requests',
+            url:site_url+'staff/leave_requests',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -718,7 +725,7 @@ function change_leave_approval(id,status){
     }
     dataP='id='+id+'&is_approved='+status;
     $.ajax({
-        url:site_url+'/staff/change_leave_approval',
+        url:site_url+'staff/change_leave_approval',
         data:dataP,
         type:'POST',
         beforeSend:function(){
@@ -735,7 +742,7 @@ function change_leave_approval(id,status){
 
 function leave_adjust_request_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/staff/leave_adjust_requests',
+            url:site_url+'staff/leave_adjust_requests',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -768,7 +775,7 @@ function change_leave_adjust_approval(id,status){
     }
     dataP='id='+id+'&is_approved='+status;
     $.ajax({
-        url:site_url+'/staff/change_leave_adjust_approval',
+        url:site_url+'staff/change_leave_adjust_approval',
         data:dataP,
         type:'POST',
         beforeSend:function(){
@@ -784,7 +791,7 @@ function change_leave_adjust_approval(id,status){
 
 function attendance_breach_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/staff/attendance_breach',
+            url:site_url+'staff/attendance_breach',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -821,7 +828,7 @@ function unlock_breach(id,id2){
     }
     dataP='staff_user_id='+id+'&id='+id2;
     $.ajax({
-        url:site_url+'/staff/unlock_breach',
+        url:site_url+'staff/unlock_breach',
         data:dataP,
         type:'POST',
         beforeSend:function(){

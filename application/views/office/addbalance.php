@@ -1,5 +1,5 @@
 
-<form  action="/office/add_balance" id="add_balance" method="post" >
+<form  action="office/add_balance" id="add_balance" method="post" >
 
 <input id="rel" name="rel" type="hidden" class="text" value="addbalance_form"/>
 <input type="hidden" name="updated_by" id="updated_by" value="<?php echo $this->session->userdata('user_details')->username; ?>"/>

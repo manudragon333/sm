@@ -14,7 +14,7 @@ else if($this->session->userdata('student_data')){
 ?>
 <script> var doj=<?php if(isset($student_data[0]->doj)) echo "new Date('".dateFormat($student_data[0]->doj)."');"; else echo 'null'; ?></script>
 <div class="f_r f_b m_r_10">* required fields</div>
-<form id="appl_form" action="/students/preview_study_certificate">
+<form id="appl_form" action="students/preview_study_certificate">
 <input id="" name="rel" class="text" type="hidden" value="study_certi"/>
 <ol>
     <li>

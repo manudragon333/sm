@@ -5,7 +5,7 @@
 <script type="text/javascript">
     var base_url="<?php echo base_url(); ?>";
     var site_url="<?php echo site_url(); ?>";
-    var upload_path='/school_mgmt/sm/uploads';
+    var upload_path="<?php echo $this->config->item('upload_path'); ?>";
     var lang=<?php echo json_encode($this->lang->language); ?>
 </script>
 <!-- INLINE STYLES / SCRIPTS  -->

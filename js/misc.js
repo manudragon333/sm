@@ -9,7 +9,7 @@ $(function(){
 
 function placement_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/misc/placement_grid',
+            url:site_url+'misc/placement_grid',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -37,7 +37,7 @@ function placement_grid(){
 
 function study_abroad_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/misc/study_abroad_grid',
+            url:site_url+'misc/study_abroad_grid',
             datatype: "json",
             height:'auto',
             autowidth: true,

@@ -1,5 +1,5 @@
 <div class="f_r f_b m_r_10">* required fields</div>
-<form id="appl_form" action="/library/check_data">
+<form id="appl_form" action="library/check_data">
     <input id="" name="rel" class="text" type="hidden" value="check_Data"/>
     <ol>
         <li>

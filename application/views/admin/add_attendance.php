@@ -5,7 +5,7 @@
     <p style="width:200px; float:right;font-weight: bold;"><i><b>*</b> required fields</i></p>
     <div class="clr"></div>
 </div>
-<form id="appl_form" action="/admin/save_attendance" suc_msg="Attendance Saved Succesfully..">
+<form id="appl_form" action="admin/save_attendance" suc_msg="Attendance Saved Succesfully..">
     <input id="" name="id" class="text" type="hidden" value="<?php if(isset($subject_edit_data[0]['id'])) echo $subject_edit_data[0]['id']; ?>"/>
     <input id="" name="user_id" class="text" type="hidden" value="<?php if(isset($subject_edit_data[0]['user_id'])) echo $subject_edit_data[0]['user_id']; ?>"/>
     <input id="" name="semister_idXX" class="text" type="hidden" value="<?php if(isset($subject_edit_data[0]['semister_id'])) echo $subject_edit_data[0]['semister_id']; ?>"/>

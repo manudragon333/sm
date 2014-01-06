@@ -1,6 +1,6 @@
 <?php // echo '<pre>'; print_r($data); echo '</pre>'; die; ?>
 
-<form id="appl_form" action="/staff/update_time_table">
+<form id="appl_form" action="staff/update_time_table">
 <ol>
     <li>
         <label for="from_month">Select Staff:* </label>

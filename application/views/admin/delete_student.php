@@ -10,7 +10,7 @@
         <ul>
             <li>
                 <h4><span> Search Data </span></h4>
-                <form action="/students/conduct_certificate" id="appl_form1" suc_msg="" err_msg="">
+                <form action="students/conduct_certificate" id="appl_form1" suc_msg="" err_msg="">
                     <input id="" name="rel" class="text" type="hidden" value="delete_student"/>
                     <label for="sname">Student Name:* </label>
                     <input id="sname" name="sname" class="text"/>

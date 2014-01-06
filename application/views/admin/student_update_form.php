@@ -1,5 +1,5 @@
-<form id="appl_form" action="admin/update_user_account" enctype="multipart/form-data" method="post" class="m_t_10">
-    <input id="rel" name="rel" type="hidden" class="text" value="user_form" />
+<form id="appl_form" action="<? echo site_url('admin/save_user_account');?>" enctype="multipart/form-data" method="post" class="m_t_10">
+    <input id="rel" name="rel" type="hidden" class="text" value="student_user_form" />
     <input id="id" name="id" type="hidden" class="text" value="<?php if (isset($user_details[0]->id)) echo $user_details[0]->id; ?>"/>
     <input id="users_type_id" type="hidden"  name="users_type_id" class="text" value="<?php if (isset($user_details[0]->users_type_id)) echo $user_details[0]->users_type_id; ?>"/>
     <input id="student_rec_id" type="hidden" name="student_rec_id" class="text" value="<?php if (isset($student_details[0]->id)) echo $student_details[0]->id; ?>"/>
@@ -103,7 +103,7 @@
     </li>
     <li>
         <label for="sem_id">Present Year/Sem:*</label>
-        <select name='sem_id' id='sem_id' class="text">
+        <select name='sem_id' id='sem_id' class="text required">
          <?php
             $sem_selected=(isset($student_details[0]->sem_id))?$student_details[0]->sem_id:1 ;
             echo selectBox('Select','semisters','id,name',' branch_id="'.$branch_id_select.'" and status="1"',$sem_selected);
@@ -251,7 +251,7 @@
 <br/>
 <ol>
     <li>
-        <input type="submit" name="imageField" id="imageField" class=" button j_gen_form_submit gblue" value="Save"/>
+        <input type="submit" name="imageField" id="imageField" class="gblue button j_gen_form_submit" value="Save"/>
         <input type="button" name="imageField" id="imageField" class=" button grey m_l_20 " value="Back" onclick="javascript:window.location.reload();"/>
         <div class="clr"></div>
     </li>

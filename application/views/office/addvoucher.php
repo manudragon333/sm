@@ -43,7 +43,7 @@
     
     <div class="clr"></div>
     <div class="clr"></div>
-    <form action="/office/addvoucher" id="debitvoucher_form" method="post" >
+    <form action="office/addvoucher" id="debitvoucher_form" method="post" >
     	 <input id="rel" name="rel" type="hidden" class="text" value="debitvoucher_form"/>
     	 <input id="createdby" name="createdby" type="hidden" class="text" value="<?php echo $this->session->userdata('user_details')->username; ?>"/>
     	 <input id="college_code" name="college_code" type="hidden" class="text" value="<?php echo $colleges[0]->college_code; ?>"/>

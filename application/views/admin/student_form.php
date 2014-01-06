@@ -108,7 +108,7 @@
     </li>
     <li>
         <label for="sem_id">Present Year/Sem:*</label>
-        <select name='sem_id' id='sem_id' class="text">
+        <select name='sem_id' id='sem_id' class="text required">
          <?php
             $sem_selected=(isset($student_details[0]->sem_id))?$student_details[0]->sem_id:1 ;
             echo selectBox('Select','semisters','id,name',' branch_id="'.$branch_id_select.'" and status="1"',$sem_selected);
@@ -263,7 +263,7 @@
 <ol>
     <li>
         <input type="submit" name="imageField" id="imageField" class="gblue button j_gen_form_submit" value="Save"/>
-        <input type="button" name="imageField" id="imageField" class="send button" value="Back" onclick="javascript:window.location.reload();"/>
+        <input type="button" name="imageField" id="imageField" class="send button grey" value="Back" onclick="javascript:window.location.reload();" style="margin-top: 0px;"/>
         <div class="clr"></div>
     </li>
 </ol>

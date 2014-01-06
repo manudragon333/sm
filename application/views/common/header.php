@@ -195,7 +195,7 @@
                             <li>
                                 <label for="website"><a href="<?php echo site_url('staff/post_exam_results'); ?>"> Post Exam Results </a></label>
                             </li>
-                            <?php if ($userData->users_type_id == 3) {  ?>
+                            <?php if ($userData->users_type_id == 3) { /* HOD only features */  ?>
                             <li>
                                 <label for="website"><a href="<?php echo site_url('staff/leave_requests'); ?>"> Leave Letter Requests  </a></label>
                             </li>
@@ -208,8 +208,14 @@
                             <li>
                                 <label for="website"><a href="<?php echo site_url('staff/progress_card'); ?>"> Progress Card </a></label>
                             </li>
-                            
+                            <li>
+                                <label for="website"><a href="<?php echo site_url('staff/notification_panel'); ?>">Notification Panel</a></label>
+                            </li>
+                            <li>
+                                <label for="website"><a href="<?php echo site_url('staff/attendance_report'); ?>">Attendance Report</a></label>
+                            </li>
                             <?php }  ?>
+                            
                         </ul>
                     </li>
                     <li><a href="<?php echo site_url('staff/student_profile'); ?>">Student Profile</a></li>
@@ -346,7 +352,6 @@
                                 <label for="website"><a href="<?php echo site_url('office/fee_ledger'); ?>"> Fee Ledger  </a></label>
                             </li>
                          <li>
-           <li>
                    <label for="website"><a href="<?php echo site_url('office/fee_reports'); ?>">List Payments  </a></label>
                  </li>
 		<li><label for="website"><a href="<?php echo site_url('office/coll_reports'); ?>">College Wise Reports Reports  </a></label></li>
@@ -359,7 +364,9 @@
       
                      </ul>
                     </li>
-
+			<li>
+                            <label for="website"><a href="<?php echo site_url('office/notification_panel'); ?>">Notification Panel</a></label>
+                        </li>	
 
 
 
@@ -403,7 +410,7 @@
                     <!-- Employee/ Examiner SET -->
                     <li><a href="<?php echo site_url('exam'); ?>">Home</a></li>
                     <li><a href="<?php echo site_url('exam/student_data'); ?>">Student Data</a></li>
-                    <li><a href="<?php echo site_url('exam/sendmsg'); ?>">Send a Message</a></li>
+                    <!--<li><a href="<?php echo site_url('exam/sendmsg'); ?>">Send a Message</a></li>-->
                     <li><a href="<?php echo site_url('exam/browse_q_papers'); ?>"> Browse the Question papers  </a></li>
                     <li><a href="<?php echo site_url('exam/print_request'); ?>">Print Request <?php if(isset($request_counts['prints']) && !empty($request_counts['prints'])){ ?><span class="count_notify"><?php  echo $request_counts['prints']; ?></span><?php } ?></a></li>
 <!--                    <li><a href="<?php echo site_url('exam/results'); ?>">Results</a></li>-->
@@ -417,6 +424,9 @@
                                 <label for="website"><a href="<?php echo site_url('exam/bulk_post_exam_results'); ?>"> Bulk Post Exam Result </a></label>
                             </li>
                             <li>
+                                <label for="website"><a href="<?php echo site_url('exam/bulk_post_multi_subject_results'); ?>"> Upload Subjects Exam Result </a></label>
+                            </li>
+                            <li>
                                 <label for="website"><a href="<?php echo site_url('exam/exam_report'); ?>"> Exam Reports </a></label>
                             </li>
                             <li>
@@ -427,7 +437,26 @@
                             </li>-->
                         </ul>
                     </li>
-                    <li><a href="<?php echo site_url('email/compose'); ?>">Email</a></li>
+                    <li>
+                        <a href="javascript:void(0);">Send Message</a>
+                        <ul class="sub_menu">
+                            <li>
+                                <label for="website"><a href="<?php echo site_url('exam/notification_panel'); ?>">Notification Panel</a></label>
+                            </li>
+                            <li>
+                                <label for="website"><a href="<?php echo site_url('exam/message_to_faculty'); ?>">Message to Faculty</a></label>
+                            </li>
+                            <li>
+                                <label for="website"><a href="<?php echo site_url('exam/sendmsg'); ?>">Send a Message</a></label>
+                            </li>
+                            <li>
+                                <label for="website"><a href="<?php echo site_url('email/compose'); ?>">Email</a></label>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li><a href="<?php echo site_url('exam/exam_duty'); ?>">Exam Duty</a></li>
+                    <!--<li><a href="<?php echo site_url('email/compose'); ?>">Email</a></li>-->
 
                     <!-- Employee/ Examiner SET -->
                 <?php } ?>
@@ -545,7 +574,16 @@
                             </li>
                             
                             <li>
+                                <label for="website"><a href="<?php echo site_url('admin/student_semester_upgrade'); ?>"> Student Semester Upgrade </a></label>
+                            </li>
+                            <li>
                                 <label for="website"><a href="<?php echo site_url('staff/send_msg'); ?>"> Send Message </a></label>
+                            </li>
+                            <li>
+                                <label for="website"><a href="<?php echo site_url('admin/notification_panel'); ?>">Notification Panel</a></label>
+                            </li>
+                            <li>
+                                <label for="website"><a href="<?php echo site_url('staff/attendance_report'); ?>">Attendance Report</a></label>
                             </li>
                         </ul>
                     </li>

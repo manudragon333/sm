@@ -5,7 +5,7 @@
     <p style="width:200px; float:right;font-weight: bold;"><i><b>*</b> required fields</i></p>
     <div class="clr"></div>
 </div>
-<form id="appl_form" action="/admin/save_subject_grid">
+<form id="appl_form" action="admin/save_subject_grid">
     <input id="" name="rel" class="text" type="hidden" value="sbject_grid_form"/>
     <input id="" name="id" class="text" type="hidden" value="<?php if(isset($subject_edit_data[0]['id'])) echo $subject_edit_data[0]['id']; ?>"/>
     <ol>

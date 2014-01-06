@@ -18,7 +18,7 @@ $(function(){
 
 function library_books_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/library/library_books',
+            url:site_url+'library/library_books',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -50,7 +50,7 @@ function library_books_grid(){
 
 function reserved_books_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/library/reserved_library_books',
+            url:site_url+'library/reserved_library_books',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -84,7 +84,7 @@ function reserve_book(id){
     if(!confirm('Are you sure you want to reserve this book.?')){ return false; }
     dataP='id='+id;
     $.ajax({
-        url:site_url+'/library/reserve_book',
+        url:site_url+'library/reserve_book',
         data:dataP,
         type:'POST',
         dataType:'',
@@ -101,7 +101,7 @@ function reserve_book(id){
 function fill_student_data(student_number){
     dataP='student_number='+student_number;
     $.ajax({
-        url:site_url+'/students/fill_student_data',
+        url:site_url+'students/fill_student_data',
         data:dataP,
         type:'POST',
         dataType:'json',
@@ -126,7 +126,7 @@ function fill_student_data(student_number){
 function checkReturns(){
 
     $.ajax({
-        url:site_url+'/students/check_library_returns',
+        url:site_url+'students/check_library_returns',
         data:'',
         type:'POST',
         dataType:'',
@@ -145,7 +145,7 @@ function checkReturns(){
 function loadSemisterNextView(id){
     dataP='semester_id='+id;
     $.ajax({
-        url:site_url+'/students/marks_view',
+        url:site_url+'students/marks_view',
         data:dataP,
         type:'POST',
         dataType:'',
@@ -162,7 +162,7 @@ function loadSemisterNextView(id){
 function loadSemisterAttendance(id){
     dataP='semester_id='+id;
     $.ajax({
-        url:site_url+'/students/get_attendance',
+        url:site_url+'students/get_attendance',
         data:dataP,
         type:'POST',
         dataType:'',
@@ -177,7 +177,7 @@ function loadSemisterAttendance(id){
 
 function view_assignments(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/students/view_assignments',
+            url:site_url+'students/view_assignments',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -211,7 +211,7 @@ function view_assignments(){
 
 function view_library_pdfs(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/students/view_library_pdfs',
+            url:site_url+'students/view_library_pdfs',
             datatype: "json",
             height:'auto',
             autowidth: true,

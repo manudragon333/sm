@@ -7,7 +7,7 @@
     </div>
     <div class="clr"></div>
     <div class="clr"></div>
-    <form action="/students/conduct_certificate" id="appl_form" suc_msg="Submited Successfully." err_msg="">
+    <form action="students/conduct_certificate" id="appl_form" suc_msg="Submited Successfully." err_msg="">
         <input id="" name="rel" class="text" type="hidden" value="add_stu_details"/>
         <div align="right" style="position: relative;">
             <img src="pic/logo.png" id="photo" width="100" height="100" align="center" title="pic" style="position: absolute; top:0px; right:-20px;"/>

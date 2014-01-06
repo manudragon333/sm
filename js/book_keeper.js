@@ -14,7 +14,7 @@ $(function(){
 
 function books_dispatched_grid(student_number,book_number){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/book_keeper/books_dispatched_grid',
+            url:site_url+'book_keeper/books_dispatched_grid',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -53,7 +53,7 @@ function books_dispatched_grid(student_number,book_number){
 
 function books_reserved_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/book_keeper/books_reserved',
+            url:site_url+'book_keeper/books_reserved',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -87,7 +87,7 @@ function books_reserved_grid(){
 function dispatch_book(id){
     dataP='id='+id
     $.ajax({
-        url:site_url+'/book_keeper/dispatch_book',
+        url:site_url+'book_keeper/dispatch_book',
         data:dataP,
         type:'POST',
         dataType:'',
@@ -105,7 +105,7 @@ function dispatch_book(id){
 
 function receive_books_grid(student_number,teacher_number){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/book_keeper/receive_books_grid',
+            url:site_url+'book_keeper/receive_books_grid',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -145,7 +145,7 @@ function receive_books_grid(student_number,teacher_number){
 function receive_book(id){
     dataP='id='+id
     $.ajax({
-        url:site_url+'/book_keeper/receive_book',
+        url:site_url+'book_keeper/receive_book',
         data:dataP,
         type:'POST',
         dataType:'',
@@ -163,7 +163,7 @@ function receive_book(id){
 
 function ticket_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/book_keeper/ticket_grid',
+            url:site_url+'book_keeper/ticket_grid',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -197,7 +197,7 @@ function ticket_grid(){
 function ticket_msg(id,option,mobile){
     dataP='id='+id+'&option='+option+'&mobile='+mobile;
     $.ajax({
-        url:site_url+'/book_keeper/ticket_msg',
+        url:site_url+'book_keeper/ticket_msg',
         data:dataP,
         type:'POST',
         dataType:'',

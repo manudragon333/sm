@@ -66,15 +66,15 @@
             </select>
         </li>
 
-        <li  >
+        <li  style="padding-top: 5px;">
             <label for="is_mba">Course Type:* </label>
             <?php  if(isset($form_data['is_mba'])){ $is_mba_select=$form_data['is_mba']; }else{ $is_mba_select=0; } ?>
             <label ><input id="is_mba_1" type="radio" name="is_mba" value="1" class="required" title="Please Select a Course Type" <?php if($is_mba_select=='1'){ echo ' checked="checked" '; }  ?>/> M.B.A </label>
             <label ><input id="is_mba_2" type="radio" name="is_mba" value="0" class="required" title="Please Select a Course Type" <?php if($is_mba_select=='0'){ echo ' checked="checked" '; }  ?>/> B.Tech/ Others </label>
         </li>
 
-        <li >
-            <h4 class="m_t_20">CSV Format:</h4>
+        <li style="border:1px solid #dadada; padding-bottom:5px;">
+            <h4 style="margin: 5px;">CSV Format:</h4>
             <table class="sample table_view m_t_10">
                 <tbody>
                     <tr>
@@ -108,7 +108,7 @@
         
         <li>
             <br/>
-            <input type="submit" name="imageField" id="imageField" class="upload button j_gen_form_submit" value="Submit"/>
+            <input type="submit" name="imageField" id="imageField" class="upload button j_gen_form_submit gblue" value="Submit"/>
         </li>
     </ol>
 </form>
@@ -151,7 +151,7 @@
                     'uploader'  : base_url+'/uploadify/uploadify.swf',
                     'script'    : base_url+'/uploadify/uploadify.php',
                     'cancelImg' : base_url+'/uploadify/cancel.png',
-                    'folder'    : '/kits/uploads', // '/testserver/uploads', '/mycollege/testserver/uploads',
+                    'folder'    : upload_path, 
                     'auto'      : true,
                     'multi'     : false,
                     'fileExt'   : '*.csv;',

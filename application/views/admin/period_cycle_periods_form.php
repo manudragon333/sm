@@ -21,7 +21,7 @@ if(count($data)){
     <div class="clr"></div>
 </div>
 <div class="clr"></div>
-<form id="appl_form" action="/admin/edit_periods/<?php echo $cycles_id;  ?>" method="post">
+<form id="appl_form" action="admin/edit_periods/<?php echo $cycles_id;  ?>" method="post">
     <input type="hidden" name="cycles_id" value="<?php if(isset($cycles_id)) echo $cycles_id; else echo 0;?>"/>
     <input type="hidden" name="user_id" value="<?php if(isset($user_id)) echo $user_id; else echo 0;?>"/>
     <ol>

@@ -7,7 +7,7 @@ if($this->session->userdata('preview_conduct_certificate')){
 }
 if(count($data) && $data){
 foreach($data as $k=>$v){?>
-<form id="appl_form" action="/students/conduct_certificate" >
+<form id="appl_form" action="students/conduct_certificate" >
     <input type="hidden" name="preview" value="1"/>
     <div class="certificate r_f">
         <div class="std_crtimg p_a"></div>

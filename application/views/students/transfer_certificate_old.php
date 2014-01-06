@@ -13,7 +13,7 @@ else if($this->session->userdata('student_data')){
 <!--    <p style="width:200px; float:right;font-weight: bold;"><i><b>*</b> required fields</i></p>-->
     <div class="clr"></div>
 </div>
-<form id="appl_form" action="/students/preview_tc" suc_msg="TC Request Submited Successfully." err_msg="You already applied for Transfer Certificate.  Please contact the office for further reference. ">
+<form id="appl_form" action="students/preview_tc" suc_msg="TC Request Submited Successfully." err_msg="You already applied for Transfer Certificate.  Please contact the office for further reference. ">
     <input id="" name="rel" class="text" type="hidden" value="tc_certi"/>
     <ol>
         <li>

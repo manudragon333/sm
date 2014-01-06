@@ -73,14 +73,20 @@
             </select>
         </li>
 
-        <li style="">
+<!--        <li style="">
             <label for="is_mba">Course Type:* </label>
             <?php  if(isset($s_data['is_mba'])){ $is_mba_select=$s_data['is_mba']; }else{ $is_mba_select=0; } ?>
             <label ><input id="is_mba_1" type="radio" name="is_mba" value="1" class="required" title="Please Select a Course Type" <?php if($is_mba_select=='1'){ echo ' checked="checked" '; }  ?>/> M.B.A </label>
             <label ><input id="is_mba_2" type="radio" name="is_mba" value="0" class="required" title="Please Select a Course Type" <?php if($is_mba_select=='0'){ echo ' checked="checked" '; }  ?>/> B.Tech/ Others </label>
-        </li>
+        </li>-->
 
-        
+        <li>
+            <label for="exam_id">Exam:* </label>
+            <select id="exam_id" name="exam_id" class="text required" title="Please select Exam">
+                <option value="">Select</option>
+                <?php if(isset($s_data['exam_id'])) $exam_id_select=$s_data['exam_id']; else $exam_id_select=0; echo load_select('exams',$exam_id_select); ?>
+            </select>
+        </li>
 
         <li style="display:none;">
             <label for="comment">Comment:</label>

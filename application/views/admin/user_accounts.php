@@ -37,14 +37,11 @@
             <?php if (isset($s_data['section_id'])) $section_id_select = $s_data['section_id']; else $section_id_select = 0; echo load_select_section('sections', $section_id_select, array('semister_id' => $semister_id_select)); ?>
         </select>
         
-        
-        
-        
+        <br/>
         <label for="admission_type">Admission Type: </label>
         <select name="admission_type_id" id="admission_type_id" class="text required">
             <option value="">Select</option>
-            <option value="1">Management</option>
-            <option value="2">Counseling</option>
+            <?php if (isset($s_data['admission_type_id'])) $admission_type_id_select = $s_data['admission_type_id']; else $admission_type_id_select = 0; echo load_select('admission_types', $admission_type_id_select, array('status' => '1')); ?>
         </select>
         <label for="scholar">Scholar ship: </label>
         <select name="scholarship" id="scholarship" class="text">
@@ -61,23 +58,19 @@
         <label for="caste">Caste: </label>
         <select name="caste_id" id="caste_id" class="text">
             <option value="">Select</option>
-            <option value="1">SC</option>
-            <option value="2">BC</option>
-            <option value="3">OC</option>
-            <option value="4">ST</option>
-                            
+            <?php if (isset($s_data['caste_id'])) $caste_id_select = $s_data['caste_id']; else $caste_id_select = 0; echo load_select('castes', $caste_id_select, array('status' => '1')); ?>
         </select>
         <label for="status">Active/Inactive: </label>
         <select name="status" id="status" class="text">
             <option value="1">Active</option>
             <option value="0">In Active</option>
         </select>
-		<label for="status">Missing Data: </label>
+        <label for="status">Missing Data: </label>
         <select name="missingdata" id="missingdata" class="text">
-			<option value="">Select</option>
+            <option value="">Select</option>
             <option value="mobile">Student Phone Number</option>
             <option value="email">Student Email</option>
-			<option value="father_mobile">Parent Phone Number</option>
+            <option value="father_mobile">Parent Phone Number</option>
             <option value="father_email">Parent Email</option>
         </select>
         <input type="submit" value="Export to Excel" class="button black m_l_10"/>

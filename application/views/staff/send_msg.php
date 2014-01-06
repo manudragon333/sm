@@ -1,5 +1,5 @@
 <div class="f_r f_b m_r_10">* required fields </div>
-<form id="appl_form" action="/staff/send_msg" suc_msg="Message Submited Successfully." err_msg="Problem submitting.">
+<form id="appl_form" action="staff/send_msg" suc_msg="Message Submited Successfully." err_msg="Problem submitting.">
     <input id="" name="rel" class="text" type="hidden" value="send_msg"/>
     <ol id="staff_send_msg">
         <li>
@@ -86,6 +86,7 @@
         <li id="message_li" class="hide">
             <label for="message">Message:*</label>
             <textarea cols="10" rows="8" name="message" id="message"></textarea>
+            <p id="message_length" style="text-align: right; font-style: italic; width: 688px; "></p>
         </li>
         <li id="submit_button" class="hide">
             <input type="button" name="imageField" id="imageField" class="generate button j_gen_form_submit gblue" value="  Send  " />

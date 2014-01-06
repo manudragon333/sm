@@ -6,40 +6,40 @@ $(function(){
 
     $('select[name=college_id]').live('change',function(){
        if($('select[name=course_id]').length>0){
-        $.post(site_url+'/students/getCollegeCourses/'+$('select[name=college_id]').val(),function(dataR){
+        $.post(site_url+'students/getCollegeCourses/'+$('select[name=college_id]').val(),function(dataR){
             $('select[name=course_id]').html(dataR);
         })
        }
     });
     $('select[name=course_id]').live('change',function(){
        if($('select[name=branch_id]').length>0){
-        $.post(site_url+'/students/getCollegeBranches/'+$('select[name=college_id]').val(),'course_id='+$('select[name=course_id]').val(),function(dataR){
+        $.post(site_url+'students/getCollegeBranches/'+$('select[name=college_id]').val(),'course_id='+$('select[name=course_id]').val(),function(dataR){
             $('select[name=branch_id]').html(dataR);
         })
        }
     });
     $('select[name=branch_id]').live('change',function(){
        if($('select[name=semister_id]').length>0){
-        $.post(site_url+'/students/getCollegeSemesters/'+$('select[name=college_id]').val(),'branch_id='+$('select[name=branch_id]').val(),function(dataR){
+        $.post(site_url+'students/getCollegeSemesters/'+$('select[name=college_id]').val(),'branch_id='+$('select[name=branch_id]').val(),function(dataR){
             $('select[name=semister_id]').html(dataR);
         })
        }
        if($('select[name=sem_id]').length>0){
-        $.post(site_url+'/students/getCollegeSemesters/'+$('select[name=college_id]').val(),'branch_id='+$('select[name=branch_id]').val(),function(dataR){
+        $.post(site_url+'students/getCollegeSemesters/'+$('select[name=college_id]').val(),'branch_id='+$('select[name=branch_id]').val(),function(dataR){
             $('select[name=sem_id]').html(dataR);
         })
        }
     });
     $('select[name=semister_id]').live('change',function(){
        if($('select[name=subject_id]').length>0){
-        $.post(site_url+'/students/getCollegeSubjects/'+$('select[name=college_id]').val(),'semister_id='+$('select[name=semister_id]').val(),function(dataR){
+        $.post(site_url+'students/getCollegeSubjects/'+$('select[name=college_id]').val(),'semister_id='+$('select[name=semister_id]').val(),function(dataR){
             $('select[name=subject_id]').html(dataR);
         })
        }
     });
     $('select[name=sem_id]').live('change',function(){
        if($('select[name=subject_id]').length>0){
-        $.post(site_url+'/students/getCollegeSubjects/'+$('select[name=college_id]').val(),'semister_id='+$('select[name=sem_id]').val(),function(dataR){
+        $.post(site_url+'students/getCollegeSubjects/'+$('select[name=college_id]').val(),'semister_id='+$('select[name=sem_id]').val(),function(dataR){
             $('select[name=subject_id]').html(dataR);
         })
        }
@@ -55,7 +55,7 @@ $(function(){
 function delete_book(id){
     dataP='id='+id;
     $.ajax({
-        url:site_url+'/library/book_delete_confirm',
+        url:site_url+'library/book_delete_confirm',
         data:dataP,
         type:'POST',
         dataType:'',
@@ -71,7 +71,7 @@ function delete_book(id){
 
 function books_dispatched_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/library/books_dispatched',
+            url:site_url+'library/books_dispatched',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -104,7 +104,7 @@ function books_dispatched_grid(){
 
 function check_data_grid(student_number){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/library/check_data_grid',
+            url:site_url+'library/check_data_grid',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -142,7 +142,7 @@ function check_data_grid(student_number){
 
 function no_due_request_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/staff/no_due_requests',
+            url:site_url+'staff/no_due_requests',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -176,7 +176,7 @@ function no_due_request_grid(){
 function nodue_update(id,update){
     dataP='id='+id+'&update='+update;
     $.ajax({
-        url:site_url+'/staff/update_nodue',
+        url:site_url+'staff/update_nodue',
         data:dataP,
         type:'POST',
         // dataType:'',

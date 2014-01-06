@@ -1,4 +1,4 @@
-<form id="appl_form" action="/admin/save_user_account" class="m_t_10">
+<form id="appl_form" action="admin/save_user_account" class="m_t_10">
     <input id="rel" name="rel" type="hidden" class="text" value="user_form"/>
     <input id="id" name="id" type="hidden" class="text" value="<?php if (isset($user_details[0]->id)) echo $user_details[0]->id; ?>"/>
     <input id="users_type_id" type="hidden"  name="users_type_id" class="text" value="<?php if (isset($user_details[0]->users_type_id)) echo $user_details[0]->users_type_id; ?>"/>

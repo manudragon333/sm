@@ -4,7 +4,7 @@
     <p style="width:200px; float:right;font-weight: bold;"><i><b>*</b> required fields</i></p>
     <div class="clr"></div>
 </div>
-<form id="appl_form" action="/office/fee_student_ledger">
+<form id="appl_form" action="office/fee_student_ledger">
 
     <ol>
         <li>

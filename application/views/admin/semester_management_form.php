@@ -1,5 +1,5 @@
 <div class="f_r f_b m_r_10">* required fields</div>
-<form id="appl_form" action="/admin/save_semester">
+<form id="appl_form" action="admin/save_semester">
     <input id="" name="rel" class="text" type="hidden" value="branch_management"/>
     <input id="" name="id" class="text" type="hidden" value="<?php if(isset($college_data[0]['id'])) echo $college_data[0]['id']; ?>"/>
     <ol>
@@ -32,12 +32,20 @@
             <label for="semester_names"><?php echo $this->lang->line('institute_sem'); ?> Name:* </label>
             <input id="name" name="semester_names[]" class="text required" title="Please enter a <?php echo $this->lang->line('institute_sem'); ?> name" value="<?php if(isset($college_data[0]['name'])) echo $college_data[0]['name']; ?>">
         </li>
+        <li class="hide_imp">
+            <label for="sem_numbers"><?php echo $this->lang->line('institute_sem'); ?> Number :* </label>
+            <input id="sem_numbers" name="sem_numbers[]" class="text digits required" title="Please enter a semester number(ex. 1 for 1st sem, 2 for 2nd sem)" value="<?php if(isset($college_data[0]['sem_number'])) echo $college_data[0]['sem_number']; else echo '0'; ?>">
+        </li>
         <?php }else{ // This is a Adding Process  
             for($i=1;$i<=10;$i++){
             ?>
             <li>
                 <label for="semester_names"><?php echo $this->lang->line('institute_sem'); ?> Name <?php echo $i;  ?>:* </label>
                 <input id="semester_names" name="semester_names[]" class="text required" title="Please enter a <?php echo $this->lang->line('institute_sem'); ?> name" value="">
+            </li>
+            <li class="hide_imp">
+                <label for="sem_numbers<?php echo $i;  ?>"><?php echo $this->lang->line('institute_sem'); ?> Number <?php echo $i;  ?>:* </label>
+                <input id="sem_numbers<?php echo $i;  ?>" name="sem_numbers[]" class="text digits required" title="Please enter a semester number(ex. 1 for 1st sem, 2 for 2nd sem)" value="0">
             </li>
         <?php
             }
@@ -63,7 +71,7 @@
             </select>
         </li>
         <li>
-            <input type="button" name="imageField" id="imageField" class=" button gblue j_gen_form_submit" value="Save Semester" />
+            <input type="button" name="imageField" id="imageField" class=" button gblue j_gen_form_submit" value="Save <?php echo $this->lang->line('institute_sem'); ?>" />
             <div class="clr"></div>
         </li>
     </ol>

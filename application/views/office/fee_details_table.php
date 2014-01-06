@@ -14,7 +14,7 @@
 if(count($data)){
 ?>
 <div class="clr"></div>
-<form id="appl_form" action="/office/save_fee_details">
+<form id="appl_form" action="office/save_fee_details">
     <input type="hidden" name="id" value="<?php if(isset($data[0]['id'])) echo $data[0]['id']; else echo 0;?>"/>
     <input type="hidden" name="user_id" value="<?php if(isset($data[0]['user_id'])) echo $data[0]['user_id']; else echo 0;?>"/>
     <ol>

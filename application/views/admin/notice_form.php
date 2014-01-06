@@ -1,5 +1,5 @@
 <div class="f_r f_b m_r_10">* required fields</div>
-<form id="appl_form" action="/admin/save_notice">
+<form id="appl_form" action="admin/save_notice">
     <input id="" name="rel" class="text" type="hidden" value="notice_form"/>
     <input id="" name="id" class="text" type="hidden" value="<?php if(isset($notice_data[0]['id'])) echo $notice_data[0]['id']; ?>"/>
     <ol>

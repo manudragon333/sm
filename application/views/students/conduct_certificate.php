@@ -14,7 +14,7 @@ else if($this->session->userdata('student_data')){
 ?>
 
 <div class="f_r f_b m_r_10">* required fields</div>
-<form action="/students/preview_conduct_certificate" id="appl_form" suc_msg="Conduct Certificate Request Submited Successfully." err_msg="You already applied for Conduct Certificate.  Please contact the office for further reference.">
+<form action="students/preview_conduct_certificate" id="appl_form" suc_msg="Conduct Certificate Request Submited Successfully." err_msg="You already applied for Conduct Certificate.  Please contact the office for further reference.">
     <input id="" name="rel" class="text" type="hidden" value="cond_certi"/>
     <ol>
         <li>

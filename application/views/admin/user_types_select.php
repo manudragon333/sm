@@ -1,5 +1,5 @@
 <div>
-    <form action="/admin/add_account">
+    <form action="admin/add_account">
     <ol>
         <input type="hidden" name="users_id" value="0" />
         <li>

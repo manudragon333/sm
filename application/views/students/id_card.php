@@ -13,7 +13,7 @@ else if($this->session->userdata('student_data')){
 ?>
 
 <div class="f_r f_b m_r_10">* required fields</div>
-<form id="appl_form" action="/students/preview_apply_idcard" suc_msg="ID Card Request Submited Successfully.">
+<form id="appl_form" action="students/preview_apply_idcard" suc_msg="ID Card Request Submited Successfully.">
     <input id="" name="rel" class="text" type="hidden" value="id_card"/>
     <ol>
         <li>

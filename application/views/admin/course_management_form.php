@@ -1,5 +1,5 @@
 <div class="f_r f_b m_r_10">* required fields</div>
-<form id="appl_form" action="/admin/save_course">
+<form id="appl_form" action="admin/save_course">
     <input id="" name="rel" class="text" type="hidden" value="course_management"/>
     <input id="" name="id" class="text" type="hidden" value="<?php if(isset($college_data[0]['id'])) echo $college_data[0]['id']; ?>"/>
     <ol>

@@ -5,7 +5,7 @@
     <div class="clr"></div>
 </div>
 <div class="clr"></div>
-<form action="/book_keeper/books_dispatched" id="appl_form" >
+<form action="book_keeper/books_dispatched" id="appl_form" >
     <input id="" name="rel" class="text" type="hidden" value="booksdispatch"/>
     <ol>
         <li>

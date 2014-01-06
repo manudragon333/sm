@@ -1,5 +1,5 @@
 <div class="f_r f_b m_r_10">* required fields</div>
-<form id="appl_form" action="/students/preview_bus_pass" suc_msg="">
+<form id="appl_form" action="students/preview_bus_pass" suc_msg="">
     <input id="" name="rel" class="text" type="hidden" value="buss_pass"/>
     <ol>
         <li>

@@ -7,7 +7,7 @@
     </div>
     <div class="clr"></div>
     <div class="clr"></div>
-    <form action="/admin/edit_poll<?php // echo site_url('admin/edit_poll');?>" id="appl_form" method="post" >
+    <form action="admin/edit_poll<?php // echo site_url('admin/edit_poll');?>" id="appl_form" method="post" >
        <input id="" name="rel" class="text" type="hidden" value="edit_polls_form"/>
        <input id="id" name="id" class="text" type="hidden" value="<?php if(isset($data[0]['id'])) echo $data[0]['id'];  ?>"/>
         <ol>

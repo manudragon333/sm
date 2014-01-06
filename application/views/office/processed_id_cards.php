@@ -5,7 +5,7 @@
     <div class="clr"></div>
 </div>
 <div class="clr"></div>
-<form id="appl_form" action="/office/processed_id_cards">
+<form id="appl_form" action="office/processed_id_cards">
     <input id="" name="rel" class="text" type="hidden" value="proc_id_certi"/>
     <div>
         <ol>

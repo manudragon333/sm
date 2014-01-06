@@ -5,7 +5,7 @@
         <p style="width:200px; float:right;font-weight: bold;">*<i> required fields</i></p>
         <div class="clr"></div>
     </div>
-    <form action="/students/conduct_certificate" id="appl_form" suc_msg="" err_msg="">
+    <form action="students/conduct_certificate" id="appl_form" suc_msg="" err_msg="">
         <input id="" name="rel" class="text" type="hidden" value="edit_student"/>
         <h4><span> Search Data </span></h4>
         <div class="clr"></div>

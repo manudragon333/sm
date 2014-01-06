@@ -4,7 +4,7 @@ if($this->session->userdata('staff_preview_id_card'))
 ?>
 
 <div class="f_r f_b m_r_10">* required fields</div>
-<form id="appl_form" action="/staff/preview_apply_idcard" suc_msg="ID Card Request Submited Successfully.">
+<form id="appl_form" action="staff/preview_apply_idcard" suc_msg="ID Card Request Submited Successfully.">
     <input id="" name="rel" class="text" type="hidden" value="id_card"/>
     <input id="" name="is_staff" class="text" type="hidden" value="1"/>
     <ol>

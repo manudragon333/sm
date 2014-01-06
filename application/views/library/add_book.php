@@ -1,7 +1,7 @@
 <div class="f_r f_b m_r_10">* required fields</div>
 
 <div>
-    <form id="appl_form" action="/library/save_book">
+    <form id="appl_form" action="library/save_book">
         <input id="rel" name="rel" class="text" type="hidden" value="add_book"/>
         <ol>
 <!--            <li>

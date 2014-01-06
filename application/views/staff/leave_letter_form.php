@@ -1,7 +1,7 @@
 <?php //echo '<pre>'; print_r($data); echo '</pre>'; ;?>
 
 <div class="f_r f_b m_r_10">* required fields</div>
-<form id="appl_form" action="/staff/apply_leave">
+<form id="appl_form" action="staff/apply_leave">
     <input id="" name="rel" class="text" type="hidden" value="general"/>
     
     <ol>

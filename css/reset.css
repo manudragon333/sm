@@ -171,6 +171,7 @@ a {
 .o_h{ overflow: hidden;}
 .o_a{ overflow: auto;}
 .hide{ display: none;}
+.hide_imp{ display: none!important;}
 .f_18{ font-size: 18px}
 .f_12{ font-size: 12px}
 .f_14{ font-size: 14px}

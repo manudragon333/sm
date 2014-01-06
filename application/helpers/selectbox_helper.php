@@ -69,8 +69,8 @@ function generalId($field, $table, $db_field, $auto_id) {
         return "--";
 }
 
-function selectBoxSql($seloption='Select', $sel_qry='', $fields=array(), $editCo = 0) {
-    if(!empty($sel_qry) && !empty($fields)){
+function selectBoxSql($seloption = 'Select', $sel_qry = '', $fields = array(), $editCo = 0) {
+    if (!empty($sel_qry) && !empty($fields)) {
         $CI = & get_instance();
 
         $option = "<option value=''>" . $seloption . "</option>";

@@ -1,6 +1,6 @@
 <div class="clr"></div>
 <br/>
-<form id="appl_form" action="/admin/save_user_account">
+<form id="appl_form" action="admin/save_user_account">
     <input id="rel" name="rel" type="hidden" class="text" value="user_form"/>
     <input id="id" name="id" type="hidden" class="text" value="<?php if (isset($user_details[0]->id)) echo $user_details[0]->id; ?>"/>
     <input id="users_type_id" type="hidden"  name="users_type_id" class="text" value="<?php if (isset($user_details[0]->users_type_id)) echo $user_details[0]->users_type_id; ?>"/>
@@ -26,7 +26,7 @@
 <ol>
     <li>
         <input type="button" name="imageField" id="imageField" class="gblue button j_gen_form_submit" value="Save"/>
-        <input type="button" name="imageField" id="imageField" class="m_l_20 grey button" value="Back" onclick="javascript:window.location.reload();"/>
+        <input type="button" name="imageField" id="imageField" class="m_l_20 grey button grey" value="Back" onclick="javascript:window.location.reload();" style="margin-top: 0px;"/>
         <div class="clr"></div>
     </li>
 </ol>

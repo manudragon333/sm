@@ -2,7 +2,7 @@
 
 <div class="f_r f_b m_r_10">* required fields</div>
 
-<form id="appl_form" action="/staff/profile">
+<form id="appl_form" action="staff/profile">
     <input id="" name="rel" class="text" type="hidden" value="staff_profile"/>
     <input type="hidden" name="id" value="<?php if(isset($data[0]->id)) echo $data[0]->id; ?>" />
     <ol>

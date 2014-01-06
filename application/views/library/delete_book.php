@@ -1,5 +1,5 @@
 <div class="f_r f_b m_r_10">* required fields</div>
-<form id="appl_form" action="/library/delete_book">
+<form id="appl_form" action="library/delete_book">
     <input id="" name="rel" class="text" type="hidden" value="delete_book"/>
     <ol>
         <li>

@@ -5,7 +5,7 @@
     <p style="width:200px; float:right;font-weight: bold;"><i><b>*</b> required fields</i></p>
     <div class="clr"></div>
 </div>
-<form id="appl_form" action="/admin/save_edit_staff_attendance">
+<form id="appl_form" action="admin/save_edit_staff_attendance">
     <input id="" name="rel" class="text" type="hidden" value="course_management"/>
     <input id="" name="id" class="text" type="hidden" value="<?php if(isset($subjects[0]['id'])) echo $subjects[0]['id']; ?>"/>
     <input id="" name="user_id" class="text" type="hidden" value="<?php if(isset($staff_id)) echo $staff_id; ?>"/>
@@ -85,5 +85,32 @@
             <input type="button" name="imageField" id="imageField" class="gblue button j_gen_form_submit" value="Save Period Subject" />
             <div class="clr"></div>
         </li>
+        
+        <li>
+            <input type="button" name="imageField" id="imageField" class="gblue button j_extend" value="Extend" />
+            <div class="clr"></div>
+        </li>
+        <li id="extend_container">
+            
+        </li>
+        <li><div class="clr"></div></li>
     </ol>
 </form>
+<script type="text/javascript">
+    $(function(){
+        $('.j_extend').click(function(){
+            dataP=$('#appl_form').serialize();
+            $.ajax({
+                url:site_url+'admin/get_extend_cycles',
+                data:dataP,
+                type:'POST',
+                beforeSend:function(){
+                    
+                },
+                success:function(dataR){
+                    $('#extend_container').html(dataR);
+                }
+            })
+        });
+    });
+</script>

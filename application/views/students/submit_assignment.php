@@ -2,7 +2,7 @@
     <p style="width:200px; float:right;font-weight: bold;"><i><b>*</b> required fields</i></p>
     <div class="clr"></div>
 </div>
-<form id="appl_form" action="/students/submit_assignment/<?php echo urlencode($enc_id); ?>">
+<form id="appl_form" action="students/submit_assignment/<?php echo urlencode($enc_id); ?>">
     <input id="" name="rel" class="text" type="hidden" value="submit_assignments"/>
     <ol>
         <li>

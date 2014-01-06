@@ -1,7 +1,7 @@
 <?php //print_r($student_details);
 ?>
 <div class="clr"></div>
-<form id="appl_form" action="/admin/save_student_data">
+<form id="appl_form" action="admin/save_student_data">
     <input type="hidden" name="id" value="<?php if(isset($student_details[0]->id)) echo $student_details[0]->id; ?>" />
     <ol>
         <li>

@@ -56,7 +56,7 @@ $(function(){
 		{
 			dataP='message_ids='+totalids;
 			 $.ajax({
-				url:site_url+'/admin/send_bulk_selected_sms_msgs',
+				url:site_url+'admin/send_bulk_selected_sms_msgs',
 				data:dataP,
 				type:'POST',
 			   // dataType:'text/html',
@@ -112,7 +112,7 @@ $(function(){
 		dataP='message_id='+sms_id+'&message='+sms_message+'&smsto='+sent_to+'&message_type='+message_type+'&student_number='+students_number;	
 		  //try to save in db
 		  $.ajax({
-				url:site_url+'/admin/send_selected_sms_msg',
+				url:site_url+'admin/send_selected_sms_msg',
 				data:dataP,
 				type:'POST',
 			   // dataType:'text/html',
@@ -150,7 +150,7 @@ $(function(){
 			dataP='message_id='+sms_id+'&sms_message='+$("#sms_edit_popup_confirm" ).children().val();
 			  //try to save in db
 			  $.ajax({
-					url:site_url+'/admin/update_sms_message',
+					url:site_url+'admin/update_sms_message',
 					data:dataP,
 					type:'POST',
 				   // dataType:'text/html',
@@ -181,7 +181,7 @@ $(function(){
 
     $('select[name=college_id]').live('change',function(){
        if($('select[name=course_id]').length>0){
-        $.post(site_url+'/admin/getCollegeCourses/'+$('select[name=college_id]').val(),function(dataR){
+        $.post(site_url+'admin/getCollegeCourses/'+$('select[name=college_id]').val(),function(dataR){
             $('select[name=course_id]').html(dataR);
         })
        }
@@ -190,7 +190,7 @@ $(function(){
     //Academic Years
      $('select[name=college_id]').live('change',function(){
        if($('select[name=academic_year]').length>0){
-        $.post(site_url+'/admin/getCollegeAcademic/'+$('select[name=college_id]').val(),function(dataR){
+        $.post(site_url+'admin/getCollegeAcademic/'+$('select[name=college_id]').val(),function(dataR){
             $('select[name=academic_year]').html(dataR);
         })
        }
@@ -199,26 +199,26 @@ $(function(){
     
     $('select[name=course_id]').live('change',function(){
        if($('select[name=branch_id]').length>0){
-        $.post(site_url+'/admin/getCollegeBranches/'+$('select[name=college_id]').val(),'course_id='+$('select[name=course_id]').val(),function(dataR){
+        $.post(site_url+'admin/getCollegeBranches/'+$('select[name=college_id]').val(),'course_id='+$('select[name=course_id]').val(),function(dataR){
             $('select[name=branch_id]').html(dataR);
         })
        }
     });
     $('select[name=branch_id]').live('change',function(){
        if($('select[name=semister_id]').length>0){
-         $.post(site_url+'/admin/getCollegeSemesters/'+$('select[name=college_id]').val(),'branch_id='+$('select[name=branch_id]').val(),function(dataR){
+         $.post(site_url+'admin/getCollegeSemesters/'+$('select[name=college_id]').val(),'branch_id='+$('select[name=branch_id]').val(),function(dataR){
             $('select[name=semister_id]').html(dataR);
         })
        }
        if($('select[name=sem_id]').length>0){
-        $.post(site_url+'/admin/getCollegeSemesters/'+$('select[name=college_id]').val(),'branch_id='+$('select[name=branch_id]').val(),function(dataR){
+        $.post(site_url+'admin/getCollegeSemesters/'+$('select[name=college_id]').val(),'branch_id='+$('select[name=branch_id]').val(),function(dataR){
             $('select[name=sem_id]').html(dataR);
         })
        }
     });
     $('select[name=semister_id]').live('change',function(){
        if($('select[name=subject_id]').length>0){
-        $.post(site_url+'/admin/getCollegeSubjects/'+$('select[name=college_id]').val(),'semister_id='+$('select[name=semister_id]').val(),function(dataR){
+        $.post(site_url+'admin/getCollegeSubjects/'+$('select[name=college_id]').val(),'semister_id='+$('select[name=semister_id]').val(),function(dataR){
             $('select[name=subject_id]').html(dataR);
         })
        }
@@ -226,7 +226,7 @@ $(function(){
     //For Sections in Edit staff attendance
      $('select[name=semister_id]').live('change',function(){
        if($('select[name=section_id]').length>0){
-        $.post(site_url+'/admin/getCollegeSections/'+$('select[name=college_id]').val(),'semister_id='+$('select[name=semister_id]').val(),function(dataR){
+        $.post(site_url+'admin/getCollegeSections/'+$('select[name=college_id]').val(),'semister_id='+$('select[name=semister_id]').val(),function(dataR){
             $('select[name=section_id]').html(dataR);
         })
        }
@@ -235,7 +235,7 @@ $(function(){
     //For Start Roll Numbers
     $('select[name=semister_id]').live('change',function(){
        if($('select[name=start_number]').length>0){
-        $.post(site_url+'/admin/getCollegeNumbers/'+$('select[name=college_id]').val()+'/'+$('select[name=course_id]').val()+'/'+$('select[name=branch_id]').val()+'/'+$('select[name=semister_id]').val(),'course_id='+$('select[name=course_id]').val(),function(dataR){
+        $.post(site_url+'admin/getCollegeNumbers/'+$('select[name=college_id]').val()+'/'+$('select[name=course_id]').val()+'/'+$('select[name=branch_id]').val()+'/'+$('select[name=semister_id]').val(),'course_id='+$('select[name=course_id]').val(),function(dataR){
             $('select[name=start_number]').html(dataR);
         })
        }
@@ -244,7 +244,7 @@ $(function(){
     //For End Roll Numbers
     $('select[name=semister_id]').live('change',function(){
        if($('select[name=end_number]').length>0){
-        $.post(site_url+'/admin/getCollegeNumbers/'+$('select[name=college_id]').val()+'/'+$('select[name=course_id]').val()+'/'+$('select[name=branch_id]').val()+'/'+$('select[name=semister_id]').val(),'course_id='+$('select[name=course_id]').val(),function(dataR){
+        $.post(site_url+'admin/getCollegeNumbers/'+$('select[name=college_id]').val()+'/'+$('select[name=course_id]').val()+'/'+$('select[name=branch_id]').val()+'/'+$('select[name=semister_id]').val(),'course_id='+$('select[name=course_id]').val(),function(dataR){
             $('select[name=end_number]').html(dataR);
         })
        }
@@ -255,7 +255,7 @@ $(function(){
     $('.editStaffPeriods').live('click',function(){
         dataP='weekday_id='+$(this).attr('weekday_id')+'&period_id='+$(this).attr('period_id')+'&staff_id='+$(this).attr('staff_id')+'&cycle_id='+$(this).attr('cycle_id')+'&academic_year_id='+$(this).attr('academic_year_id')+'';
         $.ajax({
-            url:site_url+'/admin/edit_staff_attendance',
+            url:site_url+'admin/edit_staff_attendance',
             data:dataP,
             type:'POST',
             dataType:'text/html',
@@ -279,7 +279,7 @@ $(function(){
 function loadUsersForm(users_id){
     if(users_id!=''){
         $.ajax({
-            url:site_url+'/admin/users_form',
+            url:site_url+'admin/users_form',
             data:'users_id='+users_id,
             type:'POST',
             dataType:'text/html',
@@ -302,7 +302,7 @@ function loadUsersForm(users_id){
 function loadUserDetailsForm(users_type_id){
     if(users_type_id!=''){
         $.ajax({
-            url:site_url+'/admin/user_details_form',
+            url:site_url+'admin/user_details_form',
             data:'users_type_id='+users_type_id,
             type:'POST',
             dataType:'text/html',
@@ -325,7 +325,7 @@ function loadUserDetailsForm(users_type_id){
 function loadUserSelect(user_type){
     dataP='user_type='+user_type
     $.ajax({
-        url:site_url+'/admin/get_user_list',
+        url:site_url+'admin/get_user_list',
         data:dataP,
         type:'POST',
         dataType:'text/html',
@@ -341,7 +341,7 @@ function loadUserSelect(user_type){
 
 function addusermarks_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/admin/load_usermarks_grid',
+            url:site_url+'admin/load_usermarks_grid',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -379,7 +379,7 @@ function addusermarks_grid(){
 
 function users_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/admin/load_users_grid',
+            url:site_url+'admin/load_users_grid',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -422,7 +422,7 @@ function users_grid(){
 
 function sms_users_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/admin/load_sms_users_grid',
+            url:site_url+'admin/load_sms_users_grid',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -465,7 +465,7 @@ function sms_users_grid(){
 
 function poll_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/admin/poll_grid',
+            url:site_url+'admin/poll_grid',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -500,7 +500,7 @@ function poll_grid(){
 function update_account(id,f){
     dataP='users_id='+id+'&f='+f;
     $.ajax({
-        url:site_url+'/admin/update_account',
+        url:site_url+'admin/update_account',
         data:dataP,
         type:'POST',
         dataType:'',
@@ -508,7 +508,7 @@ function update_account(id,f){
 
         },
         success:function(dataR){
-            $('#users_content_wrap').html(dataR);
+            $('#main_content').html(dataR);
             if($('.apply_datepicker').length>0){
                 $('.apply_datepicker').datepicker({dateFormat:'yy-mm-dd', changeMonth: true, changeYear: true});
             }
@@ -519,7 +519,7 @@ function update_account(id,f){
 function add_account(id,f){
     dataP='users_id='+id+'&f='+f;
     $.ajax({
-        url:site_url+'/admin/add_account',
+        url:site_url+'admin/add_account',
         data:dataP,
         type:'POST',
         dataType:'',
@@ -527,7 +527,7 @@ function add_account(id,f){
 
         },
         success:function(dataR){
-            $('#users_content_wrap').html(dataR);
+            $('#main_content').html(dataR);
             if($('.apply_datepicker').length>0){
                 $('.apply_datepicker').datepicker({dateFormat:'yy-mm-dd', changeMonth: true, changeYear: true});
             }
@@ -537,7 +537,7 @@ function add_account(id,f){
 function squeez_account(id,f){
     dataP='id='+id+'&f='+f;
     $.ajax({
-        url:site_url+'/admin/squeez_account',
+        url:site_url+'admin/squeez_account',
         data:dataP,
         type:'POST',
         dataType:'',
@@ -554,7 +554,7 @@ function squeez_account(id,f){
 
 function loadUserTypeSelect(){
     $.ajax({
-        url:site_url+'/admin/get_user_types',
+        url:site_url+'admin/get_user_types',
         data:'type=add_user',
         type:'POST',
         dataType:'',
@@ -562,7 +562,7 @@ function loadUserTypeSelect(){
 
         },
         success:function(dataR){
-            $('#users_content_wrap').html(dataR);
+            $('#main_content').html(dataR);
         }
     })
 }
@@ -893,7 +893,7 @@ function validate_form_user_form(){
 
 function no_due_request_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/staff/no_due_requests',
+            url:site_url+'staff/no_due_requests',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -925,7 +925,7 @@ function no_due_request_grid(){
 function nodue_update(id,update){
     dataP='id='+id+'&update='+update;
     $.ajax({
-        url:site_url+'/staff/update_nodue',
+        url:site_url+'staff/update_nodue',
         data:dataP,
         type:'POST',
         // dataType:'',
@@ -945,7 +945,7 @@ function nodue_update(id,update){
 
 function approve_q_papers_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/admin/approve_q_papers',
+            url:site_url+'admin/approve_q_papers',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -980,7 +980,7 @@ function approve_q_papers_grid(){
 function approve_paper(id){
     dataP='id='+id;
     $.ajax({
-        url:site_url+'/admin/approve_paper',
+        url:site_url+'admin/approve_paper',
         data:dataP,
         type:'POST',
         // dataType:'',
@@ -998,7 +998,7 @@ function approve_paper(id){
 
 function notice_board_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/admin/notice_board',
+            url:site_url+'admin/notice_board',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -1029,7 +1029,7 @@ function delete_notice(id){
     if(confirm('Are you sure you sure you want to delete this message.?')){
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/delete_notice',
+            url:site_url+'admin/delete_notice',
             data:dataP,
             type:'POST',
             dataType:'',
@@ -1049,7 +1049,7 @@ function edit_notice(id){
     {
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/edit_notice',
+            url:site_url+'admin/edit_notice',
             data:dataP,
             type:'POST',
             dataType:'',
@@ -1068,7 +1068,7 @@ function edit_notice(id){
 
 function subjects_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/admin/branch_semister_subjects',
+            url:site_url+'admin/branch_semister_subjects',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -1099,7 +1099,7 @@ function delete_subject_grid(id){
     if(confirm('Are you sure you sure you want to remove this subject to this branch semister.?')){
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/delete_subject_grid',
+            url:site_url+'admin/delete_subject_grid',
             data:dataP,
             type:'POST',
             dataType:'',
@@ -1119,7 +1119,7 @@ function edit_subject_grid(id){
     {
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/edit_subject_grid',
+            url:site_url+'admin/edit_subject_grid',
             data:dataP,
             type:'POST',
             dataType:'',
@@ -1138,7 +1138,7 @@ function edit_subject_grid(id){
 
 function system_subjects_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/admin/system_subjects_grid',
+            url:site_url+'admin/system_subjects_grid',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -1168,7 +1168,7 @@ function edit_system_subjects(id){
     {
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/edit_system_subjects',
+            url:site_url+'admin/edit_system_subjects',
             data:dataP,
             type:'POST',
             dataType:'',
@@ -1188,7 +1188,7 @@ function delete_system_subjects(id){
     if(confirm('Are you sure you sure you want to remove this subject.?')){
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/delete_system_subjects',
+            url:site_url+'admin/delete_system_subjects',
             data:dataP,
             type:'POST',
             dataType:'',
@@ -1206,7 +1206,7 @@ function delete_system_subjects(id){
 function edit_attendance(uid,sem_id){
     dataP='user_id='+uid+'&semister_id='+sem_id
     $.ajax({
-        url:site_url+'/admin/add_attendance',
+        url:site_url+'admin/add_attendance',
         data:dataP,
         type:'POST',
         dataType:'',
@@ -1222,7 +1222,7 @@ function edit_attendance(uid,sem_id){
 function loadAttendance(){
     dataP=$('#appl_form').serialize();
     $.ajax({
-        url:site_url+'/admin/get_student_attendance',
+        url:site_url+'admin/get_student_attendance',
         data:dataP,
         type:'POST',
         dataType:'json',
@@ -1248,7 +1248,7 @@ function loadAttendance(){
 function toggle_pool_status(id,status){
     dataP='id='+id+'&status='+status
     $.ajax({
-        url:site_url+'/admin/toggle_status',
+        url:site_url+'admin/toggle_status',
         data:dataP,
         type:'POST',
         dataType:'',
@@ -1269,7 +1269,7 @@ function toggle_pool_status(id,status){
 function edit_polls(id){
     dataP='id='+id;
     $.ajax({
-        url:site_url+'/admin/edit_poll',
+        url:site_url+'admin/edit_poll',
         data:dataP,
         type:'POST',
         dataType:'',
@@ -1285,7 +1285,7 @@ function edit_polls(id){
 function result_polls(id){
     dataP='id='+id;
     $.ajax({
-        url:site_url+'/admin/result_poll',
+        url:site_url+'admin/result_poll',
         data:dataP,
         type:'POST',
         dataType:'',
@@ -1303,7 +1303,7 @@ function result_polls(id){
 
 function college_management_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/admin/college_management',
+            url:site_url+'admin/college_management',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -1335,7 +1335,7 @@ function edit_college_management(id){
     {
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/edit_college_management',
+            url:site_url+'admin/edit_college_management',
             data:dataP,
             type:'POST',
             dataType:'',
@@ -1353,7 +1353,7 @@ function edit_regulation_management(id){
     {
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/edit_regulation_management',
+            url:site_url+'admin/edit_regulation_management',
             data:dataP,
             type:'POST',
             dataType:'',
@@ -1370,7 +1370,7 @@ function edit_regulation_management(id){
 
 function regulation_management_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/admin/regulation_management',
+            url:site_url+'admin/regulation_management',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -1400,7 +1400,7 @@ function delete_regulation_management(id){
     if(confirm('Are you sure you want to Delete this regulation?')){
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/delete_regulation_management',
+            url:site_url+'admin/delete_regulation_management',
             data:dataP,
             type:'POST',
             dataType:'',
@@ -1418,7 +1418,7 @@ function delete_college_management(id){
     if(confirm('Are you sure you want to Delete this College?')){
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/delete_college_management',
+            url:site_url+'admin/delete_college_management',
             data:dataP,
             type:'POST',
             dataType:'',
@@ -1436,7 +1436,7 @@ function delete_college_management(id){
 
 function course_management_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/admin/course_management',
+            url:site_url+'admin/course_management',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -1473,7 +1473,7 @@ function edit_course_management(id){
     {
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/edit_course_management',
+            url:site_url+'admin/edit_course_management',
             data:dataP,
             type:'POST',
             dataType:'',
@@ -1493,7 +1493,7 @@ function delete_course_management(id){
     if(confirm('Are you sure you want to Delete this Course?')){
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/delete_course_management',
+            url:site_url+'admin/delete_course_management',
             data:dataP,
             type:'POST',
             dataType:'',
@@ -1513,7 +1513,7 @@ function delete_course_management(id){
 
 function branch_management_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/admin/branch_management',
+            url:site_url+'admin/branch_management',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -1551,7 +1551,7 @@ function edit_branch_management(id){
     {
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/edit_branch_management',
+            url:site_url+'admin/edit_branch_management',
             data:dataP,
             type:'POST',
             dataType:'',
@@ -1571,7 +1571,7 @@ function delete_branch_management(id){
     if(confirm('Are you sure you want to Delete this Branch?')){
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/delete_branch_management',
+            url:site_url+'admin/delete_branch_management',
             data:dataP,
             type:'POST',
             dataType:'',
@@ -1592,7 +1592,7 @@ function delete_branch_management(id){
 
 function semester_management_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/admin/semester_management',
+            url:site_url+'admin/semester_management',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -1632,7 +1632,7 @@ function edit_semester_management(id){
     {
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/edit_semester_management',
+            url:site_url+'admin/edit_semester_management',
             data:dataP,
             type:'POST',
             dataType:'',
@@ -1652,7 +1652,7 @@ function delete_semester_management(id){
     if(confirm('Are you sure you want to Delete this Semester?')){
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/delete_semester_management',
+            url:site_url+'admin/delete_semester_management',
             data:dataP,
             type:'POST',
             dataType:'',
@@ -1674,7 +1674,7 @@ function delete_semester_management(id){
 
 function subject_management_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/admin/subject_management',
+            url:site_url+'admin/subject_management',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -1715,7 +1715,7 @@ function edit_subject_management(id){
     {
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/edit_subject_management',
+            url:site_url+'admin/edit_subject_management',
             data:dataP,
             type:'POST',
             dataType:'',
@@ -1734,7 +1734,7 @@ function add_subject_management(id){
     {
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/add_subject_management',
+            url:site_url+'admin/add_subject_management',
             data:dataP,
             type:'POST',
             dataType:'',
@@ -1754,7 +1754,7 @@ function delete_subject_management(id){
     if(confirm('Are you sure you want to Delete this Subject?')){
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/delete_subject_management',
+            url:site_url+'admin/delete_subject_management',
             data:dataP,
             type:'POST',
             dataType:'',
@@ -1772,7 +1772,7 @@ function delete_subject_management(id){
 
 function section_management_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/admin/section_management',
+            url:site_url+'admin/section_management',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -1813,7 +1813,7 @@ function edit_section_management(id){
     {
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/edit_section_management',
+            url:site_url+'admin/edit_section_management',
             data:dataP,
             type:'POST',
             dataType:'',
@@ -1833,7 +1833,7 @@ function delete_section_management(id){
     if(confirm('Are you sure you want to Delete this Section?')){
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/delete_section_management',
+            url:site_url+'admin/delete_section_management',
             data:dataP,
             type:'POST',
             dataType:'',
@@ -1855,7 +1855,7 @@ function delete_section_management(id){
 
 function period_management_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/admin/period_management',
+            url:site_url+'admin/period_management',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -1896,7 +1896,7 @@ function edit_period_management(id){
     {
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/edit_period_management',
+            url:site_url+'admin/edit_period_management',
             data:dataP,
             type:'POST',
             dataType:'',
@@ -1916,7 +1916,7 @@ function edit_periods(id){
     {
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/edit_periods/'+id,
+            url:site_url+'admin/edit_periods/'+id,
             data:'',
             type:'POST',
             dataType:'',
@@ -1936,7 +1936,7 @@ function delete_period_management(id){
     if(confirm('Are you sure you want to Delete this Cycle?')){
         dataP='id='+id;
         $.ajax({
-            url:site_url+'/admin/delete_period_management',
+            url:site_url+'admin/delete_period_management',
             data:dataP,
             type:'POST',
             dataType:'',
@@ -1954,7 +1954,7 @@ function delete_period_management(id){
 
 function attendance_management_grid(){
     jQuery("#grid_table").jqGrid({
-            url:site_url+'/admin/attendance_management_grid',
+            url:site_url+'admin/attendance_management_grid',
             datatype: "json",
             height:'auto',
             autowidth: true,
@@ -1991,7 +1991,7 @@ function delete_attendance_management(id,cycle_id){
     if(confirm('Are you sure you want to Delete this Period Cycle Allocation?')){
         dataP='id='+id+'&cycle_id='+cycle_id;
         $.ajax({
-            url:site_url+'/admin/delete_attendance_management',
+            url:site_url+'admin/delete_attendance_management',
             data:dataP,
             type:'POST',
             dataType:'',

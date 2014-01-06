@@ -7,7 +7,7 @@ if($this->session->userdata('staff_preview_id_card')){
 //echo '<pre>'; print_r($data); echo '</pre>';
 if(count($data) && $data){
 foreach($data as $k=>$v){?>
-<form id="appl_form" action="/staff/apply_id_card" >
+<form id="appl_form" action="staff/apply_id_card" >
     <input type="hidden" name="preview" value="1"/>
     <div style="border:2px solid; width:600px;position:relative;">
         <h4 style="width:115px; margin:0 auto;">MY COLLEGE</h4>

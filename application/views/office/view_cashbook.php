@@ -2,7 +2,7 @@
 
 <a href="<?php echo site_url('office/export_cashbook').'?dfrom='.$dfrom.'&dto='.$dto; ?>"> download cashbook </a>
 
-<!--<form id="appl_form" action="/office/cashbook" method="post" >
+<!--<form id="appl_form" action="office/cashbook" method="post" >
        <ol>
        
         <li>

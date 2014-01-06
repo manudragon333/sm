@@ -1,6 +1,6 @@
 
 
-<form  action="/office/view_cashbook" id="cash_book" method="post" >
+<form  action="office/view_cashbook" id="cash_book" method="post" >
   <input id="rel" name="rel" class="text" type="hidden" value="cash_book"/>    
   
  
